@@ -1,0 +1,26 @@
+﻿# 系统文件
+Thumbs.db
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.py
+
+# 日志
+*.log
+
+# 调试 JS 脚本
+fixnav.js
+fixspan.js
+fixtitle.js
+fixtitle2.js
+linkfix.js
+mkindex.js
+
+# 文本 / 测试
+test_write.txt
+
+# 验证脚本
+verify.py

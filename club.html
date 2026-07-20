@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>建平中学 · 社团风采</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f0f4fe;color:#111;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:12px 32px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06);height:60px}
+.nav-logo{font-weight:700;font-size:18px;color:#0a1628}.nav-logo span{color:#2563eb}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{text-decoration:none;color:#475569;font-size:13px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#2563eb}
+.nav-links .btn-nav{background:#2563eb;color:#fff!important;padding:6px 18px;border-radius:40px;font-weight:600}
+.hero-banner{min-height:360px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628 0%,#15204a 50%,#1a2d5a 100%);position:relative;overflow:hidden;padding-top:60px}
+.hero-banner::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 20% 40%,rgba(37,99,235,.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 60%,rgba(139,92,246,.10) 0%,transparent 50%);pointer-events:none}
+.hero-banner::after{content:"";position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(180deg,transparent,#f0f4fe);pointer-events:none}
+.hero-shape{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.03)}
+.hero-shape.s1{width:320px;height:320px;top:-80px;right:5%}
+.hero-shape.s2{width:240px;height:240px;bottom:-60px;left:8%}
+.hero-shape.s3{width:180px;height:180px;top:20%;left:60%;background:rgba(37,99,235,.04)}
+.hero-content{position:relative;z-index:2;text-align:center;padding:40px 20px;max-width:800px}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#93c5fd;font-size:11px;font-weight:600;letter-spacing:3px;padding:5px 20px;border-radius:40px;margin-bottom:16px}
+.hero-content h1{font-size:clamp(2.5rem,6vw,3.8rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:8px;letter-spacing:4px}
+.hero-sub-en{color:rgba(255,255,255,.35);font-size:clamp(12px,2vw,16px);letter-spacing:6px;font-family:Georgia,serif;font-style:italic;margin-bottom:0}
+.more-corner{position:absolute;top:90px;right:32px;z-index:5;display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s;letter-spacing:1px}
+.more-corner:hover{color:#93c5fd}
+.more-corner .arrow{font-size:16px;transition:transform .2s}
+.more-corner:hover .arrow{transform:translateX(3px)}
+.club-section{padding:0 24px 80px;max-width:1180px;margin:0 auto;position:relative;z-index:1}
+.filter-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:-20px auto 36px;position:relative;z-index:2}
+.filter-btn{padding:6px 20px;border-radius:40px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit}
+.filter-btn:hover{border-color:#93c5fd;color:#2563eb}
+.filter-btn.active{background:#2563eb;color:#fff;border-color:#2563eb}
+.club-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:48px}
+@media(max-width:960px){.club-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.club-grid{grid-template-columns:1fr}}
+.club-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.05);cursor:pointer;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;display:flex;flex-direction:column;position:relative}
+.club-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.1)}
+.card-img{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.card-img-svg{width:100%;height:100%;position:absolute;inset:0}
+.card-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.18));pointer-events:none}
+.card-badge{position:absolute;top:12px;right:12px;z-index:2;background:rgba(255,255,255,.92);backdrop-filter:blur(4px);color:#1e3a5f;font-size:10px;font-weight:700;padding:3px 10px;border-radius:40px;letter-spacing:1px}
+.card-body{padding:16px 18px 20px;flex:1;display:flex;flex-direction:column}
+.card-body h3{font-size:17px;font-weight:700;color:#1e3a5f;margin-bottom:4px;line-height:1.3;letter-spacing:1px}
+.card-status{font-size:12px;color:#94a3b8;margin-bottom:9px;letter-spacing:0.5px}
+.card-desc{color:#64748b;font-size:13px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+.load-more-wrap{text-align:center;padding-bottom:20px}
+.load-more-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 36px;border-radius:40px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:14px;font-weight:500;cursor:pointer;transition:all .25s;font-family:inherit}
+.load-more-btn:hover{border-color:#2563eb;color:#2563eb;box-shadow:0 4px 16px rgba(37,99,235,.08)}
+footer{text-align:center;padding:40px 20px;color:#94a3b8;font-size:13px;border-top:1px solid rgba(0,0,0,.04);background:#fff}
+.modal-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;padding:20px}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal{background:#fff;border-radius:18px;max-width:620px;width:100%;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 24px 60px rgba(0,0,0,.2);transform:translateY(20px) scale(.97);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.modal-overlay.open .modal{transform:translateY(0) scale(1)}
+.modal-close{position:absolute;top:14px;right:16px;z-index:10;width:32px;height:32px;border-radius:50%;border:none;background:rgba(0,0,0,.06);color:#475569;font-size:18px;line-height:32px;text-align:center;cursor:pointer;transition:all .2s;font-family:inherit}
+.modal-close:hover{background:rgba(0,0,0,.12);color:#111}
+.modal-poster{width:100%;aspect-ratio:16/7;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:28px 30px}
+.modal-poster::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.35));pointer-events:none}
+.modal-poster-content{position:relative;z-index:2;width:100%}
+.modal-poster h2{color:#fff;font-size:26px;font-weight:800;letter-spacing:2px;margin-bottom:8px}
+.modal-poster .modal-tags{display:flex;flex-wrap:wrap;gap:6px}
+.modal-poster .modal-tags span{background:rgba(255,255,255,.15);backdrop-filter:blur(4px);color:#fff;font-size:11px;padding:3px 12px;border-radius:40px;font-weight:500;letter-spacing:0.5px}
+.modal-body-inner{padding:24px 30px 30px}
+.info-section{margin-bottom:22px}
+.info-section:last-child{margin-bottom:0}
+.info-label{font-size:11px;color:#94a3b8;font-weight:600;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
+.info-text{font-size:15px;color:#1e293b;line-height:1.75}
+.join-message{background:#f0f4fe;border-radius:12px;padding:16px 20px;margin-top:18px;border-left:3px solid #2563eb}
+.join-message p{color:#1e3a5f;font-size:14px;line-height:1.7}
+.join-message .quote-mark{color:#2563eb;font-size:20px;font-weight:700;opacity:.5;line-height:1}
+.modal-actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.modal-actions .join-btn{padding:10px 28px;border-radius:40px;background:#2563eb;color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;font-family:inherit}
+.modal-actions .join-btn:hover{background:#1d4ed8}
+.modal-actions .close-btn{padding:10px 28px;border-radius:40px;background:#f1f5f9;color:#475569;border:none;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s;font-family:inherit}
+.modal-actions .close-btn:hover{background:#e2e8f0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.club-card{animation:fadeUp .5s ease both}
+.club-card:nth-child(1){animation-delay:.04s}
+.club-card:nth-child(2){animation-delay:.08s}
+.club-card:nth-child(3){animation-delay:.12s}
+.club-card:nth-child(4){animation-delay:.16s}
+.club-card:nth-child(5){animation-delay:.20s}
+.club-card:nth-child(6){animation-delay:.24s}
+.club-card:nth-child(7){animation-delay:.28s}
+.club-card:nth-child(8){animation-delay:.32s}
+.modal::-webkit-scrollbar{width:5px}
+.modal::-webkit-scrollbar-track{background:transparent}
+.modal::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:10px}
+.no-results{grid-column:1/-1;text-align:center;padding:60px 20px;color:#94a3b8}
+.modal-picture{width:100%;border-radius:12px;overflow:hidden;margin:16px 0}.modal-picture img{width:100%;display:block;border-radius:12px}</style></head><body>
+<nav><div class="nav-logo">建平<span>·</span>社团</div><div class="nav-links"><a href="index.html">学校主页</a><a href="club.html" class="btn-nav">社团风采</a></div></nav>
+<section class="hero-banner"><div class="hero-shape s1"></div><div class="hero-shape s2"></div><div class="hero-shape s3"></div><div class="hero-content"><div class="hero-badge">上海市建平中学</div><h1>社团风采</h1><p class="hero-sub-en">CLUB NEWS</p></div></section>
+<section class="club-section" id="grid-top"><div class="filter-bar" id="filterBar"><button class="filter-btn active" data-filter="all" onclick="filterClubs('all')">全部</button><button class="filter-btn" data-filter="艺术" onclick="filterClubs('艺术')">艺术</button><button class="filter-btn" data-filter="科技" onclick="filterClubs('科技')">科技</button><button class="filter-btn" data-filter="体育" onclick="filterClubs('体育')">体育</button><button class="filter-btn" data-filter="文化" onclick="filterClubs('文化')">文化</button><button class="filter-btn" data-filter="音乐" onclick="filterClubs('音乐')">音乐</button></div><div class="club-grid" id="clubGrid"></div><div class="load-more-wrap" id="loadMoreWrap"><button class="load-more-btn" onclick="toggleLoadMore()"><span id="loadMoreLabel">展开更多社团</span> <span id="loadMoreArrow">↓</span></button></div></section>
+<footer>上海市建平中学 © 2026 · 学生社团联合会</footer>
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()"><div class="modal" id="modalContent"><button class="modal-close" onclick="closeModal()">x</button><div class="modal-poster" id="modalPoster"><div class="modal-poster-content"><h2 id="modalTitle">社团名称</h2><div class="modal-tags" id="modalTags"></div></div></div><div class="modal-body-inner" id="modalBody"></div></div></div>
+<script>
+var allClubs = [{"id": 100, "name": "JEEK信息社", "cat": "科技", "tags": ["JEEK", "编程", "设计", "创新"], "desc": "JEEK信息社是建平中学最具活力的信息技术社团之一。我们聚焦编程开发。无论你是编程新手还是技术达人，都能在这里找到属于自己的舞台", "fullIntro": "JEEK信息社是建平中学最具活力的信息技术社团之一。我们聚焦编程开发。无论你是编程新手还是技术达人，都能在这里找到属于自己的舞台。", "keywords": ["JEEK", "编程", "设计", "Web", "创新", "技术", "开发", "电脑"], "extraMsg": "来JEEK信息社打cs喵。", "svgIdx": 2, "img": "jeek1.jpg", "img2": "jeek2.png"}, {"id": 15, "name": "交通社", "cat": "文化", "tags": ["有趣", "前卫", "严谨", "专业", "精通"], "desc": "我们是一个由交通爱好者构成的社团，是有关各类交通工具如地铁、火车、飞机、公交等的爱好类社团，有这方面兴趣爱好的同学都可以加入哦", "fullIntro": "我们是一个由交通爱好者构成的社团，是有关各类交通工具，如地铁，火车，飞机，公交等等交通工具的爱好类社团，有这方面兴趣爱好的同学都可以加入哦。", "keywords": ["地铁", "火车", "飞机", "公交", "交通", "摄影", "模型", "旅行", "收藏", "搜集"], "extraMsg": "希望新生里喜欢各类交通的同学都来加入我们呀！", "svgIdx": 2}, {"id": 2, "name": "服装设计社", "cat": "艺术", "tags": ["设计", "创意", "艺术", "想象力"], "desc": "将自己心中所想的梦中服装以自己的能力去创造出来，让更多人体会到自我创新设计的乐趣所在", "fullIntro": "将自己心中所想的梦中服装以自己的能力去创造出来，让更多人体会到自我创新设计的乐趣所在！", "keywords": ["设计", "创意", "艺术", "裁剪", "时尚", "面料", "缝纫", "穿搭", "手作", "灵感"], "extraMsg": "emm可以让将自己的梦想变为现实的社团！", "svgIdx": 1}, {"id": 200, "name": "前沿食社", "cat": "文化", "tags": ["好吃!!!", "创意", "热爱生活", "动手实践", "有趣", "广泛认可", "氛围", "和谐"], "desc": "我社旨在于结交热爱美食、热爱生活之众人，在食堂的一方天地之内，以热爱为笔墨，写下关于美食的篇章", "fullIntro": "我社旨在于结交热爱美食、热爱生活之众人，在食堂的一方天地之内，以热爱为笔墨，写下关于美食的篇章。在过去，我们开展了包括但不限于港式奶茶、虾饼、水果酸奶碗、椰奶芒果西米露、法式可丽饼和黄油饼干等美食的制作，受到了校内师生广泛好评！在和食堂的联动中，我们创新制作方式，美食种类愈发丰富，在各大校园活动中不断展现着身影。在自由包容宽松的社团氛围里，一切想法都被鼓励与支持！我们志在结交建平所有“老吃家”，以食会友，何其有趣！", "keywords": ["美食", "烹饪", "甜品", "烘焙", "奶茶", "动手实践", "创意", "生活", "食堂", "老吃家"], "extraMsg": "诚邀大家加入建平中学前沿食社！和我们一起交朋友，一起吃，一起玩，一起做有专业素养的老吃家！", "svgIdx": 1}, {"id": 16, "name": "推理社", "cat": "文化", "tags": ["有趣", "脑力", "博弈", "体验", "推理", "娱乐"], "desc": "我社主要包含的活动为剧本杀、狼人杀，旨在在繁忙的学习活动中让每一位社员收获放松的身心以及脑力推理的珍贵体验", "fullIntro": "我社主要包含的活动为剧本杀、狼人杀，旨在在繁忙的学习活动中让每一位社员收获放松的身心以及脑力推理的珍贵体验。", "keywords": ["剧本杀", "狼人杀", "推理", "桌游", "逻辑", "博弈", "脑力", "解谜", "娱乐", "放松"], "extraMsg": "", "svgIdx": 0}, {"id": 6, "name": "桥牌社", "cat": "文化", "tags": ["和谐", "包容", "氛围", "轻松"], "desc": "本社的活动是以桥牌为主的牌类活动，社团氛围轻松，只要是对于桥牌感兴趣的同学，我们都很欢迎", "fullIntro": "本社的活动是以桥牌为主的牌类活动，社团氛围轻松，只要是对于桥牌感兴趣的同学，我们都很欢迎。", "keywords": ["桥牌", "牌类", "桌游", "策略", "逻辑", "休闲", "博弈", "社交", "智力", "轻松"], "extraMsg": "暂无", "svgIdx": 0}, {"id": 5, "name": "十一区文化研究社", "cat": "文化", "tags": ["ACG", "WOTA艺", "番剧", "游戏", "漫画", "二次元"], "desc": "本社团为十一区文化研究社，学校现存最大的二次元社团，致力于传播交流ACG文化，分享快乐，创造愉悦的高中生活", "fullIntro": "本社团为十一区文化研究社，学校现存最大的二次元社团，欢迎加入十一区文化研究社！人要有梦想，就要创造能够持续去追逐梦想的环境。这也属于努力追梦的范畴内，我们致力于传播交流ACG文化，分享快乐，创造愉悦的高中生活！", "keywords": ["ACG", "WOTA艺", "番剧", "游戏", "漫画", "二次元", "动漫", "cosplay", "同人", "宅文化"], "extraMsg": "", "svgIdx": 1}, {"id": 14, "name": "青年物理社", "cat": "科技", "tags": ["物理"], "desc": "物理社。活跃度不高，希望能在新的学期再次伟大", "fullIntro": "物理社。活跃度不高，希望能在新的学期再次伟大。", "keywords": ["物理", "科学", "实验", "理论", "学术", "研究"], "extraMsg": "", "svgIdx": 2}, {"id": 4, "name": "偶像文化研究社", "cat": "文化", "tags": ["ACG", "二次元", "动漫", "亚文化", "音乐"], "desc": "如果你热爱动漫、游戏或是虚拟偶像，渴望找到一群可以畅快应援、尽情畅谈的同好，建平中学偶像文化研究社就是属于你的二次元大家庭", "fullIntro": "如果你热爱动漫、游戏或是虚拟偶像，渴望找到一群可以畅快应援、尽情畅谈的同好，建平中学偶像文化研究社就是属于你的二次元大家庭。社团汇聚了Vtuber爱好者、LoveLive!粉丝、Vocaloid乐迷、番剧考据党、声优厨、Wota艺应援爱好者以及各类游戏玩家，不管是哪一类二次元爱好者，都能在此找到同频伙伴。日常我们会开展漫画共读分享、动漫金曲猜歌、Wota艺零基础教学、年度二次元热点盘点、新番与游戏自由交流吐槽，还能一起研究虚拟歌姬创作，大家也可以主动提出新颖活动想法。社团氛围轻松包容，不存在圈层鄙视链，萌新也能快速融入，在这里只管顺着自己的心意，尽情为热爱的事物投入热情。", "keywords": ["ACG", "二次元", "动漫", "Vtuber", "LoveLive!", "Vocaloid", "Wota艺", "声优", "番剧", "游戏"], "extraMsg": "加入偶研谢谢喵", "svgIdx": 1}, {"id": 1, "name": "Bravo金苹果广播站", "cat": "文化", "tags": ["猛猛提升", "幸福感", "轻松", "快乐", "服务"], "desc": "负责校园常驻点歌台及广播站相关工作，包括收集歌曲、排歌单、制作海报、发布公众号等，除放歌外其余工作皆在线上完成", "fullIntro": "【Bravo金苹果广播站】招新啦！Bravo的工作：负责校园常驻点歌台及广播站相关工作，包括但不限于：收集歌曲、排歌单、制作海报、发布公众号……Bravo的优势：1.除放歌外其余工作皆在线上完成，不占用校内社团时间，你可以加入其他任何你想参加的社团！2.可以负责编排每周的歌单！3.等你来发掘……！期待每一位有责任心的同学加入Bravo！有广播站工作经验、公众号排版经验、海报制作经验的同学优先！Bravo金苹果广播站欢迎大家！Bravo！", "keywords": ["广播", "点歌台", "公众号", "海报", "排版", "音频", "音乐", "播报", "策划", "服务"], "extraMsg": "热烈欢迎所有爱建平、有责任心、富有创造力的同学和我们携手一起，搭建更美好的明天！", "svgIdx": 0}, {"id": 7, "name": "历史社", "cat": "文化", "tags": ["轻松", "爱历史", "交友", "低门槛", "free"], "desc": "历史专题分享，话题讨论，娱乐创意，常与人文社科类社团联动。没有学术压力，也没有功利学习，只要你对历史感兴趣就欢迎加入", "fullIntro": "社团内容：历史专题分享，话题讨论，娱乐创意，常与人文社科类社团联动。活动周期：每周半小时无压力。成员介绍：人少而精的熟人社会，友善且有趣，欢迎交友。成分覆盖所有中国古代史、世界史、近代史。有史同与国拟成分！概括：这里没有学术压力，也没有功利学习，只要你对历史感兴趣，无论是娱乐玩梗，或是有所耳闻，都欢迎加入历史社，一起深挖历史学科的魅力与底蕴，敬热爱，敬自由！", "keywords": ["历史", "中国古代史", "世界史", "近代史", "史同", "国拟", "人文", "社科", "讨论", "交友"], "extraMsg": "考试周可集体复习包过！时间不与第一社团冲突，可挂名赚学分（一人可报三社团）。特邀年级最受欢迎历史老师随机刷新！无需缴纳社费，送周边，有食物不定期掉落！", "svgIdx": 1}, {"id": 8, "name": "社会学社", "cat": "文化", "tags": ["人间百态的深度观察者"], "desc": "融合哲学、心理学、法学、政治、历史等学科，看清世界，了解世界", "fullIntro": "融合哲学、心理学、法学、政治、历史等学科，看清世界，了解世界。社会学社最迷人的地方，在于它能帮你把“私人困扰”转化为“公共议题”。一切微小的个人问题都能见微知著，展现出时代的特点，这背后往往连着更大的社会结构、文化与时代变迁。它能赋予你一种穿透日常的眼光，让你从“怨天尤人”转向“理解世界”，并可能付诸行动。", "keywords": ["社会学", "哲学", "心理学", "法学", "政治", "历史", "人文", "社会", "思辨", "洞察"], "extraMsg": "", "svgIdx": 2}];
+var svgThemes = [
+'<svg class="card-img-svg" viewBox="0 0 320 180"><defs><linearGradient id="g0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0abfc" stop-opacity=".5"/><stop offset="100%" stop-color="#c084fc" stop-opacity=".2"/></linearGradient></defs><rect width="320" height="180" fill="#faf5ff"/><path d="M40 130 Q 80 60 140 100 Q 180 50 240 90 Q 280 60 310 100 L 310 180 L 40 180 Z" fill="url(#g0)" opacity=".7"/><circle cx="100" cy="65" r="30" fill="#e9d5ff" opacity=".5"/><circle cx="220" cy="55" r="24" fill="#d8b4fe" opacity=".4"/><circle cx="160" cy="80" r="18" fill="#c084fc" opacity=".3"/><path d="M60 110 Q 120 90 180 105 T 290 95" stroke="#c084fc" stroke-width="2.5" fill="none" opacity=".4" stroke-linecap="round"/><circle cx="80" cy="95" r="3" fill="#a855f7" opacity=".5"/><circle cx="120" cy="88" r="2" fill="#a855f7" opacity=".4"/><circle cx="200" cy="100" r="3" fill="#a855f7" opacity=".5"/><circle cx="260" cy="92" r="2" fill="#a855f7" opacity=".4"/></svg>',
+'<svg class="card-img-svg" viewBox="0 0 320 180"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fde68a" stop-opacity=".5"/><stop offset="100%" stop-color="#fb923c" stop-opacity=".2"/></linearGradient></defs><rect width="320" height="180" fill="#fff7ed"/><circle cx="90" cy="60" r="32" fill="#fed7aa" opacity=".5"/><circle cx="210" cy="50" r="28" fill="#fdba74" opacity=".4"/><circle cx="150" cy="85" r="22" fill="#fb923c" opacity=".2"/><path d="M50 120 Q 100 100 160 130 Q 220 100 280 115" stroke="#fdba74" stroke-width="3" fill="none" opacity=".5" stroke-linecap="round"/><path d="M70 140 Q 130 110 190 135 Q 250 115 300 130" stroke="#fcd34d" stroke-width="2" fill="none" opacity=".4" stroke-linecap="round"/><rect x="130" y="95" width="50" height="8" rx="4" fill="#fcd34d" opacity=".4" transform="rotate(-15 155 99)"/><rect x="145" y="105" width="35" height="6" rx="3" fill="#fb923c" opacity=".3" transform="rotate(10 162 108)"/></svg>',
+'<svg class="card-img-svg" viewBox="0 0 320 180"><defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#93c5fd" stop-opacity=".4"/><stop offset="100%" stop-color="#38bdf8" stop-opacity=".15"/></linearGradient></defs><rect width="320" height="180" fill="#eff6ff"/><path d="M40 140 L 80 50 L 120 110 L 170 30 L 220 100 L 260 60 L 310 120 L 310 180 L 40 180 Z" fill="url(#g2)" opacity=".6"/><circle cx="80" cy="50" r="8" fill="#93c5fd" opacity=".7"/><circle cx="170" cy="30" r="8" fill="#60a5fa" opacity=".7"/><circle cx="260" cy="60" r="8" fill="#93c5fd" opacity=".7"/><line x1="80" y1="50" x2="170" y2="30" stroke="#60a5fa" stroke-width="1.5" opacity=".3"/><line x1="170" y1="30" x2="260" y2="60" stroke="#60a5fa" stroke-width="1.5" opacity=".3"/><circle cx="120" cy="110" r="4" fill="#38bdf8" opacity=".5"/><circle cx="220" cy="100" r="4" fill="#38bdf8" opacity=".5"/><circle cx="160" cy="70" r="20" fill="none" stroke="#60a5fa" stroke-width="2" opacity=".3"/><rect x="100" y="130" width="50" height="16" rx="3" fill="#93c5fd" opacity=".2"/><rect x="180" y="135" width="40" height="12" rx="3" fill="#93c5fd" opacity=".2"/></svg>',
+'<svg class="card-img-svg" viewBox="0 0 320 180"><defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6ee7b7" stop-opacity=".4"/><stop offset="100%" stop-color="#34d399" stop-opacity=".15"/></linearGradient></defs><rect width="320" height="180" fill="#ecfdf5"/><path d="M30 140 Q 80 40 160 100 Q 220 20 290 90" stroke="#34d399" stroke-width="4" fill="none" opacity=".6" stroke-linecap="round"/><path d="M30 150 Q 80 60 160 115 Q 220 40 290 105" stroke="#6ee7b7" stroke-width="2.5" fill="none" opacity=".4" stroke-linecap="round"/><circle cx="160" cy="100" r="24" fill="#a7f3d0" opacity=".4"/><circle cx="160" cy="100" r="12" fill="#6ee7b7" opacity=".3"/><circle cx="160" cy="100" r="4" fill="#10b981" opacity=".6"/><path d="M80 40 L 90 55 L 75 60" stroke="#34d399" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round" stroke-linejoin="round"/><path d="M240 30 L 250 45 L 235 50" stroke="#34d399" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="90" cy="70" r="3" fill="#10b981" opacity=".4"/><circle cx="230" cy="60" r="3" fill="#10b981" opacity=".4"/></svg>'
+];
+
+var currentFilter = "all";
+var showingAll = false;
+
+function getSvg(idx) { return svgThemes[idx % svgThemes.length]; }
+
+function renderClubs(list) {
+  var grid = document.getElementById("clubGrid");
+  if (!list || !list.length) {
+    grid.innerHTML = "<div class=\"no-results\"><p>暂无符合条件的社团</p></div>";
+    return;
+  }
+  grid.innerHTML = list.map(function(c, i) {
+    return "<div class=\"club-card\" onclick=\"openModal(" + c.id + ")\">" +
+      "<div class=\"card-img\">" + (c.img ? "<img src=\"" + c.img + "\" style=\"position:absolute;inset:0;width:100%;height:100%;object-fit:cover\">" : getSvg(c.svgIdx)) +
+      "<div class=\"card-overlay\"></div><div class=\"card-badge\">" + c.cat + "</div></div>" +
+      "<div class=\"card-body\"><h3>" + c.name + "</h3>" +
+      "<div class=\"card-status\">2026年秋季招新</div>" +
+      "<div class=\"card-desc\">" + c.desc + "…</div></div></div>";
+  }).join("");
+}
+
+function filterClubs(cat) {
+  currentFilter = cat;
+  document.querySelectorAll(".filter-btn").forEach(function(b) {
+    b.classList.toggle("active", b.dataset.filter === cat);
+  });
+  var list = (cat === "all") ? allClubs : allClubs.filter(function(c) { return c.cat === cat; });
+  showingAll = false;
+  document.getElementById("loadMoreLabel").textContent = "展开更多社团";
+  document.getElementById("loadMoreArrow").textContent = "↓";
+  applyDisplay(list);
+}
+
+function applyDisplay(list) {
+  if (list.length <= 12 || showingAll) { renderClubs(list); }
+  else { renderClubs(list.slice(0, 12)); }
+}
+
+function toggleLoadMore() {
+  showingAll = !showingAll;
+  var btn = document.getElementById("loadMoreLabel");
+  var arrow = document.getElementById("loadMoreArrow");
+  btn.textContent = showingAll ? "收起" : "展开更多社团";
+  arrow.textContent = showingAll ? "↑" : "↓";
+  applyDisplay(currentFilter === "all" ? allClubs : allClubs.filter(function(c) { return c.cat === currentFilter; }));
+}
+
+function scrollToGrid() { document.getElementById("grid-top").scrollIntoView({behavior:"smooth", block:"start"}); }
+
+function openModal(id) {
+  var c = allClubs.find(function(x) { return x.id === id; });
+  if (!c) return;
+  document.getElementById("modalTitle").textContent = c.name;
+  var tagsEl = document.getElementById("modalTags");
+  tagsEl.innerHTML = c.tags.map(function(t) { return "<span>" + t + "</span>"; }).join("");
+
+  var poster = document.getElementById("modalPoster");
+  var gradients = { "艺术": "linear-gradient(135deg,#7c3aed,#a78bfa)", "科技": "linear-gradient(135deg,#1e40af,#3b82f6)", "体育": "linear-gradient(135deg,#065f46,#10b981)", "文化": "linear-gradient(135deg,#1e3a5f,#475569)", "音乐": "linear-gradient(135deg,#831843,#db2777)" };
+  poster.style.background = gradients[c.cat] || "linear-gradient(135deg,#1e3a5f,#2563eb)";
+
+  var html = "<div class=\"info-section\"><div class=\"info-label\">社团介绍</div><p class=\"info-text\">" + c.fullIntro + "</p></div>";
+  html += "<div class=\"info-section\"><div class=\"info-label\">关键词</div><div style=\"display:flex;flex-wrap:wrap;gap:6px\">" + c.keywords.map(function(kw) { return "<span style=\"background:#f1f5f9;color:#475569;font-size:12px;padding:3px 12px;border-radius:40px;font-weight:500\">" + kw + "</span>"; }).join("") + "</div></div>";
+
+  if (c.extraMsg) {
+    html += "<div class=\"join-message\"><div style=\"display:flex;gap:6px;align-items:flex-start\"><span class=\"quote-mark\"></span><p>" + c.extraMsg + "</p></div></div>";
+  }
+  if (c.img2) {
+    html += "<div class=\"info-section\"><div class=\"info-label\">活动掠影</div><div class=\"modal-picture\"><img src=\"" + c.img2 + "\" alt=\"\"></div></div>";
+  }
+
+  html += "<div class=\"modal-actions\"><button class=\"close-btn\" onclick=\"closeModal()\">关闭</button></div>";
+
+  document.getElementById("modalBody").innerHTML = html;
+  document.getElementById("modalOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  document.getElementById("modalOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+renderClubs(allClubs.slice(0, 12));
+</script></body></html>
