@@ -26,7 +26,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .more-corner .arrow{font-size:16px;transition:transform .2s}
 .more-corner:hover .arrow{transform:translateX(3px)}
 .club-section{padding:0 24px 80px;max-width:1180px;margin:0 auto;position:relative;z-index:1}
-.filter-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:-20px auto 36px;position:relative;z-index:2}
+.filter-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:0 auto 36px;position:relative;z-index:2}
 .filter-btn{padding:6px 20px;border-radius:40px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit}
 .filter-btn:hover{border-color:#93c5fd;color:#2563eb}
 .filter-btn.active{background:#2563eb;color:#fff;border-color:#2563eb}
@@ -86,10 +86,10 @@ footer{text-align:center;padding:40px 20px;color:#94a3b8;font-size:13px;border-t
 .modal::-webkit-scrollbar-track{background:transparent}
 .modal::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:10px}
 .no-results{grid-column:1/-1;text-align:center;padding:60px 20px;color:#94a3b8}
-.modal-picture{width:100%;border-radius:12px;overflow:hidden;margin:16px 0}.modal-picture img{width:100%;display:block;border-radius:12px}</style></head><body>
+.modal-picture{width:100%;border-radius:12px;overflow:hidden;margin:16px 0}.modal-picture img{width:100%;display:block;border-radius:12px}.search-bar input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}</style></head><body>
 <nav><div class="nav-logo">建平<span>·</span>社团</div><div class="nav-links"><a href="index.html">学校主页</a><a href="club.html" class="btn-nav">社团风采</a></div></nav>
 <section class="hero-banner"><div class="hero-shape s1"></div><div class="hero-shape s2"></div><div class="hero-shape s3"></div><div class="hero-content"><div class="hero-badge">上海市建平中学</div><h1>社团风采</h1><p class="hero-sub-en">CLUB NEWS</p></div></section>
-<section class="club-section" id="grid-top"><div class="filter-bar" id="filterBar"><button class="filter-btn active" data-filter="all" onclick="filterClubs('all')">全部</button><button class="filter-btn" data-filter="艺术" onclick="filterClubs('艺术')">艺术</button><button class="filter-btn" data-filter="科技" onclick="filterClubs('科技')">科技</button><button class="filter-btn" data-filter="体育" onclick="filterClubs('体育')">体育</button><button class="filter-btn" data-filter="文化" onclick="filterClubs('文化')">文化</button><button class="filter-btn" data-filter="音乐" onclick="filterClubs('音乐')">音乐</button></div><div class="club-grid" id="clubGrid"></div><div class="load-more-wrap" id="loadMoreWrap"><button class="load-more-btn" onclick="toggleLoadMore()"><span id="loadMoreLabel">展开更多社团</span> <span id="loadMoreArrow">↓</span></button></div></section>
+<section class="club-section" id="grid-top"><div class="search-bar" style="max-width:420px;margin:0 auto 28px;text-align:center"><input type="text" id="clubSearch" placeholder="搜索社团名称、标签、关键词..." oninput="searchClubs(this.value)" style="width:100%;padding:10px 18px;border-radius:40px;border:1px solid #e2e8f0;background:#fff;font-size:14px;color:#1e293b;outline:none;font-family:inherit;box-shadow:0 2px 10px rgba(0,0,0,.04)"></div><div class="filter-bar" id="filterBar"><button class="filter-btn active" data-filter="all" onclick="filterClubs('all')">全部</button><button class="filter-btn" data-filter="艺术" onclick="filterClubs('艺术')">艺术</button><button class="filter-btn" data-filter="科技" onclick="filterClubs('科技')">科技</button><button class="filter-btn" data-filter="体育" onclick="filterClubs('体育')">体育</button><button class="filter-btn" data-filter="文化" onclick="filterClubs('文化')">文化</button><button class="filter-btn" data-filter="音乐" onclick="filterClubs('音乐')">音乐</button></div><div class="club-grid" id="clubGrid"></div><div class="load-more-wrap" id="loadMoreWrap"><button class="load-more-btn" onclick="toggleLoadMore()"><span id="loadMoreLabel">展开更多社团</span> <span id="loadMoreArrow">↓</span></button></div></section>
 <footer>上海市建平中学 © 2026 · JEEK信息社  ©  联系作者：lovelyhjqhs@gmail.com</footer>
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()"><div class="modal" id="modalContent"><button class="modal-close" onclick="closeModal()">x</button><div class="modal-poster" id="modalPoster"><div class="modal-poster-content"><h2 id="modalTitle">社团名称</h2><div class="modal-tags" id="modalTags"></div></div></div><div class="modal-body-inner" id="modalBody"></div></div></div>
 <script>
@@ -137,6 +137,29 @@ function filterClubs(cat) {
 function applyDisplay(list) {
   if (list.length <= 12 || showingAll) { renderClubs(list); }
   else { renderClubs(list.slice(0, 12)); }
+}
+
+
+function searchClubs(q) {
+  var query = (q || "").trim().toLowerCase();
+  currentFilter = "all";
+  document.querySelectorAll(".filter-btn").forEach(function(b) {
+    b.classList.toggle("active", b.dataset.filter === "all");
+  });
+  showingAll = false;
+  document.getElementById("loadMoreLabel").textContent = "展开更多社团";
+  document.getElementById("loadMoreArrow").textContent = "↓";
+  if (!query) {
+    applyDisplay(allClubs);
+    return;
+  }
+  var results = allClubs.filter(function(c) {
+    var haystack = [c.name, c.cat, c.desc, c.fullIntro, c.extraMsg].join(" ").toLowerCase();
+    if (c.tags) haystack += " " + c.tags.join(" ");
+    if (c.keywords) haystack += " " + c.keywords.join(" ");
+    return haystack.indexOf(query) >= 0;
+  });
+  renderClubs(results.length ? results : null);
 }
 
 function toggleLoadMore() {
