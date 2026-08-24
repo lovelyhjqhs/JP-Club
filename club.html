@@ -1,11 +1,11 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
-<head><link rel="icon" href="favicon.ico" type="image/x-icon"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>建平中学 · 社团风采</title>
+<head><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="favicon.ico" type="image/x-icon"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>建平中学 · 社团风采</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f0f4fe;color:#111;overflow-x:hidden}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:12px 32px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06);height:60px}
-.nav-logo{font-weight:700;font-size:18px;color:#0a1628}.nav-logo span{color:#2563eb}
+.nav-logo{font-weight:700;font-size:18px;color:#0a1628;text-decoration:none}.nav-logo span{color:#2563eb}
 .nav-links{display:flex;gap:20px;align-items:center}
 .nav-links a{text-decoration:none;color:#475569;font-size:13px;font-weight:500;transition:color .2s}
 .nav-links a:hover{color:#2563eb}
@@ -19,7 +19,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .hero-shape.s3{width:180px;height:180px;top:20%;left:60%;background:rgba(37,99,235,.04)}
 .hero-content{position:relative;z-index:2;text-align:center;padding:40px 20px;max-width:800px}
 .hero-badge{display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#93c5fd;font-size:11px;font-weight:600;letter-spacing:3px;padding:5px 20px;border-radius:40px;margin-bottom:16px}
-.hero-content h1{font-size:clamp(2.5rem,6vw,3.8rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:8px;letter-spacing:4px}
+.hero-content h1{font-size:clamp(2.5rem,6vw,3.8rem);font-weight:900;color:transparent;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.15;margin-bottom:8px;letter-spacing:4px}
 .hero-sub-en{color:rgba(255,255,255,.35);font-size:clamp(12px,2vw,16px);letter-spacing:6px;font-family:Georgia,serif;font-style:italic;margin-bottom:0}
 .club-section{padding:0 24px 80px;max-width:1180px;margin:0 auto;position:relative;z-index:1}
 
@@ -80,7 +80,7 @@ footer{text-align:center;padding:40px 20px;color:#94a3b8;font-size:13px;border-t
 .modal::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:10px}
 .no-results{grid-column:1/-1;text-align:center;padding:60px 20px;color:#94a3b8}
 .modal-picture{width:100%;border-radius:12px;overflow:hidden;margin:16px 0}.modal-picture img{width:100%;display:block;border-radius:12px}.search-bar input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}</style></head><body>
-<nav><div class="nav-logo">建平<span>·</span>社团</div><div class="nav-links"><a href="index.html">学校主页</a><a href="club.html" class="btn-nav">社团风采</a></div></nav>
+<nav><a class="nav-logo" href="index.html">建平<span>·</span>社团</a><div class="nav-links"><a href="index.html">学校主页</a><a href="club.html" class="btn-nav">社团风采</a><a href="jpti.html">JPTI</a></div></nav>
 <section class="hero-banner"><div class="hero-shape s1"></div><div class="hero-shape s2"></div><div class="hero-shape s3"></div><div class="hero-content"><div class="hero-badge">上海市建平中学</div><h1>社团风采</h1><p class="hero-sub-en">CLUB NEWS</p></div></section>
 <section class="club-section"><div class="search-bar" style="max-width:420px;margin:0 auto 28px;text-align:center"><input type="text" placeholder="搜索社团名称、标签、关键词..." oninput="searchClubs(this.value)" style="width:100%;padding:10px 18px;border-radius:40px;border:1px solid #e2e8f0;background:#fff;font-size:14px;color:#1e293b;outline:none;font-family:inherit;box-shadow:0 2px 10px rgba(0,0,0,.04)"></div><div class="club-grid" id="clubGrid"></div><div class="load-more-wrap" id="loadMoreWrap"><button class="load-more-btn" onclick="toggleLoadMore()"><span id="loadMoreLabel">展开更多社团</span> <span id="loadMoreArrow">↓</span></button></div></section><footer>上海市建平中学 © 2026 · JEEK信息社  ©  联系作者：lovelyhjqhs@gmail.com</footer>
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()"><div class="modal"><button class="modal-close" onclick="closeModal()">x</button><div class="modal-poster" id="modalPoster"><div class="modal-poster-content"><h2 id="modalTitle">社团名称</h2><div class="modal-tags" id="modalTags"></div></div></div><div class="modal-body-inner" id="modalBody"></div></div></div>

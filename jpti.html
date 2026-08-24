@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>建平中学 · JPTI 人格测试</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f0f2f5;color:#111;overflow-x:hidden}
+[hidden]{display:none!important}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:12px 32px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06);height:60px}
+.nav-logo{font-weight:700;font-size:18px;color:#0a1628;text-decoration:none}.nav-logo span{color:#2563eb}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{text-decoration:none;color:#475569;font-size:13px;font-weight:500}
+.nav-links a:hover{color:#2563eb}
+.nav-links .btn-nav{background:#2563eb;color:#fff!important;padding:6px 18px;border-radius:40px;font-weight:600}
+
+.start{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628,#15203a,#0d1a30);position:relative;overflow:hidden;padding:110px 20px 60px}
+.start::before{content:"";position:absolute;inset:0;background:url("jp.jpg") center/cover no-repeat;opacity:.35;filter:saturate(.7)}
+.start-content{position:relative;z-index:2;text-align:center;max-width:760px}
+.hero-badge{display:inline-block;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.25);color:#60a5fa;font-size:11px;font-weight:600;letter-spacing:2px;padding:5px 18px;border-radius:40px;margin-bottom:18px}
+.start-content h1{font-size:clamp(3rem,10vw,5.4rem);font-weight:900;line-height:1;letter-spacing:8px;margin-bottom:6px;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.start-en{color:#93c5fd;font-size:clamp(12px,2vw,16px);letter-spacing:4px;font-family:Georgia,serif;font-style:italic;margin-bottom:22px}
+.start-desc{color:#94a3b8;font-size:15px;line-height:1.8;max-width:560px;margin:0 auto 22px}
+.dim-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:30px}
+.dim-chips span{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#dbe8ff;font-size:13px;padding:7px 16px;border-radius:40px;font-weight:500}
+.btn-primary{display:inline-block;padding:13px 38px;border-radius:40px;background:#2563eb;color:#fff;text-decoration:none;font-weight:600;font-size:16px;border:none;cursor:pointer;transition:background .2s;font-family:inherit;letter-spacing:.04em}
+.btn-primary:hover{background:#1d4ed8}
+.start-meta{color:#64748b;font-size:12px;margin-top:18px}
+
+.panel{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:110px 20px 80px;background:#f0f2f5}
+.test-card{background:#fff;border-radius:18px;max-width:720px;width:100%;padding:32px 30px;box-shadow:0 12px 40px rgba(0,0,0,.08)}
+.test-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+#dimBadge{font-size:12px;font-weight:700;color:#2563eb;background:#eff6ff;padding:5px 14px;border-radius:40px;letter-spacing:.5px}
+#qCount{font-size:13px;color:#94a3b8;font-weight:600}
+.progress{height:6px;border-radius:6px;background:#eef2f7;overflow:hidden;margin-bottom:24px}
+#progressFill{height:100%;width:0;background:linear-gradient(90deg,#60a5fa,#a78bfa);transition:width .25s}
+.question{font-size:19px;font-weight:700;color:#0f172a;line-height:1.65;margin-bottom:22px;min-height:64px}
+.options{display:flex;flex-direction:column;gap:10px}
+.opt{display:block;width:100%;text-align:left;padding:13px 18px;border-radius:12px;border:1px solid #e2e8f0;background:#fff;color:#334155;font-size:14px;cursor:pointer;transition:all .18s;font-family:inherit}
+.opt:hover{border-color:#93c5fd;background:#f8fafc}
+.opt.selected{border-color:#2563eb;background:#eff6ff;color:#1d4ed8;font-weight:600;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.test-nav{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
+.test-nav button{padding:11px 26px;border-radius:40px;border:1px solid #e2e8f0;background:#fff;color:#475569;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit}
+.test-nav button:disabled{opacity:.35;cursor:not-allowed}
+#nextBtn{background:#2563eb;color:#fff;border-color:#2563eb}
+
+.result-card{background:#fff;border-radius:18px;max-width:720px;width:100%;padding:40px 34px;box-shadow:0 12px 40px rgba(0,0,0,.08);text-align:center}
+.result-badge{display:inline-block;background:#eff6ff;color:#2563eb;font-size:11px;font-weight:700;letter-spacing:2px;padding:5px 18px;border-radius:40px;margin-bottom:18px}
+#typeCode{font-size:clamp(38px,9vw,64px);font-weight:900;background:linear-gradient(135deg,#2563eb,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;letter-spacing:4px;line-height:1.1}
+#typeName{color:#0f172a;font-size:20px;font-weight:700;margin:12px 0 20px}
+#typeDesc{color:#475569;font-size:15px;line-height:1.85;text-align:left;margin-bottom:4px}
+.dims{margin:28px 0 6px;text-align:left}
+.dim-row{margin-bottom:18px}
+.dim-top{display:flex;justify-content:space-between;font-size:12px;color:#64748b;margin-bottom:6px;font-weight:600}
+.dim-bar{display:flex;height:10px;border-radius:10px;overflow:hidden;background:#eef2f7}
+.dim-bar span{height:100%}
+.dim-result{margin-top:6px;font-size:13px;font-weight:600;color:#1e3a5f}
+.result-actions{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+.btn-ghost{display:inline-block;padding:13px 30px;border-radius:40px;border:1px solid #e2e8f0;background:#fff;color:#475569;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;font-family:inherit}
+.btn-ghost:hover{border-color:#2563eb;color:#2563eb}
+
+footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-top:1px solid #e2e8f0;background:#fff}
+@media (max-width:560px){.test-card,.result-card{padding:26px 20px}.question{font-size:17px}.test-nav button{flex:1}}
+</style>
+</head>
+<body>
+<nav>
+<a class="nav-logo" href="index.html">建平<span>·</span>社团</a>
+<div class="nav-links"><a href="index.html">学校主页</a><a href="club.html">社团风采</a><a href="jpti.html" class="btn-nav">JPTI</a></div>
+</nav>
+
+<section class="start" id="start">
+  <div class="start-content">
+    <div class="hero-badge">上海市建平中学 · 趣味测试</div>
+    <h1>JPTI</h1>
+    <p class="start-en">JianPing Type Indicator</p>
+    <p class="start-desc">一款专为建平人打造的人格类型测试。从 4 个维度、35 道程度题里，测出你的专属 JPTI 人格——看看你是「漏洞」还是「好孩子」。</p>
+    <div class="dim-chips">
+      <span>外向 E · 内向 I</span>
+      <span>直觉 N · 感觉 S</span>
+      <span>理性 T · 感性 F</span>
+      <span>计划 J · 随性 P</span>
+    </div>
+    <button class="btn-primary" onclick="startTest()">开始测试</button>
+    <p class="start-meta">共 35 题 · 约 3 分钟 · 没有标准答案，凭第一感觉选就行</p>
+  </div>
+</section>
+
+<section class="panel" id="test" hidden>
+  <div class="test-card">
+    <div class="test-head">
+      <span id="dimBadge">外向 E / 内向 I</span>
+      <span id="qCount">1 / 35</span>
+    </div>
+    <div class="progress"><div id="progressFill"></div></div>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="test-nav">
+      <button id="prevBtn" onclick="prev()">上一题</button>
+      <button id="nextBtn" onclick="next()">下一题</button>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="result" hidden>
+  <div class="result-card">
+    <div class="result-badge">你的 JPTI 类型</div>
+    <h2 id="typeCode">ENTP</h2>
+    <p id="typeName">BUG · 漏洞</p>
+    <p id="typeDesc"></p>
+    <div class="dims" id="dims"></div>
+    <div class="result-actions">
+      <button class="btn-primary" onclick="retake()">重新测试</button>
+      <a class="btn-ghost" href="index.html">返回首页</a>
+    </div>
+  </div>
+</section>
+
+<footer>上海市建平中学 © 2026 · JEEK信息社 © 联系作者：lovelyhjqhs@gmail.com</footer>
+
+<script>
+var originalQuestions = [
+  {t:'最好的朋友摔倒了，你毫不犹豫发送道"666把自己当摔炮玩"', dim:"EI", key:"E"},
+  {t:'930大舞台，你想要号召全班所有同学一起上台表演，哪怕没人理你你也不在意', dim:"EI", key:"E"},
+  {t:'周末你更愿意组局密室剧本杀KTV，而不是一个人躺着刷手机。', dim:"EI", key:"E"},
+  {t:'年级群里有人发了条冷笑话烂梗，你立刻接梗把它发扬光大。', dim:"EI", key:"E"},
+  {t:'社团课上非~~~常热情，并且为社团发展建言献策（说真的我们需要你）', dim:"EI", key:"E"},
+  {t:'放假三天如果完全没人找你聊天，你浑身难受开始主动骚扰别人。', dim:"EI", key:"E"},
+  {t:'去小卖部买水路上遇到同班同学，你目不斜视假装没有看见（I）。', dim:"EI", key:"I"},
+  {t:'你发朋友圈的频率很高，一天能发好几条，而且不在乎有没有人点赞。', dim:"EI", key:"E"},
+  {t:'你觉得一个人待着就是浪费生命。', dim:"EI", key:"E"},
+  {t:'你脑子里总想的是if线如"如果希特勒考上了美院世界会怎样"', dim:"NS", key:"N"},
+  {t:'你会突然莫名其妙地开始脑补。', dim:"NS", key:"N"},
+  {t:'如果让你设计新校服，你会在上面画一堆巨大的抽象线条而不是印校徽。', dim:"NS", key:"N"},
+  {t:'你更在意电影想表达什么而不是剧情走向', dim:"NS", key:"N"},
+  {t:'朋友跟你说他昨天做了个梦，你追问的是"什么感觉"而不是"梦到谁了"。', dim:"NS", key:"N"},
+  {t:'你相信每个人的名字里都藏着他这辈子绕不开的命题。', dim:"NS", key:"N"},
+  {t:'你经常把两个毫无关系的东西强行联系在一起并且觉得它们确实有关系（比如莫名其妙的cp）。', dim:"NS", key:"N"},
+  {t:'你相信所有偶然事件背后都有一个你暂时看不懂的原因。', dim:"NS", key:"N"},
+  {t:'好朋友哭着跟你说"考砸了人生完了"，你第一反应是问多少分。', dim:"TF", key:"T"},
+  {t:'看到争议性社会新闻你的第一反应是等等可能有转反。', dim:"TF", key:"T"},
+  {t:'老师给你作文打了低分，你第一反应永远不是老师审美不行。', dim:"TF", key:"T"},
+  {t:'你不会学习任何话术暖ta一整天。', dim:"TF", key:"T"},
+  {t:'你很难因为一部电影或者一个故事而哭，甚至觉得旁边哭的人有点夸张。', dim:"TF", key:"T"},
+  {t:'辩论/报告的时候你逻辑清晰条理分明，不会因为情绪激动就说不清楚。', dim:"TF", key:"T"},
+  {t:'看新闻你优先看国际政治和经济数据，而不是社会温情故事（豪情在天）。', dim:"TF", key:"T"},
+  {t:'你做选择时更多依据哪个选项更划算更有未来收益，而不是哪个更喜欢。', dim:"TF", key:"T"},
+  {t:'你觉得本次测试意义不大', dim:"TF", key:"T"},
+  {t:'周末五科作业你周日晚上一边骂自己一边狂补。', dim:"JP", key:"P"},
+  {t:'要过个充实的假期是你的谎言。', dim:"JP", key:"P"},
+  {t:'你更怕被一个ddl死死框住喘不过气，而不是计划突然被打乱全盘崩掉。', dim:"JP", key:"P"},
+  {t:'你每天睡觉起床时间随缘，今天一点睡明天十一点睡后天通宵，预先透支老年时光换取青春疯狂。', dim:"JP", key:"P"},
+  {t:'每天到学校你放下书包开始想"今天要交啥来着"。', dim:"JP", key:"P"},
+  {t:'同学问你中午吃啥你是真的随便看哪个窗口人少吃哪个。', dim:"JP", key:"P"},
+  {t:'你看剧追到一半就忘了三个月后突然想起来又从头看因为前面也忘了。', dim:"JP", key:"P"},
+  {t:'你周五早上出门前才开始翻箱倒柜找东西最后迟到了还忘带，而不是周一就开始准备周五要用的东西每天检查一遍。', dim:"JP", key:"P"},
+  {t:'你觉得人生像一条河流随山势转弯流到哪算哪反正终归要入海。', dim:"JP", key:"P"}
+];
+
+var dimOrder = ["EI","NS","TF","JP"];
+var questions = originalQuestions.slice();
+
+function shuffle(arr){
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function buildShuffledQuestions(){
+  var result = [];
+  dimOrder.forEach(function(dim){
+    result = result.concat(shuffle(originalQuestions.filter(function(q){ return q.dim === dim; })));
+  });
+  return result;
+}
+
+var options = [
+  {label:"非常符合", value:2},
+  {label:"比较符合", value:1},
+  {label:"不确定", value:0},
+  {label:"不太符合", value:-1},
+  {label:"非常不符合", value:-2}
+];
+
+var dimMeta = {
+  EI:{label:"外向 E / 内向 I", first:"E", second:"I", firstName:"外向", secondName:"内向"},
+  NS:{label:"直觉 N / 感觉 S", first:"N", second:"S", firstName:"直觉", secondName:"感觉"},
+  TF:{label:"理性 T / 感性 F", first:"T", second:"F", firstName:"理性", secondName:"感性"},
+  JP:{label:"计划 J / 随性 P", first:"J", second:"P", firstName:"计划", secondName:"随性"}
+};
+
+var results = {
+  "INTJ":{type:"INTJ", code:"AI", name:"计算机", desc:'目标感极强，成绩常年前排，懒得社交但心里什么都清楚。领地意识极强，不愿意他人触碰自己的物品'},
+  "INTP":{type:"INTP", code:"DREA-M", name:"梦想家", desc:'脑子里永远在拆解问题，能从"鱼香肉丝"推导出整个语言哲学体系。偏科严重，感兴趣的事能讲到全校都认识他。'},
+  "ENTJ":{type:"ENTJ", code:"SUN", name:"将军", desc:'天生的总指挥，从班赛到人生全想掌控。说话直接不给人面子，但事后想想他说得确实对。'},
+  "ENTP":{type:"ENTP", code:"BUG", name:"漏洞", desc:'专门钻规则漏洞并亲自测试，上课最爱跟老师抬杠而且逻辑严密。想法多到爆炸，落地全靠缘分。'},
+  "INFJ":{type:"INFJ", code:"MOM", name:"？！妈妈！？", desc:'敏感度拉满，谁不开心了他第一个递纸巾。平时安静，但班里谁有事第一个想到的就是他。'},
+  "INFP":{type:"INFP", code:"SLIME", name:"史莱姆", desc:'内心很软，谁看一眼能写出八百字散文。看着软但其实底线极硬，踩到了他会突然变了一个人。'},
+  "ENFJ":{type:"ENFJ", code:"GOD-DAD", name:"教父", desc:'班里精神领袖，感染力极强。谁吵架了谁迷茫了全是他出面摆平。'},
+  "ENFP":{type:"ENFP", code:"IDEA", name:"点子王", desc:'全班气氛发动机，脑洞一天开八个。热情来得快去得也快，上一秒拉着你搞大项目下一秒已经忘了。'},
+  "ISTJ":{type:"ISTJ", code:"GOOD", name:"好孩子", desc:'秩序守护者。作业永远按时交、笔记永远最工整、永远不迟到，新时代好青年。'},
+  "ISFJ":{type:"ISFJ", code:"C（H20）x", name:"碳水化合物", desc:'提供了80%的能量，但是很少有人注意到ta，肉可以没有但是没了米饭直接散伙'},
+  "ESTJ":{type:"ESTJ", code:"RULE", name:"纪律委员大人", desc:'天生的纪律管理员，眼里容不下沙子。做事雷厉风行效率拉满，但理解不了为什么会有人不守规矩。'},
+  "ESFJ":{type:"ESFJ", code:"GLUE", name:"水泥", desc:'班级粘合剂，最大的愿望就是全班和和气气。谁吵架了她比谁都急，第一反应是劝架。'},
+  "ISTP":{type:"ISTP", code:"MONKEY", name:"猴哥", desc:'动手狂魔，电脑课老师还没讲完他就把机房系统搞崩了，然后又能自己修好。话不多，但实操类问题全班都转头看他。'},
+  "ISFP":{type:"ISFP", code:"HUA❀", name:"花", desc:'校服拉链一拉开永远是一件巨好看的私服。黑板报交给他做全班惊艳，平时话少但你夸他一句他能脸红一节课。'},
+  "ESTP":{type:"ESTP", code:"LETS-GO", name:"行动哥", desc:'行动派冒险家，想到什么立刻干，从不拖延，永远在第一线。社交能力拉满全校认识的人比校长还多。'},
+  "ESFP":{type:"ESFP", code:"930", name:"大舞台", desc:'天生的舞台王者，班会联欢从第一个节目演到最后一个变成个人专场。情绪来得快去得也快，今天哭明天笑。'}
+};
+
+var answers = [];
+var current = 0;
+
+function startTest(){
+  questions = buildShuffledQuestions();
+  answers = new Array(questions.length);
+  current = 0;
+  document.getElementById("start").hidden = true;
+  document.getElementById("result").hidden = true;
+  document.getElementById("test").hidden = false;
+  renderQuestion();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function retake(){
+  document.getElementById("result").hidden = true;
+  startTest();
+}
+
+function renderQuestion(){
+  var q = questions[current];
+  var meta = dimMeta[q.dim];
+  document.getElementById("dimBadge").textContent = meta.label;
+  document.getElementById("qCount").textContent = (current + 1) + " / " + questions.length;
+  document.getElementById("progressFill").style.width = ((current) / questions.length * 100) + "%";
+  document.getElementById("question").textContent = q.t;
+
+  var box = document.getElementById("options");
+  box.innerHTML = "";
+  options.forEach(function(o, i){
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "opt" + (answers[current] === o.value ? " selected" : "");
+    btn.textContent = o.label;
+    btn.onclick = function(){ selectAnswer(i); };
+    box.appendChild(btn);
+  });
+
+  document.getElementById("prevBtn").disabled = (current === 0);
+  var isLast = (current === questions.length - 1);
+  document.getElementById("nextBtn").textContent = isLast ? "查看结果" : "下一题";
+  document.getElementById("nextBtn").disabled = (answers[current] === undefined);
+}
+
+function selectAnswer(i){
+  answers[current] = options[i].value;
+  var buttons = document.querySelectorAll("#options .opt");
+  buttons.forEach(function(b, idx){ b.classList.toggle("selected", idx === i); });
+  document.getElementById("nextBtn").disabled = false;
+}
+
+function next(){
+  if (answers[current] === undefined) return;
+  if (current < questions.length - 1){ current++; renderQuestion(); }
+  else { showResult(); }
+}
+
+function prev(){
+  if (current > 0){ current--; renderQuestion(); }
+}
+
+function pct(a, b){
+  var total = a + b;
+  if (total <= 0) return 50;
+  return Math.round(a / total * 100);
+}
+
+function computeResult(){
+  var scores = {E:0, I:0, N:0, S:0, T:0, F:0, J:0, P:0};
+  questions.forEach(function(q, idx){
+    var a = answers[idx];
+    if (a === undefined || a === null) a = 0;
+    if (a === 0) return;
+    var meta = dimMeta[q.dim];
+    if (a > 0){
+      scores[q.key] += a;
+    } else {
+      var other = (q.key === meta.first) ? meta.second : meta.first;
+      scores[other] += -a;
+    }
+  });
+  var type = "";
+  ["EI","NS","TF","JP"].forEach(function(d){
+    var m = dimMeta[d];
+    type += (scores[m.first] >= scores[m.second] ? m.first : m.second);
+  });
+  return {type:type, scores:scores};
+}
+
+function renderDims(r){
+  var html = "";
+  ["EI","NS","TF","JP"].forEach(function(d){
+    var m = dimMeta[d];
+    var a = r.scores[m.first], b = r.scores[m.second];
+    var pctA = pct(a, b);
+    var pctB = 100 - pctA;
+    var chosenFirst = (a >= b);
+    var chosen = chosenFirst ? m.first : m.second;
+    var chosenName = chosenFirst ? m.firstName : m.secondName;
+    var chosenPct = chosenFirst ? pctA : pctB;
+    var colorA = chosenFirst ? "#2563eb" : "#cbd5e1";
+    var colorB = chosenFirst ? "#cbd5e1" : "#2563eb";
+    html += '<div class="dim-row">' +
+      '<div class="dim-top"><span>' + m.first + ' · ' + m.firstName + '</span><span>' + m.second + ' · ' + m.secondName + '</span></div>' +
+      '<div class="dim-bar"><span style="width:' + pctA + '%;background:' + colorA + '"></span><span style="width:' + pctB + '%;background:' + colorB + '"></span></div>' +
+      '<div class="dim-result">你的倾向：' + chosenName + '（' + chosen + '）' + chosenPct + '%</div>' +
+      '</div>';
+  });
+  document.getElementById("dims").innerHTML = html;
+}
+
+function showResult(){
+  var r = computeResult();
+  var res = results[r.type];
+  document.getElementById("test").hidden = true;
+  document.getElementById("result").hidden = false;
+  document.getElementById("typeCode").textContent = res.type;
+  document.getElementById("typeName").textContent = res.code + " · " + res.name;
+  document.getElementById("typeDesc").textContent = res.desc;
+  renderDims(r);
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+</script>
+</body>
+</html>
