@@ -1,26 +1,26 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="favicon.ico" type="image/x-icon"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>建平中学 · 社团风采</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f0f4fe;color:#111;overflow-x:hidden}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:12px 32px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06);height:60px}
-.nav-logo{font-weight:700;font-size:18px;color:#0a1628;text-decoration:none}.nav-logo span{color:#2563eb}
+.nav-logo{font-weight:700;font-size:18px;color:#0a1628;text-decoration:none}.nav-logo span{color:#0098e2}
 .nav-links{display:flex;gap:20px;align-items:center}
 .nav-links a{text-decoration:none;color:#475569;font-size:13px;font-weight:500;transition:color .2s}
-.nav-links a:hover{color:#2563eb}
-.nav-links .btn-nav{background:#2563eb;color:#fff!important;padding:6px 18px;border-radius:40px;font-weight:600}
-.hero-banner{min-height:360px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628 0%,#15204a 50%,#1a2d5a 100%);position:relative;overflow:hidden;padding-top:60px}
-.hero-banner::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 20% 40%,rgba(37,99,235,.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 60%,rgba(139,92,246,.10) 0%,transparent 50%);pointer-events:none}
-.hero-banner::after{content:"";position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(180deg,transparent,#f0f4fe);pointer-events:none}
-.hero-shape{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.03)}
+.nav-links a:hover{color:#0098e2}
+.nav-links .btn-nav{background:#0098e2;color:#fff!important;padding:6px 18px;border-radius:40px;font-weight:600}
+.hero-banner{min-height:360px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef7ff 0%,#f2f0ff 50%,#e9f9ff 100%);position:relative;overflow:hidden;padding-top:60px}
+.hero-banner::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 20% 40%,rgba(0,152,226,.10) 0%,transparent 50%),radial-gradient(ellipse at 80% 60%,rgba(119,0,226,.06) 0%,transparent 50%);pointer-events:none}
+.hero-banner::after{content:"";position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(180deg,transparent,#f0f5fa);pointer-events:none}
+.hero-shape{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.5)}
 .hero-shape.s1{width:320px;height:320px;top:-80px;right:5%}
 .hero-shape.s2{width:240px;height:240px;bottom:-60px;left:8%}
-.hero-shape.s3{width:180px;height:180px;top:20%;left:60%;background:rgba(37,99,235,.04)}
+.hero-shape.s3{width:180px;height:180px;top:20%;left:60%;background:rgba(0,152,226,.08)}
 .hero-content{position:relative;z-index:2;text-align:center;padding:40px 20px;max-width:800px}
-.hero-badge{display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#93c5fd;font-size:11px;font-weight:600;letter-spacing:3px;padding:5px 20px;border-radius:40px;margin-bottom:16px}
-.hero-content h1{font-size:clamp(2.5rem,6vw,3.8rem);font-weight:900;color:transparent;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.15;margin-bottom:8px;letter-spacing:4px}
-.hero-sub-en{color:rgba(255,255,255,.35);font-size:clamp(12px,2vw,16px);letter-spacing:6px;font-family:Georgia,serif;font-style:italic;margin-bottom:0}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.8);color:#0089cc;font-size:11px;font-weight:600;letter-spacing:3px;padding:5px 20px;border-radius:40px;margin-bottom:16px;box-shadow:0 4px 18px rgba(0,120,190,.10)}
+.hero-content h1{font-size:clamp(2.5rem,6vw,3.8rem);font-weight:900;color:transparent;background:linear-gradient(135deg,#0a6cc0,#0098e2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.15;margin-bottom:8px;letter-spacing:4px}
+.hero-sub-en{color:#6b93b5;font-size:clamp(12px,2vw,16px);letter-spacing:6px;font-family:Georgia,serif;font-style:italic;margin-bottom:0}
 .club-section{padding:0 24px 80px;max-width:1180px;margin:0 auto;position:relative;z-index:1}
 
 
@@ -39,7 +39,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .card-desc{color:#64748b;font-size:13px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
 .load-more-wrap{text-align:center;padding-bottom:20px}
 .load-more-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 36px;border-radius:40px;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-size:14px;font-weight:500;cursor:pointer;transition:all .25s;font-family:inherit}
-.load-more-btn:hover{border-color:#2563eb;color:#2563eb;box-shadow:0 4px 16px rgba(37,99,235,.08)}
+.load-more-btn:hover{border-color:#0098e2;color:#0098e2;box-shadow:0 4px 16px rgba(0,152,226,.10)}
 footer{text-align:center;padding:40px 20px;color:#94a3b8;font-size:13px;border-top:1px solid rgba(0,0,0,.04);background:#fff}
 .modal-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;padding:20px}
 .modal-overlay.open{opacity:1;pointer-events:auto}
@@ -58,10 +58,10 @@ footer{text-align:center;padding:40px 20px;color:#94a3b8;font-size:13px;border-t
 .info-section:last-child{margin-bottom:0}
 .info-label{font-size:11px;color:#94a3b8;font-weight:600;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
 .info-text{font-size:15px;color:#1e293b;line-height:1.75;white-space:pre-line}
-.join-message{background:#f0f4fe;border-radius:12px;padding:16px 20px;margin:18px 0 22px;border-left:3px solid #2563eb}
-.join-message p{color:#1e3a5f;font-size:14px;line-height:1.7}
-.join-message p::before{content:"“";color:#2563eb;font-size:20px;font-weight:700;opacity:.5;line-height:1;margin-right:2px}
-.join-message p::after{content:"”";color:#2563eb;font-size:20px;font-weight:700;opacity:.5;line-height:1;margin-left:2px}
+.join-message{background:#eef8fe;border-radius:12px;padding:16px 20px;margin:18px 0 22px;border-left:3px solid #0098e2}
+.join-message p{color:#0a3a5c;font-size:14px;line-height:1.7}
+.join-message p::before{content:"“";color:#0098e2;font-size:20px;font-weight:700;opacity:.5;line-height:1;margin-right:2px}
+.join-message p::after{content:"”";color:#0098e2;font-size:20px;font-weight:700;opacity:.5;line-height:1;margin-left:2px}
 .modal-actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
 .modal-actions .close-btn{padding:10px 28px;border-radius:40px;background:#f1f5f9;color:#475569;border:none;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s;font-family:inherit}
 .modal-actions .close-btn:hover{background:#e2e8f0}
@@ -79,7 +79,7 @@ footer{text-align:center;padding:40px 20px;color:#94a3b8;font-size:13px;border-t
 .modal::-webkit-scrollbar-track{background:transparent}
 .modal::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:10px}
 .no-results{grid-column:1/-1;text-align:center;padding:60px 20px;color:#94a3b8}
-.modal-picture{width:100%;border-radius:12px;overflow:hidden;margin:16px 0}.modal-picture img{width:100%;display:block;border-radius:12px}.search-bar input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}</style></head><body>
+.modal-picture{width:100%;border-radius:12px;overflow:hidden;margin:16px 0}.modal-picture img{width:100%;display:block;border-radius:12px}.search-bar input:focus{border-color:#0098e2;box-shadow:0 0 0 3px rgba(0,152,226,.12)}</style></head><body>
 <nav><a class="nav-logo" href="index.html">建平<span>·</span>社团</a><div class="nav-links"><a href="index.html">学校主页</a><a href="club.html" class="btn-nav">社团风采</a><a href="jpti.html">JPTI</a></div></nav>
 <section class="hero-banner"><div class="hero-shape s1"></div><div class="hero-shape s2"></div><div class="hero-shape s3"></div><div class="hero-content"><div class="hero-badge">上海市建平中学</div><h1>社团风采</h1><p class="hero-sub-en">CLUB NEWS</p></div></section>
 <section class="club-section"><div class="search-bar" style="max-width:420px;margin:0 auto 28px;text-align:center"><input type="text" placeholder="搜索社团名称、标签、关键词..." oninput="searchClubs(this.value)" style="width:100%;padding:10px 18px;border-radius:40px;border:1px solid #e2e8f0;background:#fff;font-size:14px;color:#1e293b;outline:none;font-family:inherit;box-shadow:0 2px 10px rgba(0,0,0,.04)"></div><div class="club-grid" id="clubGrid"></div><div class="load-more-wrap" id="loadMoreWrap"><button class="load-more-btn" onclick="toggleLoadMore()"><span id="loadMoreLabel">展开更多社团</span> <span id="loadMoreArrow">↓</span></button></div></section><footer>上海市建平中学 © 2026 · JEEK信息社  ©  联系作者：lovelyhjqhs@gmail.com</footer>
@@ -89,7 +89,7 @@ var allClubs = [{"id":100,"name":"JEEK信息社","cat":"科技","tags":["JEEK","
 var svgThemes = [
 '<svg class="card-img-svg" viewBox="0 0 320 180"><defs><linearGradient id="g0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f0abfc" stop-opacity=".5"/><stop offset="100%" stop-color="#c084fc" stop-opacity=".2"/></linearGradient></defs><rect width="320" height="180" fill="#faf5ff"/><path d="M40 130 Q 80 60 140 100 Q 180 50 240 90 Q 280 60 310 100 L 310 180 L 40 180 Z" fill="url(#g0)" opacity=".7"/><circle cx="100" cy="65" r="30" fill="#e9d5ff" opacity=".5"/><circle cx="220" cy="55" r="24" fill="#d8b4fe" opacity=".4"/><circle cx="160" cy="80" r="18" fill="#c084fc" opacity=".3"/><path d="M60 110 Q 120 90 180 105 T 290 95" stroke="#c084fc" stroke-width="2.5" fill="none" opacity=".4" stroke-linecap="round"/><circle cx="80" cy="95" r="3" fill="#a855f7" opacity=".5"/><circle cx="120" cy="88" r="2" fill="#a855f7" opacity=".4"/><circle cx="200" cy="100" r="3" fill="#a855f7" opacity=".5"/><circle cx="260" cy="92" r="2" fill="#a855f7" opacity=".4"/></svg>',
 '<svg class="card-img-svg" viewBox="0 0 320 180"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fde68a" stop-opacity=".5"/><stop offset="100%" stop-color="#fb923c" stop-opacity=".2"/></linearGradient></defs><rect width="320" height="180" fill="#fff7ed"/><circle cx="90" cy="60" r="32" fill="#fed7aa" opacity=".5"/><circle cx="210" cy="50" r="28" fill="#fdba74" opacity=".4"/><circle cx="150" cy="85" r="22" fill="#fb923c" opacity=".2"/><path d="M50 120 Q 100 100 160 130 Q 220 100 280 115" stroke="#fdba74" stroke-width="3" fill="none" opacity=".5" stroke-linecap="round"/><path d="M70 140 Q 130 110 190 135 Q 250 115 300 130" stroke="#fcd34d" stroke-width="2" fill="none" opacity=".4" stroke-linecap="round"/><rect x="130" y="95" width="50" height="8" rx="4" fill="#fcd34d" opacity=".4" transform="rotate(-15 155 99)"/><rect x="145" y="105" width="35" height="6" rx="3" fill="#fb923c" opacity=".3" transform="rotate(10 162 108)"/></svg>',
-'<svg class="card-img-svg" viewBox="0 0 320 180"><defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#93c5fd" stop-opacity=".4"/><stop offset="100%" stop-color="#38bdf8" stop-opacity=".15"/></linearGradient></defs><rect width="320" height="180" fill="#eff6ff"/><path d="M40 140 L 80 50 L 120 110 L 170 30 L 220 100 L 260 60 L 310 120 L 310 180 L 40 180 Z" fill="url(#g2)" opacity=".6"/><circle cx="80" cy="50" r="8" fill="#93c5fd" opacity=".7"/><circle cx="170" cy="30" r="8" fill="#60a5fa" opacity=".7"/><circle cx="260" cy="60" r="8" fill="#93c5fd" opacity=".7"/><line x1="80" y1="50" x2="170" y2="30" stroke="#60a5fa" stroke-width="1.5" opacity=".3"/><line x1="170" y1="30" x2="260" y2="60" stroke="#60a5fa" stroke-width="1.5" opacity=".3"/><circle cx="120" cy="110" r="4" fill="#38bdf8" opacity=".5"/><circle cx="220" cy="100" r="4" fill="#38bdf8" opacity=".5"/><circle cx="160" cy="70" r="20" fill="none" stroke="#60a5fa" stroke-width="2" opacity=".3"/><rect x="100" y="130" width="50" height="16" rx="3" fill="#93c5fd" opacity=".2"/><rect x="180" y="135" width="40" height="12" rx="3" fill="#93c5fd" opacity=".2"/></svg>',
+'<svg class="card-img-svg" viewBox="0 0 320 180"><defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#4cc8ff" stop-opacity=".4"/><stop offset="100%" stop-color="#00d1e2" stop-opacity=".15"/></linearGradient></defs><rect width="320" height="180" fill="#effaff"/><path d="M40 140 L 80 50 L 120 110 L 170 30 L 220 100 L 260 60 L 310 120 L 310 180 L 40 180 Z" fill="url(#g2)" opacity=".6"/><circle cx="80" cy="50" r="8" fill="#4cc8ff" opacity=".7"/><circle cx="170" cy="30" r="8" fill="#00b7e2" opacity=".7"/><circle cx="260" cy="60" r="8" fill="#4cc8ff" opacity=".7"/><line x1="80" y1="50" x2="170" y2="30" stroke="#00b7e2" stroke-width="1.5" opacity=".3"/><line x1="170" y1="30" x2="260" y2="60" stroke="#00b7e2" stroke-width="1.5" opacity=".3"/><circle cx="120" cy="110" r="4" fill="#00d1e2" opacity=".5"/><circle cx="220" cy="100" r="4" fill="#00d1e2" opacity=".5"/><circle cx="160" cy="70" r="20" fill="none" stroke="#00b7e2" stroke-width="2" opacity=".3"/><rect x="100" y="130" width="50" height="16" rx="3" fill="#4cc8ff" opacity=".2"/><rect x="180" y="135" width="40" height="12" rx="3" fill="#4cc8ff" opacity=".2"/></svg>',
 '<svg class="card-img-svg" viewBox="0 0 320 180"><defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6ee7b7" stop-opacity=".4"/><stop offset="100%" stop-color="#34d399" stop-opacity=".15"/></linearGradient></defs><rect width="320" height="180" fill="#ecfdf5"/><path d="M30 140 Q 80 40 160 100 Q 220 20 290 90" stroke="#34d399" stroke-width="4" fill="none" opacity=".6" stroke-linecap="round"/><path d="M30 150 Q 80 60 160 115 Q 220 40 290 105" stroke="#6ee7b7" stroke-width="2.5" fill="none" opacity=".4" stroke-linecap="round"/><circle cx="160" cy="100" r="24" fill="#a7f3d0" opacity=".4"/><circle cx="160" cy="100" r="12" fill="#6ee7b7" opacity=".3"/><circle cx="160" cy="100" r="4" fill="#10b981" opacity=".6"/><path d="M80 40 L 90 55 L 75 60" stroke="#34d399" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round" stroke-linejoin="round"/><path d="M240 30 L 250 45 L 235 50" stroke="#34d399" stroke-width="2" fill="none" opacity=".5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="90" cy="70" r="3" fill="#10b981" opacity=".4"/><circle cx="230" cy="60" r="3" fill="#10b981" opacity=".4"/></svg>'
 ];
 
@@ -160,8 +160,8 @@ function openModal(id) {
   tagsEl.innerHTML = c.tags.map(function(t) { return "<span>" + t + "</span>"; }).join("");
 
   var poster = document.getElementById("modalPoster");
-  var gradients = { "艺术": "linear-gradient(135deg,#7c3aed,#a78bfa)", "科技": "linear-gradient(135deg,#1e40af,#3b82f6)", "体育": "linear-gradient(135deg,#065f46,#10b981)", "文化": "linear-gradient(135deg,#1e3a5f,#475569)" };
-  poster.style.background = gradients[c.cat] || "linear-gradient(135deg,#1e3a5f,#2563eb)";
+  var gradients = { "艺术": "linear-gradient(135deg,#7700e2,#a24bf0)", "科技": "linear-gradient(135deg,#0098e2,#00d1e2)", "体育": "linear-gradient(135deg,#00a312,#00e21d)", "文化": "linear-gradient(135deg,#0060e2,#0098e2)" };
+  poster.style.background = gradients[c.cat] || "linear-gradient(135deg,#0060e2,#0098e2)";
 
   var html = "";
   if (c.fullIntro) {
@@ -198,4 +198,17 @@ function closeModal() {
 }
 
 applyDisplay(allClubs);
+
+(function(){
+  function fromHash(){
+    var m = (location.hash || "").match(/^#(\d+)$/);
+    if (m) {
+      var id = parseInt(m[1], 10);
+      var c = allClubs.find(function(x){ return x.id === id; });
+      if (c) { openModal(id); window.scrollTo(0,0); }
+    }
+  }
+  fromHash();
+  window.addEventListener("hashchange", fromHash);
+})();
 </script></body></html>

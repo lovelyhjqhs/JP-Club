@@ -8,70 +8,108 @@
 <title>建平中学 · 学校主页</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f0f2f5;color:#111;overflow-x:hidden}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f0f5fa;color:#111;overflow-x:hidden}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:12px 32px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06);height:60px}
 .nav-logo{font-weight:700;font-size:18px;color:#0a1628;text-decoration:none}
-.nav-logo span{color:#2563eb}
+.nav-logo span{color:#0098e2}
 .nav-links{display:flex;gap:20px;align-items:center}
 .nav-links a{text-decoration:none;color:#475569;font-size:13px;font-weight:500}
-.nav-links a:hover{color:#2563eb}
-.nav-links .btn-nav{background:#2563eb;color:#fff!important;padding:6px 18px;border-radius:40px;font-weight:600}
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a1628,#15203a,#0d1a30);position:relative;overflow:hidden;padding-top:60px}
-.hero::before{content:"";position:absolute;inset:0;background:url("jp.jpg") center/cover no-repeat;opacity:.35;filter:saturate(.7)}
-.hero-content{position:relative;z-index:2;text-align:center;padding:20px;max-width:720px}
-.hero-badge{display:inline-block;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.25);color:#60a5fa;font-size:11px;font-weight:600;letter-spacing:2px;padding:5px 18px;border-radius:40px;margin-bottom:18px}
-.hero-content h1{font-size:clamp(2.4rem,7vw,4.2rem);font-weight:900;color:#fff;line-height:1.12;margin-bottom:14px}
-.hero-content h1 .hl{background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-.hero-content p{color:#94a3b8;font-size:16px;line-height:1.7;max-width:560px;margin:0 auto 28px}
-.btn-primary{display:inline-block;padding:12px 32px;border-radius:40px;background:#2563eb;color:#fff;text-decoration:none;font-weight:600;font-size:15px;transition:background .2s;border:none;cursor:pointer}
-.btn-primary:hover{background:#1d4ed8}
+.nav-links a:hover{color:#0098e2}
+.nav-links .btn-nav{background:#0098e2;color:#fff!important;padding:6px 18px;border-radius:40px;font-weight:600}
+.nav-links .btn-nav:hover{background:#0080c4}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef7ff 0%,#f5f1ff 50%,#e9f9ff 100%);position:relative;overflow:hidden;padding-top:60px}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(62% 52% at 50% 28%,rgba(0,152,226,.10) 0%,transparent 70%),radial-gradient(46% 40% at 18% 84%,rgba(119,0,226,.06) 0%,transparent 70%),radial-gradient(46% 40% at 82% 84%,rgba(0,209,226,.08) 0%,transparent 70%);pointer-events:none}
+.hero-content{position:relative;z-index:2;text-align:center;padding:20px;max-width:860px}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.8);color:#0089cc;font-size:11px;font-weight:600;letter-spacing:2px;padding:5px 18px;border-radius:40px;margin-bottom:22px;box-shadow:0 4px 18px rgba(0,120,190,.10)}
+
+/* ——— 社团徽章：五圆环中心文字（还原 jp logo 构图） ——— */
+.emblem{position:relative;width:min(620px,92vw);aspect-ratio:1/1;margin:0 auto 12px}
+.emblem-ring{position:absolute;inset:-7%;border-radius:50%;border:1.5px solid rgba(0,152,226,.25);pointer-events:none}
+.emblem-ring.r2{inset:-2.5%;border-style:dashed;border-color:rgba(0,152,226,.16)}
+.emblem-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;pointer-events:none;text-align:center}
+.emblem-center h1{font-size:clamp(1.7rem,4.2vw,3rem);font-weight:900;line-height:1.15;margin-bottom:8px;background:linear-gradient(135deg,#0a6cc0,#0098e2);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;letter-spacing:4px;white-space:nowrap}
+.emblem-center p{color:#6b93b5;font-size:clamp(10px,1.5vw,13px);letter-spacing:5px;font-weight:600;text-transform:uppercase}
+.club-orb{position:absolute;left:var(--x,50%);top:var(--y,50%);transform:translate(-50%,-50%);width:24%;aspect-ratio:1/1;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;color:#0a3a5c;background:rgba(255,255,255,.55);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border:1px solid rgba(255,255,255,.75);box-shadow:0 12px 34px rgba(30,90,150,.12),inset 0 1px 0 rgba(255,255,255,.75);transition:transform .35s cubic-bezier(.22,1,.36,1),border-radius .35s,box-shadow .35s,aspect-ratio .35s cubic-bezier(.22,1,.36,1);text-align:center;padding:6px;z-index:1;overflow:hidden;cursor:pointer}
+.club-orb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.2);transition:opacity .35s,transform .35s cubic-bezier(.22,1,.36,1)}
+.club-orb.fit img{object-fit:contain;background:rgba(255,255,255,.9)}
+.club-orb b,.club-orb span{position:relative;z-index:1;transition:opacity .2s}
+.club-orb:hover{transform:translate(-50%,-50%) scale(1.45);border-radius:22px;box-shadow:0 24px 60px rgba(0,152,226,.30),inset 0 1px 0 rgba(255,255,255,.85);z-index:5}
+.club-orb:hover img{opacity:1;transform:scale(1)}
+.club-orb:hover b,.club-orb:hover span{opacity:0}
+.club-orb b{font-size:clamp(12px,1.9vw,17px);font-weight:800;letter-spacing:1px;line-height:1.25;color:#0a3a5c}
+.club-orb span{font-size:clamp(9px,1.25vw,11px);color:#5b7d99;margin-top:3px;letter-spacing:1px}
+.hero-hint{color:#6b8aa5;font-size:12px;letter-spacing:2px;margin-bottom:22px}
+.hero-desc{color:#4a6278;font-size:16px;line-height:1.7;max-width:560px;margin:0 auto 28px}
+.btn-primary{display:inline-block;padding:12px 32px;border-radius:40px;background:linear-gradient(135deg,#0098e2,#0080c4);color:#fff;text-decoration:none;font-weight:600;font-size:15px;transition:transform .2s,box-shadow .2s;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(0,152,226,.28)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,152,226,.38)}
 .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.view-toggle{display:flex;gap:6px;justify-content:center;margin-bottom:18px}
+.vt-btn{padding:6px 18px;border-radius:40px;border:1px solid rgba(0,152,226,.28);background:rgba(255,255,255,.6);color:#33698f;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.vt-btn:hover{border-color:#0098e2;color:#0098e2}
+.vt-btn.active{background:#0098e2;color:#fff;border-color:#0098e2;box-shadow:0 4px 14px rgba(0,152,226,.3)}
+
+/* ——— 移动端：横向滑动社团轮播（无 hover，直接看宣传图） ——— */
+.mobile-clubs{display:none;width:100%;margin:6px auto 4px}
+.mc-strip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 18px 16px;scrollbar-width:none}
+.mc-strip::-webkit-scrollbar{display:none}
+.mc-card{flex:0 0 66%;scroll-snap-align:center;border-radius:18px;overflow:hidden;position:relative;aspect-ratio:3/4;text-decoration:none;display:block;background:#fff;border:1px solid rgba(255,255,255,.85);box-shadow:0 10px 30px rgba(30,90,150,.14)}
+.mc-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
+.mc-name{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;font-size:15px;font-weight:700;color:#0a3a5c;background:linear-gradient(180deg,transparent,rgba(255,255,255,.96) 60%);text-align:left;letter-spacing:1px}
+.mc-hint{color:#6b8aa5;font-size:11px;letter-spacing:2px;margin:2px 0 10px}
+@media (max-width:640px){
+  .hero{min-height:100vh;padding-top:66px}
+  .hero-badge{margin-bottom:14px}
+  .emblem{display:none}
+  .hero-hint,.view-toggle{display:none}
+  .mobile-clubs{display:block}
+  .hero-desc{margin-bottom:18px}
+}
 .stats{display:flex;justify-content:center;gap:48px;padding:50px 20px;background:#fff;flex-wrap:wrap}
 .stat{text-align:center}
 .stat-num{font-size:34px;font-weight:900;color:#0f172a}
 .stat-label{font-size:13px;color:#64748b;margin-top:2px}
 footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-top:1px solid #e2e8f0;background:#fff}
 .intro-video{
-  --navy1:#0a1628;--navy2:#15203a;--navy3:#0d1a30;
-  --accent:#2563eb;--accent2:#1d4ed8;
-  --grad1:#60a5fa;--grad2:#a78bfa;
-  --muted:#94a3b8;--ink:#eaf1ff;
-  --card:rgba(255,255,255,.055);--line:rgba(255,255,255,.14);
+  --navy1:#f4faff;--navy2:#f1f4ff;--navy3:#f0faff;
+  --accent:#0098e2;--accent2:#0080c4;
+  --grad1:#00a8e8;--grad2:#0098e2;
+  --muted:#5b7a94;--ink:#0a3a5c;
+  --card:rgba(255,255,255,.7);--line:rgba(0,120,190,.16);
   position:relative;width:100%;padding:48px 20px 64px;
   background:var(--navy1);display:flex;align-items:center;justify-content:center;
 }
-.intro-video .player{position:relative;width:min(960px,94vw);height:min(540px,86vh);border-radius:18px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45);background:linear-gradient(135deg,var(--navy1),var(--navy2),var(--navy3))}
+.intro-video .player{position:relative;width:min(960px,94vw);height:min(540px,86vh);border-radius:18px;overflow:hidden;box-shadow:0 24px 60px rgba(30,90,150,.16);background:linear-gradient(135deg,var(--navy1),var(--navy2),var(--navy3));border:1px solid rgba(255,255,255,.8)}
 .intro-video .stage{position:absolute;inset:0}
 .intro-video .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:50px 58px;opacity:0;visibility:hidden;transform:scale(1.05);transition:opacity .9s ease,transform 1.2s ease;background:linear-gradient(135deg,var(--navy1),var(--navy2),var(--navy3))}
-.intro-video .scene::before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(60% 55% at 22% 18%,rgba(96,165,250,.20),transparent 70%),radial-gradient(55% 55% at 82% 88%,rgba(167,139,250,.18),transparent 70%)}
+.intro-video .scene::before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(60% 55% at 22% 18%,rgba(0,168,232,.12),transparent 70%),radial-gradient(55% 55% at 82% 88%,rgba(0,152,226,.10),transparent 70%)}
 .intro-video .scene.show{opacity:1;visibility:visible;transform:scale(1)}
 .intro-video .scene > *{position:relative;z-index:1}
-.intro-video .badge{display:inline-block;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.28);color:var(--grad1);font-size:11px;font-weight:600;letter-spacing:2px;padding:6px 18px;border-radius:40px;margin-bottom:18px}
+.intro-video .badge{display:inline-block;background:rgba(0,152,226,.10);border:1px solid rgba(0,152,226,.30);color:#0089cc;font-size:11px;font-weight:600;letter-spacing:2px;padding:6px 18px;border-radius:40px;margin-bottom:18px}
 .intro-video .title{font-size:clamp(28px,5.4vw,52px);font-weight:900;line-height:1.14;letter-spacing:.01em}
 .intro-video .title .hl{background:linear-gradient(135deg,var(--grad1),var(--grad2));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 .intro-video .hl{background:linear-gradient(135deg,var(--grad1),var(--grad2));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-.intro-video .subtitle{margin-top:16px;font-size:clamp(14px,2vw,19px);color:var(--muted);font-weight:500;line-height:1.6}
+.intro-video .subtitle{margin-top:16px;font-size:clamp(14px,2vw,19px);color:#4a6278;font-weight:500;line-height:1.6}
 .intro-video .rule{width:64px;height:4px;border-radius:4px;margin:22px auto 0;background:linear-gradient(135deg,var(--grad1),var(--grad2))}
 .intro-video .btn-primary{display:inline-block;margin-top:28px;padding:12px 34px;border-radius:40px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;font-size:15px;transition:background .2s;border:none;cursor:pointer;letter-spacing:.04em}
 .intro-video .btn-primary:hover{background:var(--accent2)}
 .intro-video .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:30px;width:min(720px,100%)}
-.intro-video .fact{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 14px}
-.intro-video .fact b{display:block;font-size:30px;font-weight:900;color:#fff;line-height:1.1}
-.intro-video .fact span{display:block;margin-top:6px;font-size:13px;color:var(--muted);line-height:1.4}
+.intro-video .fact{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.intro-video .fact b{display:block;font-size:30px;font-weight:900;color:#0a3a5c;line-height:1.1}
+.intro-video .fact span{display:block;margin-top:6px;font-size:13px;color:#5b7a94;line-height:1.4}
 .intro-video .pillars{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
-.intro-video .pillar{padding:12px 20px;border-radius:999px;background:var(--card);border:1px solid rgba(96,165,250,.45);color:#dbe8ff;font-weight:700;font-size:15px}
+.intro-video .pillar{padding:12px 20px;border-radius:999px;background:var(--card);border:1px solid rgba(0,152,226,.35);color:#0a5a8c;font-weight:700;font-size:15px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .intro-video .tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px;max-width:740px}
-.intro-video .tag{font-size:14px;padding:8px 15px;border-radius:10px;background:var(--card);border:1px solid var(--line);color:#cdddf7}
-.intro-video .quote{font-size:clamp(20px,3vw,30px);font-weight:700;line-height:1.5;max-width:680px}
-.intro-video .quote small{display:block;margin-top:18px;font-size:15px;font-weight:500;color:var(--muted);line-height:1.6}
+.intro-video .tag{font-size:14px;padding:8px 15px;border-radius:10px;background:var(--card);border:1px solid var(--line);color:#33698f;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.intro-video .quote{font-size:clamp(20px,3vw,30px);font-weight:700;line-height:1.5;max-width:680px;color:#0a3a5c}
+.intro-video .quote small{display:block;margin-top:18px;font-size:15px;font-weight:500;color:#5b7a94;line-height:1.6}
 .intro-video .progress{position:absolute;left:0;top:0;height:4px;width:0;z-index:6;background:linear-gradient(90deg,var(--grad1),var(--grad2))}
 .intro-video .dots{position:absolute;left:0;right:0;bottom:18px;display:flex;gap:8px;justify-content:center;z-index:6}
-.intro-video .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:.3s}
+.intro-video .dot{width:9px;height:9px;border-radius:50%;background:rgba(0,120,190,.22);cursor:pointer;transition:.3s}
 .intro-video .dot.active{background:var(--grad1);width:22px;border-radius:6px}
 .intro-video .ctrl{position:absolute;right:16px;bottom:14px;display:flex;gap:8px;z-index:7}
-.intro-video .ctrl button{width:38px;height:38px;border:none;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
-.intro-video .ctrl button:hover{background:var(--accent)}
-.intro-video .badge-foot{position:absolute;left:18px;bottom:16px;font-size:12px;color:var(--muted);z-index:6;letter-spacing:.04em}
+.intro-video .ctrl button{width:38px;height:38px;border:none;border-radius:50%;background:rgba(255,255,255,.75);color:#0a3a5c;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 14px rgba(30,90,150,.14)}
+.intro-video .ctrl button:hover{background:var(--accent);color:#fff}
+.intro-video .badge-foot{position:absolute;left:18px;bottom:16px;font-size:12px;color:#6b8aa5;z-index:6;letter-spacing:.04em}
 @media (max-width:560px){.intro-video .grid{grid-template-columns:1fr 1fr}.intro-video .scene{padding:34px 26px}}
 </style>
 </head>
@@ -83,10 +121,37 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
 <section class="hero">
 <div class="hero-content">
 <div class="hero-badge">上海市建平中学</div>
-<h1><span class="hl">建平中学 · 社团巡礼</span></h1>
-<p>上海市建平中学始建于 1944 年，是上海市首批实验性示范性高中。契承“合格+特长、规范+选择”的办学理念，拥有数十个特色学生社团，涵盖科技、人文、艺术、体育等领域。</p>
+<div class="emblem">
+  <div class="emblem-ring"></div>
+  <div class="emblem-ring r2"></div>
+  <div class="emblem-center">
+    <h1>建平中学</h1>
+    <p>社团巡礼 · JIANPING</p>
+  </div>
+  <a class="club-orb" style="--x:50%;--y:15%" href="club.html#100" title="JEEK信息社"><img src="jeek1.jpg" alt="JEEK信息社"><b>JEEK</b><span>信息社</span></a>
+  <a class="club-orb" style="--x:83.3%;--y:39.2%" href="club.html#600" title="学生公司"><img src="gongsi2.jpg" alt="学生公司"><b>学生公司</b><span>实践经营</span></a>
+  <a class="club-orb" style="--x:70.6%;--y:78.3%" href="club.html#820" title="篮球社"><img src="lanqiu2.jpg" alt="篮球社"><b>篮球社</b><span>球场风云</span></a>
+  <a class="club-orb" style="--x:29.4%;--y:78.3%" href="club.html#8" title="社会学社"><img src="shx2.jpg" alt="社会学社"><b>社会学社</b><span>洞察社会</span></a>
+  <a class="club-orb" style="--x:16.7%;--y:39.2%" href="club.html#300" title="魔幻化学社"><img src="jmc1.jpg" alt="魔幻化学社"><b>魔幻化学</b><span>魔化实验室</span></a>
+</div>
+<div class="mobile-clubs">
+  <div class="mc-strip" id="mcStrip">
+    <a class="mc-card" href="club.html#100"><img src="jeek1.jpg" alt="JEEK信息社"><div class="mc-name">JEEK信息社</div></a>
+    <a class="mc-card" href="club.html#600"><img src="gongsi2.jpg" alt="学生公司"><div class="mc-name">学生公司</div></a>
+    <a class="mc-card" href="club.html#820"><img src="lanqiu2.jpg" alt="篮球社"><div class="mc-name">篮球社</div></a>
+    <a class="mc-card" href="club.html#8"><img src="shx2.jpg" alt="社会学社"><div class="mc-name">社会学社</div></a>
+    <a class="mc-card" href="club.html#300"><img src="jmc1.jpg" alt="魔幻化学社"><div class="mc-name">魔幻化学社</div></a>
+  </div>
+  <p class="mc-hint">← 左右滑动 · 查看社团宣传图 →</p>
+</div>
+<p class="hero-hint">悬停圆圈 · 查看社团宣传图（可点击直达介绍）</p>
+<div class="view-toggle">
+<button class="vt-btn active" data-mode="fit" type="button">原比例</button>
+<button class="vt-btn" data-mode="square" type="button">正方形</button>
+</div>
+<p class="hero-desc">上海市建平中学始建于 1944 年，是上海市首批实验性示范性高中。契承“合格+特长、规范+选择”的办学理念，拥有数十个特色学生社团，涵盖科技、人文、艺术、体育等领域。</p>
 <div class="hero-actions">
-<a class="btn-primary" href="club.html">探索社团</a>
+<a class="btn-primary" href="club.html">探索全部社团</a>
 </div>
 </div>
 </section>
@@ -202,6 +267,30 @@ function build(){
   var progress = document.getElementById('progress');
   var playBtn = document.getElementById('play');
   var idx = 0, raf = null, start = 0, DUR = 5200, playing = true, total = scenes.length;
+
+  /* ——— 悬停展示模式：原比例 / 正方形 ——— */
+  var orbs = Array.prototype.slice.call(document.querySelectorAll('.club-orb'));
+  var vtBtns = Array.prototype.slice.call(document.querySelectorAll('.vt-btn'));
+  var orbMode = 'fit'; // fit=原比例不裁剪, square=正方形裁剪
+
+  function orbApply(m){
+    orbMode = m;
+    vtBtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-mode')===m); });
+    orbs.forEach(function(o){ o.classList.toggle('fit', m==='fit'); });
+  }
+  function orbAspect(o, on){
+    var img = o.querySelector('img');
+    if(orbMode!=='fit' || !img || !img.naturalWidth){ o.style.aspectRatio=''; return; }
+    o.style.aspectRatio = (on ? img.naturalWidth+' / '+img.naturalHeight : '1 / 1');
+  }
+  orbs.forEach(function(o){
+    o.addEventListener('mouseenter', function(){ orbAspect(o, true); });
+    o.addEventListener('mouseleave', function(){ orbAspect(o, false); });
+  });
+  vtBtns.forEach(function(b){
+    b.addEventListener('click', function(){ orbApply(b.getAttribute('data-mode')); });
+  });
+  orbApply('fit');
 
   scenes.forEach(function(_, i){
     var d = document.createElement('div');
