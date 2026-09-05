@@ -32,23 +32,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .start-meta{color:#64748b;font-size:12px;margin-top:18px}
 
 .panel{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:110px 20px 80px;background:#f0f2f5}
-.test-card{background:#fff;border-radius:18px;max-width:720px;width:100%;padding:32px 30px;box-shadow:0 12px 40px rgba(0,0,0,.08)}
+.test-card{background:#fff;border-radius:18px;max-width:720px;width:100%;padding:32px 30px;box-shadow:0 12px 40px rgba(0,0,0,.08);transition:opacity .22s ease,transform .22s ease}
+.test-card.card-out{opacity:0;transform:translateY(14px)}
 .test-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 #dimBadge{font-size:12px;font-weight:700;color:#0098e2;background:#e6f6fe;padding:5px 14px;border-radius:40px;letter-spacing:.5px}
 #qCount{font-size:13px;color:#94a3b8;font-weight:600}
 .progress{height:6px;border-radius:6px;background:#eef2f7;overflow:hidden;margin-bottom:24px}
 #progressFill{height:100%;width:0;background:linear-gradient(90deg,#00d1e2,#0098e2);transition:width .25s}
+.q-body{transition:opacity .2s ease,transform .24s ease}
+.q-body.out-l{opacity:0;transform:translateX(-28px);pointer-events:none}
+.q-body.out-r{opacity:0;transform:translateX(28px);pointer-events:none}
+.q-body.in-r{opacity:0;transform:translateX(28px);pointer-events:none}
+.q-body.in-l{opacity:0;transform:translateX(-28px);pointer-events:none}
 .question{font-size:19px;font-weight:700;color:#0f172a;line-height:1.65;margin-bottom:22px;min-height:64px}
 .options{display:flex;flex-direction:column;gap:10px}
+.options.locked{pointer-events:none}
 .opt{display:block;width:100%;text-align:left;padding:13px 18px;border-radius:12px;border:1px solid #e2e8f0;background:#fff;color:#334155;font-size:14px;cursor:pointer;transition:all .18s;font-family:inherit}
 .opt:hover{border-color:#4cc8ff;background:#f8fafc}
 .opt.selected{border-color:#0098e2;background:#e6f6fe;color:#0080c4;font-weight:600;box-shadow:0 0 0 3px rgba(0,152,226,.12)}
 .test-nav{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
 .test-nav button{padding:11px 26px;border-radius:40px;border:1px solid #e2e8f0;background:#fff;color:#475569;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit}
 .test-nav button:disabled{opacity:.35;cursor:not-allowed}
-#nextBtn{background:#0098e2;color:#fff;border-color:#0098e2}
+.test-hint{font-size:12px;color:#94a3b8;align-self:center}
 
-.result-card{background:#fff;border-radius:18px;max-width:720px;width:100%;padding:40px 34px;box-shadow:0 12px 40px rgba(0,0,0,.08);text-align:center}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.result-card{background:#fff;border-radius:18px;max-width:720px;width:100%;padding:40px 34px;box-shadow:0 12px 40px rgba(0,0,0,.08);text-align:center;animation:fadeUp .4s ease both}
 .result-badge{display:inline-block;background:#e6f6fe;color:#0098e2;font-size:11px;font-weight:700;letter-spacing:2px;padding:5px 18px;border-radius:40px;margin-bottom:18px}
 #typeCode{font-size:clamp(38px,9vw,64px);font-weight:900;background:linear-gradient(135deg,#0a6cc0,#0098e2);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;letter-spacing:4px;line-height:1.1}
 #typeName{color:#0f172a;font-size:20px;font-weight:700;margin:12px 0 20px}
@@ -100,11 +108,13 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
       <span id="qCount">1 / 35</span>
     </div>
     <div class="progress"><div id="progressFill"></div></div>
-    <div class="question" id="question"></div>
-    <div class="options" id="options"></div>
+    <div class="q-body" id="qBody">
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+    </div>
     <div class="test-nav">
       <button id="prevBtn" onclick="prev()">上一题</button>
-      <button id="nextBtn" onclick="next()">下一题</button>
+      <span class="test-hint">点击选项自动进入下一题</span>
     </div>
   </div>
 </section>
@@ -221,8 +231,10 @@ var results = {
 
 var answers = [];
 var current = 0;
+var transitioning = false;
 
 function startTest(){
+  transitioning = false;
   questions = buildShuffledQuestions();
   answers = new Array(questions.length);
   current = 0;
@@ -258,26 +270,55 @@ function renderQuestion(){
   });
 
   document.getElementById("prevBtn").disabled = (current === 0);
-  var isLast = (current === questions.length - 1);
-  document.getElementById("nextBtn").textContent = isLast ? "查看结果" : "下一题";
-  document.getElementById("nextBtn").disabled = (answers[current] === undefined);
+  document.getElementById("options").classList.remove("locked");
 }
 
 function selectAnswer(i){
+  if (transitioning) return;
   answers[current] = options[i].value;
   var buttons = document.querySelectorAll("#options .opt");
   buttons.forEach(function(b, idx){ b.classList.toggle("selected", idx === i); });
-  document.getElementById("nextBtn").disabled = false;
+  transitioning = true;
+  document.getElementById("options").classList.add("locked");
+  setTimeout(function(){
+    if (current < questions.length - 1){
+      slideTo(function(){
+        current++;
+        renderQuestion();
+      }, 1);
+    } else {
+      var card = document.querySelector("#test .test-card");
+      card.classList.add("card-out");
+      setTimeout(function(){
+        showResult();
+        card.classList.remove("card-out");
+        transitioning = false;
+      }, 240);
+    }
+  }, 240);
 }
 
-function next(){
-  if (answers[current] === undefined) return;
-  if (current < questions.length - 1){ current++; renderQuestion(); }
-  else { showResult(); }
+function slideTo(action, dir){
+  var body = document.getElementById("qBody");
+  body.classList.add(dir > 0 ? "out-l" : "out-r");
+  setTimeout(function(){
+    action();
+    body.classList.remove(dir > 0 ? "out-l" : "out-r");
+    body.classList.add(dir > 0 ? "in-r" : "in-l");
+    void body.offsetWidth;
+    body.classList.remove(dir > 0 ? "in-r" : "in-l");
+    transitioning = false;
+  }, 200);
 }
 
 function prev(){
-  if (current > 0){ current--; renderQuestion(); }
+  if (transitioning) return;
+  if (current <= 0) return;
+  transitioning = true;
+  slideTo(function(){
+    current--;
+    renderQuestion();
+  }, -1);
 }
 
 function pct(a, b){
