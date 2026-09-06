@@ -526,11 +526,53 @@ html.dark .btn-ghost:hover{
 }
 
 @media (max-width:700px){
-  .nav-right{gap:8px}
+  nav{
+    flex-wrap:wrap;
+    height:auto;
+    min-height:0;
+    padding:8px 12px;
+    gap:6px 10px;
+  }
+  .nav-left{
+    width:100%;
+    justify-content:flex-start;
+  }
+  .nav-logo{font-size:16px;white-space:nowrap}
+  .nav-right{width:100%;gap:8px}
   .site-controls{padding-left:0;gap:6px}
   .site-control{min-width:36px;height:30px;padding:0 9px;font-size:11px}
-  .nav-links{gap:6px}
-  .nav-links a{padding:5px 7px;font-size:12px}
-  .nav-links a:not(.btn-nav){display:none}
-  html.dark .nav-links a:not(.btn-nav){display:none}
+  .nav-links{
+    width:100%;
+    display:flex;
+    gap:6px;
+    justify-content:space-between;
+  }
+  .nav-links a{
+    flex:1 1 0;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:7px 4px!important;
+    font-size:12px!important;
+    text-align:center;
+    white-space:nowrap;
+    border-radius:999px;
+  }
+  .nav-links a:not(.btn-nav){
+    display:inline-flex;
+    border:1px solid rgba(0,0,0,.10);
+    background:rgba(255,255,255,.5);
+    color:#475569;
+  }
+  html.dark .nav-links a:not(.btn-nav){
+    display:inline-flex;
+    border-color:rgba(255,255,255,.18);
+    background:rgba(255,255,255,.06);
+    color:#aab9cc;
+  }
+  .hero,
+  .hero-banner,
+  .start{
+    padding-top:116px!important;
+  }
 }
