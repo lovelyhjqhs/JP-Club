@@ -66,6 +66,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 #portraitImg{width:100%;max-height:440px;object-fit:contain;border-radius:10px;display:block;background:#fff}
 #portraitVideo{width:100%;max-height:440px;object-fit:contain;border-radius:10px;background:#0b1e33;display:block}
 .cam-note{font-size:12px;color:#7c3aed;margin-top:8px;text-align:center}
+.portrait-actions{margin:16px 0 2px;text-align:center}
+.toggle-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 26px;border-radius:40px;border:1px dashed #c4b5fd;background:#faf5ff;color:#7c3aed;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.toggle-btn:hover{border-color:#a78bfa;background:#f3e8ff}
 .dims{margin:28px 0 6px;text-align:left}
 .dim-row{margin-bottom:18px}
 .dim-top{display:flex;justify-content:space-between;font-size:12px;color:#64748b;margin-bottom:6px;font-weight:600}
@@ -134,6 +137,7 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
     <h2 id="typeCode">ENTP</h2>
     <p id="typeName">BUG · 漏洞</p>
     <p id="typeDesc"></p>
+    <div class="portrait-actions"><button id="togglePortrait" class="toggle-btn" onclick="togglePortrait()">展开画像</button></div>
     <div id="portrait" class="portrait" hidden><div class="portrait-label" id="portraitLabel">画像</div><img id="portraitImg" alt="画像"><video id="portraitVideo" autoplay muted playsinline></video><p class="cam-note" id="camNote" hidden></p></div>
     <div class="dims" id="dims"></div>
     <div class="result-actions">
@@ -243,6 +247,8 @@ var answers = [];
 var current = 0;
 var transitioning = false;
 var liveStream = null;
+var portraitOpen = false;
+var currentResultType = null;
 
 function startTest(){
   stopCamera();
@@ -432,6 +438,52 @@ function startCamera(){
   });
 }
 
+function showImage(){
+  var box = document.getElementById("portrait");
+  var img = document.getElementById("portraitImg");
+  var video = document.getElementById("portraitVideo");
+  var note = document.getElementById("camNote");
+  video.hidden = true;
+  note.hidden = true;
+  img.hidden = false;
+  img.onload = function(){ if (portraitOpen) box.hidden = false; };
+  img.onerror = function(){
+    if (portraitOpen){
+      img.hidden = true;
+      note.hidden = false;
+      note.textContent = siteT("jpti.noPortrait");
+      box.hidden = false;
+    }
+  };
+  img.src = currentResultType.toLowerCase() + ".jpg";
+  if (img.complete){
+    if (img.naturalWidth > 0){ box.hidden = false; }
+    else if (portraitOpen){
+      img.hidden = true;
+      note.hidden = false;
+      note.textContent = siteT("jpti.noPortrait");
+      box.hidden = false;
+    }
+  }
+}
+
+function togglePortrait(){
+  var btn = document.getElementById("togglePortrait");
+  if (portraitOpen){
+    portraitOpen = false;
+    document.getElementById("portrait").hidden = true;
+    btn.textContent = siteT("jpti.expandPortrait");
+    stopCamera();
+    return;
+  }
+  portraitOpen = true;
+  btn.textContent = siteT("jpti.collapsePortrait");
+  var live = (currentResultType === "ISFP" || currentResultType === "ESTP");
+  document.getElementById("portraitLabel").textContent = live ? siteT("jpti.live") : siteT("jpti.portrait");
+  if (live) startCamera();
+  else showImage();
+}
+
 function showResult(){
   var r = computeResult();
   var res = results[r.type];
@@ -441,26 +493,14 @@ function showResult(){
   document.getElementById("typeName").textContent = res.code + " · " + res.name;
   document.getElementById("typeDesc").textContent = res.desc;
   stopCamera();
-  var portraitEl = document.getElementById("portrait");
-  var img = document.getElementById("portraitImg");
-  var video = document.getElementById("portraitVideo");
-  var note = document.getElementById("camNote");
-  portraitEl.hidden = true;
-  img.hidden = true;
-  video.hidden = true;
-  note.hidden = true;
-  var liveTypes = {ISFP:true, ESTP:true};
-  if (liveTypes[res.type]){
-    document.getElementById("portraitLabel").textContent = siteT("jpti.live");
-    startCamera();
-  } else {
-    document.getElementById("portraitLabel").textContent = siteT("jpti.portrait");
-    img.hidden = false;
-    img.onload = function(){ portraitEl.hidden = false; };
-    img.onerror = function(){ portraitEl.hidden = true; };
-    img.src = res.type.toLowerCase() + ".jpg";
-    if (img.complete && img.naturalWidth > 0){ portraitEl.hidden = false; }
-  }
+  currentResultType = res.type;
+  portraitOpen = false;
+  document.getElementById("portrait").hidden = true;
+  document.getElementById("portraitImg").hidden = true;
+  document.getElementById("portraitVideo").hidden = true;
+  document.getElementById("camNote").hidden = true;
+  document.getElementById("portraitLabel").textContent = (res.type === "ISFP" || res.type === "ESTP") ? siteT("jpti.live") : siteT("jpti.portrait");
+  document.getElementById("togglePortrait").textContent = siteT("jpti.expandPortrait");
   renderDims(r);
   window.scrollTo({top:0, behavior:"smooth"});
 }
@@ -470,9 +510,9 @@ window.siteAfterLang = function () {
     renderQuestion();
   } else if (!document.getElementById("result").hidden) {
     renderDims(computeResult());
-    var portraitImg = document.getElementById("portraitImg");
-    var portraitVideo = document.getElementById("portraitVideo");
-    document.getElementById("portraitLabel").textContent = (!portraitImg.hidden) ? siteT("jpti.portrait") : (!portraitVideo.hidden ? siteT("jpti.live") : siteT("jpti.portrait"));
+    var live = (currentResultType === "ISFP" || currentResultType === "ESTP");
+    document.getElementById("portraitLabel").textContent = live ? siteT("jpti.live") : siteT("jpti.portrait");
+    document.getElementById("togglePortrait").textContent = portraitOpen ? siteT("jpti.collapsePortrait") : siteT("jpti.expandPortrait");
   }
 };
 </script>

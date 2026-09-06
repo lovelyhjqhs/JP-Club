@@ -89,7 +89,10 @@
     "jpti.dimSecondNameP": ["随性", "Perceiving"],
     "jpti.dimTendency": ["你的倾向：", "Your tendency: "],
     "jpti.portrait": ["画像", "Portrait"],
-    "jpti.live": ["实时画面", "Live Camera"]
+    "jpti.live": ["实时画面", "Live Camera"],
+    "jpti.expandPortrait": ["展开画像", "Show Portrait"],
+    "jpti.collapsePortrait": ["收起画像", "Hide Portrait"],
+    "jpti.noPortrait": ["暂无画像", "Portrait unavailable"]
   };
 
   function applyLang() {
