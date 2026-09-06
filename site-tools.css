@@ -535,7 +535,7 @@ html.dark .btn-ghost:hover{
   }
   .nav-left{
     width:100%;
-    justify-content:flex-start;
+    justify-content:space-between;
   }
   .nav-logo{font-size:16px;white-space:nowrap}
   .nav-right{width:100%;gap:8px}
