@@ -112,46 +112,53 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
 .intro-video .badge-foot{position:absolute;left:18px;bottom:16px;font-size:12px;color:#6b8aa5;z-index:6;letter-spacing:.04em}
 @media (max-width:560px){.intro-video .grid{grid-template-columns:1fr 1fr}.intro-video .scene{padding:34px 26px}}
 </style>
+<link rel="stylesheet" href="site-tools.css">
+<script>try{if(localStorage.getItem("jp-site-theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}</script>
 </head>
 <body>
 <nav>
+<div class="nav-left">
 <a class="nav-logo" href="index.html">建平<span>·</span>社团</a>
-<div class="nav-links"><a href="index.html" class="btn-nav">学校主页</a><a href="club.html">社团风采</a><a href="jpti.html">JPTI</a></div>
+<div class="site-controls"><button class="site-control" id="siteThemeBtn" type="button" title="切换日间/夜间模式">☾</button><button class="site-control" id="siteLangBtn" type="button">EN</button></div>
+</div>
+<div class="nav-right">
+<div class="nav-links"><a href="index.html" class="btn-nav" data-i18n="nav.home">学校主页</a><a href="club.html" data-i18n="nav.club">社团风采</a><a href="jpti.html">JPTI</a></div>
+</div>
 </nav>
 <section class="hero">
 <div class="hero-content">
-<div class="hero-badge">上海市建平中学</div>
+<div class="hero-badge" data-i18n="index.badge">上海市建平中学</div>
 <div class="emblem">
   <div class="emblem-ring"></div>
   <div class="emblem-ring r2"></div>
   <div class="emblem-center">
-    <h1>建平中学</h1>
-    <p>社团巡礼 · JIANPING</p>
+    <h1 data-i18n="index.school">建平中学</h1>
+    <p data-i18n="index.schoolSub">社团巡礼 · JIANPING</p>
   </div>
-  <a class="club-orb" style="--x:50%;--y:15%" href="club.html#100" title="JEEK信息社"><img src="jeek1.jpg" alt="JEEK信息社"><b>JEEK</b><span>信息社</span></a>
-  <a class="club-orb" style="--x:83.3%;--y:39.2%" href="club.html#600" title="学生公司"><img src="gongsi2.jpg" alt="学生公司"><b>学生公司</b><span>实践经营</span></a>
-  <a class="club-orb" style="--x:70.6%;--y:78.3%" href="club.html#820" title="篮球社"><img src="lanqiu2.jpg" alt="篮球社"><b>篮球社</b><span>球场风云</span></a>
-  <a class="club-orb" style="--x:29.4%;--y:78.3%" href="club.html#8" title="社会学社"><img src="shx2.jpg" alt="社会学社"><b>社会学社</b><span>洞察社会</span></a>
-  <a class="club-orb" style="--x:16.7%;--y:39.2%" href="club.html#300" title="魔幻化学社"><img src="jmc1.jpg" alt="魔幻化学社"><b>魔幻化学</b><span>魔化实验室</span></a>
+  <a class="club-orb jeek-top" style="--x:50%;--y:15%" href="club.html#100" title="JEEK信息社"><img src="jeek1.jpg" alt="JEEK信息社"><b>JEEK</b><span data-i18n="index.orbJeek">信息社</span></a>
+  <a class="club-orb orb-slot" style="--x:83.3%;--y:39.2%" href="club.html#600" title="学生公司"><img src="gongsi2.jpg" alt="学生公司"><b data-i18n="index.orbCompany">学生公司</b><span data-i18n="index.orbCompanySub">实践经营</span></a>
+  <a class="club-orb orb-slot" style="--x:70.6%;--y:78.3%" href="club.html#820" title="篮球社"><img src="lanqiu2.jpg" alt="篮球社"><b data-i18n="index.orbBasket">篮球社</b><span data-i18n="index.orbBasketSub">球场风云</span></a>
+  <a class="club-orb orb-slot" style="--x:29.4%;--y:78.3%" href="club.html#8" title="社会学社"><img src="shx2.jpg" alt="社会学社"><b data-i18n="index.orbSociety">社会学社</b><span data-i18n="index.orbSocietySub">洞察社会</span></a>
+  <a class="club-orb orb-slot" style="--x:16.7%;--y:39.2%" href="club.html#300" title="魔幻化学社"><img src="jmc1.jpg" alt="魔幻化学社"><b data-i18n="index.orbChem">魔幻化学</b><span data-i18n="index.orbChemSub">魔化实验室</span></a>
 </div>
 <div class="mobile-clubs">
   <div class="mc-strip" id="mcStrip">
-    <a class="mc-card" href="club.html#100"><img src="jeek1.jpg" alt="JEEK信息社"><div class="mc-name">JEEK信息社</div></a>
-    <a class="mc-card" href="club.html#600"><img src="gongsi2.jpg" alt="学生公司"><div class="mc-name">学生公司</div></a>
-    <a class="mc-card" href="club.html#820"><img src="lanqiu2.jpg" alt="篮球社"><div class="mc-name">篮球社</div></a>
-    <a class="mc-card" href="club.html#8"><img src="shx2.jpg" alt="社会学社"><div class="mc-name">社会学社</div></a>
-    <a class="mc-card" href="club.html#300"><img src="jmc1.jpg" alt="魔幻化学社"><div class="mc-name">魔幻化学社</div></a>
+    <a class="mc-card" href="club.html#100"><img src="jeek1.jpg" alt="JEEK信息社"><div class="mc-name" data-i18n="index.mcJeek">JEEK信息社</div></a>
+    <a class="mc-card" href="club.html#600"><img src="gongsi2.jpg" alt="学生公司"><div class="mc-name" data-i18n="index.mcCompany">学生公司</div></a>
+    <a class="mc-card" href="club.html#820"><img src="lanqiu2.jpg" alt="篮球社"><div class="mc-name" data-i18n="index.mcBasket">篮球社</div></a>
+    <a class="mc-card" href="club.html#8"><img src="shx2.jpg" alt="社会学社"><div class="mc-name" data-i18n="index.mcSociety">社会学社</div></a>
+    <a class="mc-card" href="club.html#300"><img src="jmc1.jpg" alt="魔幻化学社"><div class="mc-name" data-i18n="index.mcChem">魔幻化学社</div></a>
   </div>
-  <p class="mc-hint">← 左右滑动 · 查看社团宣传图 →</p>
+  <p class="mc-hint" data-i18n="index.mobileHint">← 左右滑动 · 查看社团宣传图 →</p>
 </div>
-<p class="hero-hint">悬停圆圈 · 查看社团宣传图（可点击直达介绍）</p>
+<p class="hero-hint" data-i18n="index.hint">悬停圆圈 · 查看社团宣传图（可点击直达介绍）</p>
 <div class="view-toggle">
-<button class="vt-btn active" data-mode="fit" type="button">原比例</button>
-<button class="vt-btn" data-mode="square" type="button">正方形</button>
+<button class="vt-btn active" data-mode="fit" type="button" data-i18n="index.fit">原比例</button>
+<button class="vt-btn" data-mode="square" type="button" data-i18n="index.square">正方形</button>
 </div>
-<p class="hero-desc">上海市建平中学始建于 1944 年，是上海市首批实验性示范性高中。契承“合格+特长、规范+选择”的办学理念，拥有数十个特色学生社团，涵盖科技、人文、艺术、体育等领域。</p>
+<p class="hero-desc" data-i18n="index.desc">上海市建平中学始建于 1944 年，是上海市首批实验性示范性高中。契承“合格+特长、规范+选择”的办学理念，拥有数十个特色学生社团，涵盖科技、人文、艺术、体育等领域。</p>
 <div class="hero-actions">
-<a class="btn-primary" href="club.html">探索全部社团</a>
+<a class="btn-primary" href="club.html" data-i18n="index.cta">探索全部社团</a>
 </div>
 </div>
 </section>
@@ -260,6 +267,7 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
   </div>
 </div>
 <footer>上海市建平中学 © 2026 · JEEK信息社  ©  联系作者：lovelyhjqhs@gmail.com</footer>
+<script src="site-tools.js"></script>
 <script>
 function build(){
   var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
@@ -270,6 +278,45 @@ function build(){
 
   /* ——— 悬停展示模式：原比例 / 正方形 ——— */
   var orbs = Array.prototype.slice.call(document.querySelectorAll('.club-orb'));
+  var orbSlots = orbs.filter(function(o){ return o.classList.contains('orb-slot'); });
+  var posterClubs = [
+    {id:300,n:"魔幻化学社",s:"魔化实验室",img:"jmc2.jpg"},
+    {id:15,n:"交通社",s:"地铁 · 火车 · 飞机",img:"jiaotong2.jpg"},
+    {id:16,n:"推理社",s:"剧本杀 · 桌游",img:"tuili2.jpg"},
+    {id:4,n:"偶像文化研究社",s:"ACG · 舞台",img:"oy2.jpg"},
+    {id:7,n:"历史社",s:"人文 · 轻松",img:"lishi2.jpg"},
+    {id:8,n:"社会学社",s:"洞察社会",img:"shx2.jpg"},
+    {id:600,n:"学生公司",s:"实践经营",img:"gongsi2.jpg"},
+    {id:810,n:"OCC 定向越野社",s:"奔跑 · 协作",img:"yueye2.jpg"},
+    {id:802,n:"BR 生物社",s:"实验 · 自然",img:"shengwu2.jpg"},
+    {id:803,n:"CSA 健美操社",s:"舞台 · 竞技",img:"csa2.jpg"},
+    {id:820,n:"篮球社",s:"球场风云",img:"lanqiu2.jpg"},
+    {id:821,n:"模拟联合国社",s:"国际议题",img:"molian2.jpg"},
+    {id:829,n:"挹芬剧社",s:"戏剧 · 舞台",img:"yifen2.jpg"},
+    {id:830,n:"园艺自然社",s:"草木 · 耕耘",img:"yuanyi2.jpg"},
+    {id:832,n:"竹汐文学社",s:"文字 · 创作",img:"zhuxi2.jpg"},
+    {id:800,n:"04论坛社",s:"辩论 · 赛事",img:"042.jpg"}
+  ];
+  function shuffledPool(){
+    var pool = posterClubs.slice();
+    for(var i=pool.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
+    }
+    return pool;
+  }
+  function randomizeSlots(){
+    var picked = shuffledPool().slice(0, orbSlots.length);
+    orbSlots.forEach(function(o, index){
+      var c = picked[index];
+      if(!c) return;
+      o.href = 'club.html#' + c.id;
+      o.title = c.n;
+      o.setAttribute('aria-label', c.n);
+      o.innerHTML = '<img src="' + c.img + '" alt="' + c.n + '"><b>' + c.n + '</b><span>' + c.s + '</span>';
+    });
+  }
+  randomizeSlots();
   var vtBtns = Array.prototype.slice.call(document.querySelectorAll('.vt-btn'));
   var orbMode = 'fit'; // fit=原比例不裁剪, square=正方形裁剪
 

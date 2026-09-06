@@ -53,7 +53,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .test-nav{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
 .test-nav button{padding:11px 26px;border-radius:40px;border:1px solid #e2e8f0;background:#fff;color:#475569;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit}
 .test-nav button:disabled{opacity:.35;cursor:not-allowed}
-.test-hint{font-size:12px;color:#94a3b8;align-self:center}
+#nextBtn{background:#0098e2;color:#fff;border-color:#0098e2}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .result-card{background:#fff;border-radius:18px;max-width:720px;width:100%;padding:40px 34px;box-shadow:0 12px 40px rgba(0,0,0,.08);text-align:center;animation:fadeUp .4s ease both}
@@ -61,9 +61,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 #typeCode{font-size:clamp(38px,9vw,64px);font-weight:900;background:linear-gradient(135deg,#0a6cc0,#0098e2);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;letter-spacing:4px;line-height:1.1}
 #typeName{color:#0f172a;font-size:20px;font-weight:700;margin:12px 0 20px}
 #typeDesc{color:#475569;font-size:15px;line-height:1.85;text-align:left;margin-bottom:4px}
-.portrait{margin:18px 0 2px;background:#f5f3ff;border:1px solid #e9d5ff;border-radius:14px;padding:14px 18px;text-align:left}
+.portrait{margin:18px 0 2px;background:#f5f3ff;border:1px solid #e9d5ff;border-radius:14px;padding:14px}
 .portrait-label{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;color:#7c3aed;background:#ede9fe;padding:3px 12px;border-radius:40px;margin-bottom:8px}
-#portraitText{color:#4c1d95;font-size:15px;line-height:1.7;font-weight:500}
+#portraitImg{width:100%;max-height:440px;object-fit:contain;border-radius:10px;display:block;background:#fff}
+#portraitVideo{width:100%;max-height:440px;object-fit:contain;border-radius:10px;background:#0b1e33;display:block}
+.cam-note{font-size:12px;color:#7c3aed;margin-top:8px;text-align:center}
 .dims{margin:28px 0 6px;text-align:left}
 .dim-row{margin-bottom:18px}
 .dim-top{display:flex;justify-content:space-between;font-size:12px;color:#64748b;margin-bottom:6px;font-weight:600}
@@ -77,27 +79,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-top:1px solid #e2e8f0;background:#fff}
 @media (max-width:560px){.test-card,.result-card{padding:26px 20px}.question{font-size:17px}.test-nav button{flex:1}}
 </style>
+<link rel="stylesheet" href="site-tools.css">
+<script>try{if(localStorage.getItem("jp-site-theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}</script>
 </head>
-<body>
+<body class="jpti-page">
 <nav>
+<div class="nav-left">
 <a class="nav-logo" href="index.html">建平<span>·</span>社团</a>
-<div class="nav-links"><a href="index.html">学校主页</a><a href="club.html">社团风采</a><a href="jpti.html" class="btn-nav">JPTI</a></div>
+<div class="site-controls"><button class="site-control" id="siteThemeBtn" type="button" title="切换日间/夜间模式">☾</button><button class="site-control" id="siteLangBtn" type="button">EN</button></div>
+</div>
+<div class="nav-right">
+<div class="nav-links"><a href="index.html" data-i18n="nav.home">学校主页</a><a href="club.html" data-i18n="nav.club">社团风采</a><a href="jpti.html" class="btn-nav">JPTI</a></div>
+</div>
 </nav>
 
 <section class="start" id="start">
   <div class="start-content">
-    <div class="hero-badge">上海市建平中学 · 趣味测试</div>
+    <div class="hero-badge" data-i18n="jpti.badge">上海市建平中学 · 趣味测试</div>
     <h1>JPTI</h1>
     <p class="start-en">JianPing Type Indicator</p>
-    <p class="start-desc">一款专为建平人打造的人格类型测试。从 4 个维度、35 道程度题里，测出你的专属 JPTI 人格——看看你是「漏洞」还是「好孩子」。</p>
+    <p class="start-desc" data-i18n="jpti.desc">一款专为建平人打造的人格类型测试。从 4 个维度、35 道程度题里，测出你的专属 JPTI 人格——看看你是「漏洞」还是「好孩子」。</p>
     <div class="dim-chips">
-      <span>外向 E · 内向 I</span>
-      <span>直觉 N · 感觉 S</span>
-      <span>理性 T · 感性 F</span>
-      <span>计划 J · 随性 P</span>
+      <span data-i18n="jpti.dimEI">外向 E · 内向 I</span>
+      <span data-i18n="jpti.dimNS">直觉 N · 感觉 S</span>
+      <span data-i18n="jpti.dimTF">理性 T · 感性 F</span>
+      <span data-i18n="jpti.dimJP">计划 J · 随性 P</span>
     </div>
-    <button class="btn-primary" onclick="startTest()">开始测试</button>
-    <p class="start-meta">共 35 题 · 约 3 分钟 · 没有标准答案，凭第一感觉选就行</p>
+    <button class="btn-primary" onclick="startTest()" data-i18n="jpti.start">开始测试</button>
+    <p class="start-meta" data-i18n="jpti.meta">共 35 题 · 约 3 分钟 · 没有标准答案，凭第一感觉选就行</p>
   </div>
 </section>
 
@@ -113,29 +122,30 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
       <div class="options" id="options"></div>
     </div>
     <div class="test-nav">
-      <button id="prevBtn" onclick="prev()">上一题</button>
-      <span class="test-hint">点击选项自动进入下一题</span>
+      <button id="prevBtn" onclick="prev()" data-i18n="jpti.prev">上一题</button>
+      <button id="nextBtn" onclick="manualNext()" data-i18n="jpti.next">下一题</button>
     </div>
   </div>
 </section>
 
 <section class="panel" id="result" hidden>
   <div class="result-card">
-    <div class="result-badge">你的 JPTI 类型</div>
+    <div class="result-badge" data-i18n="jpti.resultBadge">你的 JPTI 类型</div>
     <h2 id="typeCode">ENTP</h2>
     <p id="typeName">BUG · 漏洞</p>
     <p id="typeDesc"></p>
-    <div id="portrait" class="portrait" hidden><div class="portrait-label">画像</div><p id="portraitText"></p></div>
+    <div id="portrait" class="portrait" hidden><div class="portrait-label" id="portraitLabel">画像</div><img id="portraitImg" alt="画像"><video id="portraitVideo" autoplay muted playsinline></video><p class="cam-note" id="camNote" hidden></p></div>
     <div class="dims" id="dims"></div>
     <div class="result-actions">
-      <button class="btn-primary" onclick="retake()">重新测试</button>
-      <a class="btn-ghost" href="index.html">返回首页</a>
+      <button class="btn-primary" onclick="retake()" data-i18n="jpti.retake">重新测试</button>
+      <a class="btn-ghost" href="index.html" data-i18n="jpti.back">返回首页</a>
     </div>
   </div>
 </section>
 
 <footer>上海市建平中学 © 2026 · JEEK信息社 © 联系作者：lovelyhjqhs@gmail.com</footer>
 
+<script src="site-tools.js"></script>
 <script>
 var originalQuestions = [
   {t:'最好的朋友摔倒了，你毫不犹豫发送道"666把自己当摔炮玩"', dim:"EI", key:"E"},
@@ -144,7 +154,7 @@ var originalQuestions = [
   {t:'年级群里有人发了条冷笑话烂梗，你立刻接梗把它发扬光大。', dim:"EI", key:"E"},
   {t:'社团课上非~~~常热情，并且为社团发展建言献策（说真的我们需要你）', dim:"EI", key:"E"},
   {t:'放假三天如果完全没人找你聊天，你浑身难受开始主动骚扰别人。', dim:"EI", key:"E"},
-  {t:'去小卖部买水路上遇到同班同学，你目不斜视假装没有看见（I）。', dim:"EI", key:"I"},
+  {t:'去小卖部买水路上遇到同班同学，你目不斜视假装没有看见。', dim:"EI", key:"I"},
   {t:'你发朋友圈的频率很高，一天能发好几条，而且不在乎有没有人点赞。', dim:"EI", key:"E"},
   {t:'你觉得一个人待着就是浪费生命。', dim:"EI", key:"E"},
   {t:'你脑子里总想的是if线如"如果希特勒考上了美院世界会怎样"', dim:"NS", key:"N"},
@@ -211,29 +221,31 @@ var dimMeta = {
 };
 
 var results = {
-  "INTJ":{type:"INTJ", code:"AI", name:"计算机", desc:'目标感极强，成绩常年前排，懒得社交但心里什么都清楚。领地意识极强，不愿意他人触碰自己的物品', portrait:'食堂里一个人坐着，眼镜反光'},
-  "INTP":{type:"INTP", code:"DREA-M", name:"梦想家", desc:'脑子里永远在拆解问题，能从"鱼香肉丝"推导出整个语言哲学体系。偏科严重，感兴趣的事能讲到全校都认识他。', portrait:'坐在自己不喜欢科目的作业前遐想'},
-  "ENTJ":{type:"ENTJ", code:"SUN", name:"将军", desc:'天生的总指挥，从班赛到人生全想掌控。说话直接不给人面子，但事后想想他说得确实对。', portrait:'讲台上的元首'},
-  "ENTP":{type:"ENTP", code:"BUG", name:"漏洞", desc:'专门钻规则漏洞并亲自测试，上课最爱跟老师抬杠而且逻辑严密。想法多到爆炸，落地全靠缘分。', portrait:'从侧面看去，这个人提出异议（参考逆转裁判）'},
+  "INTJ":{type:"INTJ", code:"AI", name:"计算机", desc:'目标感极强，成绩常年前排，懒得社交但心里什么都清楚。领地意识极强，不愿意他人触碰自己的物品'},
+  "INTP":{type:"INTP", code:"DREA-M", name:"梦想家", desc:'脑子里永远在拆解问题，能从"鱼香肉丝"推导出整个语言哲学体系。偏科严重，感兴趣的事能讲到全校都认识他。'},
+  "ENTJ":{type:"ENTJ", code:"SUN", name:"将军", desc:'天生的总指挥，从班赛到人生全想掌控。说话直接不给人面子，但事后想想他说得确实对。'},
+  "ENTP":{type:"ENTP", code:"BUG", name:"漏洞", desc:'专门钻规则漏洞并亲自测试，上课最爱跟老师抬杠而且逻辑严密。想法多到爆炸，落地全靠缘分。'},
   "INFJ":{type:"INFJ", code:"MOM", name:"？！妈妈！？", desc:'敏感度拉满，谁不开心了他第一个递纸巾。平时安静，但班里谁有事第一个想到的就是他。'},
-  "INFP":{type:"INFP", code:"SLIME", name:"史莱姆", desc:'内心很软，谁看一眼能写出八百字散文。看着软但其实底线极硬，踩到了他会突然变了一个人。', portrait:'教室走廊内，他对别人发火的样子，他指着一位同学，那位同学表情摊手表示疑惑与无辜'},
-  "ENFJ":{type:"ENFJ", code:"GOD-DAD", name:"教父", desc:'班里精神领袖，感染力极强。谁吵架了谁迷茫了全是他出面摆平。', portrait:'画五个人坐在长椅上中间的人cos耶稣'},
-  "ENFP":{type:"ENFP", code:"IDEA", name:"点子王", desc:'全班气氛发动机，脑洞一天开八个。热情来得快去得也快，上一秒拉着你搞大项目下一秒已经忘了。', portrait:'金苹果大道上🤓☝️'},
-  "ISTJ":{type:"ISTJ", code:"GOOD", name:"好孩子", desc:'秩序守护者。作业永远按时交、笔记永远最工整、永远不迟到，新时代好青年。', portrait:'学校门口，接受电视台采访的样子（参考以前记者采访小学生的视频）'},
+  "INFP":{type:"INFP", code:"SLIME", name:"史莱姆", desc:'内心很软，谁看一眼能写出八百字散文。看着软但其实底线极硬，踩到了他会突然变了一个人。'},
+  "ENFJ":{type:"ENFJ", code:"GOD-DAD", name:"教父", desc:'班里精神领袖，感染力极强。谁吵架了谁迷茫了全是他出面摆平。'},
+  "ENFP":{type:"ENFP", code:"IDEA", name:"点子王", desc:'全班气氛发动机，脑洞一天开八个。热情来得快去得也快，上一秒拉着你搞大项目下一秒已经忘了。'},
+  "ISTJ":{type:"ISTJ", code:"GOOD", name:"好孩子", desc:'秩序守护者。作业永远按时交、笔记永远最工整、永远不迟到，新时代好青年。'},
   "ISFJ":{type:"ISFJ", code:"C（H20）x", name:"碳水化合物", desc:'提供了80%的能量，但是很少有人注意到ta，肉可以没有但是没了米饭直接散伙'},
-  "ESTJ":{type:"ESTJ", code:"RULE", name:"纪律委员大人", desc:'天生的纪律管理员，眼里容不下沙子。做事雷厉风行效率拉满，但理解不了为什么会有人不守规矩。', portrait:'教室走廊间的典狱长'},
+  "ESTJ":{type:"ESTJ", code:"RULE", name:"纪律委员大人", desc:'天生的纪律管理员，眼里容不下沙子。做事雷厉风行效率拉满，但理解不了为什么会有人不守规矩。'},
   "ESFJ":{type:"ESFJ", code:"GLUE", name:"水泥", desc:'班级粘合剂，最大的愿望就是全班和和气气。谁吵架了她比谁都急，第一反应是劝架。'},
-  "ISTP":{type:"ISTP", code:"MONKEY", name:"猴哥", desc:'动手狂魔，电脑课老师还没讲完他就把机房系统搞崩了，然后又能自己修好。话不多，但实操类问题全班都转头看他。', portrait:'劳技教室捯饬手工，旁边人惊呆了'},
-  "ISFP":{type:"ISFP", code:"HUA❀", name:"花", desc:'校服拉链一拉开永远是一件巨好看的私服。黑板报交给他做全班惊艳，平时话少但你夸他一句他能脸红一节课。', portrait:'金苹果前惊艳全场（狂欢风情秀）'},
+  "ISTP":{type:"ISTP", code:"MONKEY", name:"猴哥", desc:'动手狂魔，电脑课老师还没讲完他就把机房系统搞崩了，然后又能自己修好。话不多，但实操类问题全班都转头看他。'},
+  "ISFP":{type:"ISFP", code:"HUA❀", name:"花", desc:'校服拉链一拉开永远是一件巨好看的私服。黑板报交给他做全班惊艳，平时话少但你夸他一句他能脸红一节课。'},
   "ESTP":{type:"ESTP", code:"LETS-GO", name:"行动哥", desc:'行动派冒险家，想到什么立刻干，从不拖延，永远在第一线。社交能力拉满全校认识的人比校长还多。'},
-  "ESFP":{type:"ESFP", code:"930", name:"大舞台", desc:'天生的舞台王者，班会联欢从第一个节目演到最后一个变成个人专场。情绪来得快去得也快，今天哭明天笑。', portrait:'圆厅个人表演秀'}
+  "ESFP":{type:"ESFP", code:"930", name:"大舞台", desc:'天生的舞台王者，班会联欢从第一个节目演到最后一个变成个人专场。情绪来得快去得也快，今天哭明天笑。'}
 };
 
 var answers = [];
 var current = 0;
 var transitioning = false;
+var liveStream = null;
 
 function startTest(){
+  stopCamera();
   transitioning = false;
   questions = buildShuffledQuestions();
   answers = new Array(questions.length);
@@ -253,8 +265,8 @@ function retake(){
 function renderQuestion(){
   var q = questions[current];
   var meta = dimMeta[q.dim];
-  document.getElementById("dimBadge").textContent = meta.label;
-  document.getElementById("qCount").textContent = (current + 1) + " / " + questions.length;
+  document.getElementById("dimBadge").textContent = siteT("jpti.dim" + q.dim);
+  document.getElementById("qCount").textContent = "第 " + (current + 1) + " / " + questions.length + " 题";
   document.getElementById("progressFill").style.width = ((current) / questions.length * 100) + "%";
   document.getElementById("question").textContent = q.t;
 
@@ -264,12 +276,16 @@ function renderQuestion(){
     var btn = document.createElement("button");
     btn.type = "button";
     btn.className = "opt" + (answers[current] === o.value ? " selected" : "");
-    btn.textContent = o.label;
+    btn.textContent = siteT("jpti.opt" + i);
     btn.onclick = function(){ selectAnswer(i); };
     box.appendChild(btn);
   });
 
   document.getElementById("prevBtn").disabled = (current === 0);
+  var isLast = (current === questions.length - 1);
+  var nextBtn = document.getElementById("nextBtn");
+  nextBtn.textContent = isLast ? siteT("jpti.finish") : siteT("jpti.next");
+  nextBtn.disabled = (answers[current] === undefined);
   document.getElementById("options").classList.remove("locked");
 }
 
@@ -280,22 +296,32 @@ function selectAnswer(i){
   buttons.forEach(function(b, idx){ b.classList.toggle("selected", idx === i); });
   transitioning = true;
   document.getElementById("options").classList.add("locked");
-  setTimeout(function(){
-    if (current < questions.length - 1){
-      slideTo(function(){
-        current++;
-        renderQuestion();
-      }, 1);
-    } else {
-      var card = document.querySelector("#test .test-card");
-      card.classList.add("card-out");
-      setTimeout(function(){
-        showResult();
-        card.classList.remove("card-out");
-        transitioning = false;
-      }, 240);
-    }
-  }, 240);
+  document.getElementById("nextBtn").disabled = false;
+  setTimeout(function(){ goForward(); }, 240);
+}
+
+function manualNext(){
+  if (transitioning) return;
+  if (answers[current] === undefined) return;
+  transitioning = true;
+  goForward();
+}
+
+function goForward(){
+  if (current < questions.length - 1){
+    slideTo(function(){
+      current++;
+      renderQuestion();
+    }, 1);
+  } else {
+    var card = document.querySelector("#test .test-card");
+    card.classList.add("card-out");
+    setTimeout(function(){
+      showResult();
+      card.classList.remove("card-out");
+      transitioning = false;
+    }, 240);
+  }
 }
 
 function slideTo(action, dir){
@@ -358,17 +384,52 @@ function renderDims(r){
     var pctB = 100 - pctA;
     var chosenFirst = (a >= b);
     var chosen = chosenFirst ? m.first : m.second;
-    var chosenName = chosenFirst ? m.firstName : m.secondName;
+    var firstName = d === "EI" ? siteT("jpti.dimFirstNameE") : d === "NS" ? siteT("jpti.dimFirstNameN") : d === "TF" ? siteT("jpti.dimFirstNameT") : siteT("jpti.dimFirstNameJ");
+    var secondName = d === "EI" ? siteT("jpti.dimSecondNameI") : d === "NS" ? siteT("jpti.dimSecondNameS") : d === "TF" ? siteT("jpti.dimSecondNameF") : siteT("jpti.dimSecondNameP");
+    var chosenName = chosenFirst ? firstName : secondName;
     var chosenPct = chosenFirst ? pctA : pctB;
     var colorA = chosenFirst ? "#0098e2" : "#cbd5e1";
     var colorB = chosenFirst ? "#cbd5e1" : "#0098e2";
     html += '<div class="dim-row">' +
-      '<div class="dim-top"><span>' + m.first + ' · ' + m.firstName + '</span><span>' + m.second + ' · ' + m.secondName + '</span></div>' +
+      '<div class="dim-top"><span>' + m.first + ' · ' + firstName + '</span><span>' + m.second + ' · ' + secondName + '</span></div>' +
       '<div class="dim-bar"><span style="width:' + pctA + '%;background:' + colorA + '"></span><span style="width:' + pctB + '%;background:' + colorB + '"></span></div>' +
-      '<div class="dim-result">你的倾向：' + chosenName + '（' + chosen + '）' + chosenPct + '%</div>' +
+      '<div class="dim-result">' + siteT("jpti.dimTendency") + chosenName + '（' + chosen + '）' + chosenPct + '%</div>' +
       '</div>';
   });
   document.getElementById("dims").innerHTML = html;
+}
+
+function stopCamera(){
+  if (liveStream){
+    liveStream.getTracks().forEach(function(t){ t.stop(); });
+    liveStream = null;
+  }
+  var video = document.getElementById("portraitVideo");
+  if (video.srcObject){ video.srcObject = null; }
+}
+
+function startCamera(){
+  var box = document.getElementById("portrait");
+  var video = document.getElementById("portraitVideo");
+  var note = document.getElementById("camNote");
+  box.hidden = false;
+  video.hidden = true;
+  note.hidden = false;
+  note.textContent = "正在开启前置摄像头…";
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    note.textContent = "当前环境不支持摄像头";
+    return;
+  }
+  navigator.mediaDevices.getUserMedia({video:{facingMode:"user"}, audio:false}).then(function(stream){
+    liveStream = stream;
+    video.srcObject = stream;
+    video.hidden = false;
+    note.hidden = true;
+    var p = video.play();
+    if (p && p.catch){ p.catch(function(){}); }
+  }).catch(function(){
+    note.textContent = "未能开启摄像头，请检查是否允许权限";
+  });
 }
 
 function showResult(){
@@ -379,16 +440,41 @@ function showResult(){
   document.getElementById("typeCode").textContent = res.type;
   document.getElementById("typeName").textContent = res.code + " · " + res.name;
   document.getElementById("typeDesc").textContent = res.desc;
+  stopCamera();
   var portraitEl = document.getElementById("portrait");
-  if (res.portrait){
-    document.getElementById("portraitText").textContent = res.portrait;
-    portraitEl.hidden = false;
+  var img = document.getElementById("portraitImg");
+  var video = document.getElementById("portraitVideo");
+  var note = document.getElementById("camNote");
+  portraitEl.hidden = true;
+  img.hidden = true;
+  video.hidden = true;
+  note.hidden = true;
+  var liveTypes = {ISFP:true, ESTP:true};
+  if (liveTypes[res.type]){
+    document.getElementById("portraitLabel").textContent = siteT("jpti.live");
+    startCamera();
   } else {
-    portraitEl.hidden = true;
+    document.getElementById("portraitLabel").textContent = siteT("jpti.portrait");
+    img.hidden = false;
+    img.onload = function(){ portraitEl.hidden = false; };
+    img.onerror = function(){ portraitEl.hidden = true; };
+    img.src = res.type.toLowerCase() + ".jpg";
+    if (img.complete && img.naturalWidth > 0){ portraitEl.hidden = false; }
   }
   renderDims(r);
   window.scrollTo({top:0, behavior:"smooth"});
 }
+
+window.siteAfterLang = function () {
+  if (!document.getElementById("test").hidden) {
+    renderQuestion();
+  } else if (!document.getElementById("result").hidden) {
+    renderDims(computeResult());
+    var portraitImg = document.getElementById("portraitImg");
+    var portraitVideo = document.getElementById("portraitVideo");
+    document.getElementById("portraitLabel").textContent = (!portraitImg.hidden) ? siteT("jpti.portrait") : (!portraitVideo.hidden ? siteT("jpti.live") : siteT("jpti.portrait"));
+  }
+};
 </script>
 </body>
 </html>
