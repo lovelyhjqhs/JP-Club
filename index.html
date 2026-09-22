@@ -43,7 +43,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .btn-primary{display:inline-block;padding:12px 32px;border-radius:40px;background:linear-gradient(135deg,#0098e2,#0080c4);color:#fff;text-decoration:none;font-weight:600;font-size:15px;transition:transform .2s,box-shadow .2s;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(0,152,226,.28)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,152,226,.38)}
 .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.view-toggle{display:flex;gap:6px;justify-content:center;margin-bottom:18px}
+.preview-source-toggle{display:flex;gap:6px;justify-content:center;margin:4px 0 10px}
 .vt-btn{padding:6px 18px;border-radius:40px;border:1px solid rgba(0,152,226,.28);background:rgba(255,255,255,.6);color:#33698f;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .vt-btn:hover{border-color:#0098e2;color:#0098e2}
 .vt-btn.active{background:#0098e2;color:#fff;border-color:#0098e2;box-shadow:0 4px 14px rgba(0,152,226,.3)}
@@ -60,7 +60,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
   .hero{min-height:100vh;padding-top:66px}
   .hero-badge{margin-bottom:14px}
   .emblem{display:none}
-  .hero-hint,.view-toggle{display:none}
+  .hero-hint{display:none}
   .mobile-clubs{display:block}
   .hero-desc{margin-bottom:18px}
 }
@@ -147,6 +147,10 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
   <a class="club-orb orb-slot" style="--x:29.4%;--y:78.3%" href="club.html#8" title="社会学社"><img src="shx2.jpg" alt="社会学社"><b data-i18n="index.orbSociety">社会学社</b><span data-i18n="index.orbSocietySub">洞察社会</span></a>
   <a class="club-orb orb-slot" style="--x:16.7%;--y:39.2%" href="club.html#300" title="魔幻化学社"><img src="jmc1.jpg" alt="魔幻化学社"><b data-i18n="index.orbChem">魔幻化学</b><span data-i18n="index.orbChemSub">魔化实验室</span></a>
 </div>
+<div class="preview-source-toggle">
+  <button class="vt-btn active" data-src="poster" type="button" data-i18n="index.poster">海报</button>
+  <button class="vt-btn" data-src="badge" type="button" data-i18n="index.badge">社徽</button>
+</div>
 <div class="mobile-clubs">
   <div class="mc-strip" id="mcStrip">
     <a class="mc-card" href="club.html#100"><img src="jeek1.jpg" alt="JEEK信息社"><div class="mc-name" data-i18n="index.mcJeek">JEEK信息社</div></a>
@@ -158,10 +162,6 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
   <p class="mc-hint" data-i18n="index.mobileHint">← 左右滑动 · 查看社团宣传图 →</p>
 </div>
 <p class="hero-hint" data-i18n="index.hint">悬停圆圈 · 查看社团宣传图（可点击直达介绍）</p>
-<div class="view-toggle">
-<button class="vt-btn active" data-mode="fit" type="button" data-i18n="index.fit">原比例</button>
-<button class="vt-btn" data-mode="square" type="button" data-i18n="index.square">正方形</button>
-</div>
 <p class="hero-desc" data-i18n="index.desc">上海市建平中学始建于 1944 年，是上海市首批实验性示范性高中。契承“合格+特长、规范+选择”的办学理念，拥有数十个特色学生社团，涵盖科技、人文、艺术、体育等领域。</p>
 <div class="hero-actions">
 <a class="btn-primary" href="club.html" data-i18n="index.cta">探索全部社团</a>
@@ -282,75 +282,126 @@ function build(){
   var playBtn = document.getElementById('play');
   var idx = 0, raf = null, start = 0, DUR = 5200, playing = true, total = scenes.length;
 
-  /* ——— 悬停展示模式：原比例 / 正方形 ——— */
+  /* ——— 社团预览：始终按原比例展示 ——— */
   var orbs = Array.prototype.slice.call(document.querySelectorAll('.club-orb'));
   var orbSlots = orbs.filter(function(o){ return o.classList.contains('orb-slot'); });
-  var posterClubs = [
-    {id:300,n:"魔幻化学社",s:"魔化实验室",img:"jmc2.jpg"},
-    {id:15,n:"交通社",s:"地铁 · 火车 · 飞机",img:"jiaotong2.jpg"},
-    {id:16,n:"推理社",s:"剧本杀 · 桌游",img:"tuili2.jpg"},
-    {id:4,n:"偶像文化研究社",s:"ACG · 舞台",img:"oy2.jpg"},
-    {id:7,n:"历史社",s:"人文 · 轻松",img:"lishi2.jpg"},
-    {id:8,n:"社会学社",s:"洞察社会",img:"shx2.jpg"},
-    {id:600,n:"学生公司",s:"实践经营",img:"gongsi2.jpg"},
-    {id:810,n:"OCC 定向越野社",s:"奔跑 · 协作",img:"yueye2.jpg"},
-    {id:802,n:"BR 生物社",s:"实验 · 自然",img:"shengwu2.jpg"},
-    {id:803,n:"CSA 健美操社",s:"舞台 · 竞技",img:"csa2.jpg"},
-    {id:820,n:"篮球社",s:"球场风云",img:"lanqiu2.jpg"},
-    {id:821,n:"模拟联合国社",s:"国际议题",img:"molian2.jpg"},
-    {id:829,n:"挹芬剧社",s:"戏剧 · 舞台",img:"yifen2.jpg"},
-    {id:830,n:"园艺自然社",s:"草木 · 耕耘",img:"yuanyi2.jpg"},
-    {id:832,n:"竹汐文学社",s:"文字 · 创作",img:"zhuxi2.jpg"},
-    {id:800,n:"04论坛社",s:"辩论 · 赛事",img:"042.jpg"}
+  var previewSource = 'poster';
+  var jeekClub = {id:100,n:"JEEK信息社",s:"信息社",badge:"jeek1.jpg",poster:"JEEK信息社社团招新海报（已过审）.png"};
+  var mediaClubs = [
+    {id:300,n:"魔幻化学社",s:"实验 · 化学",badge:"jmc1.jpg",poster:"魔幻化学社招新海报（已过审）.jpg"},
+    {id:200,n:"前沿食社",s:"美食 · 生活",badge:"qyss1.jpg",poster:"前沿食社招新海报（已过审）.jpg"},
+    {id:5,n:"十一区文化研究社",s:"二次元 · ACG",badge:"syq1.png",poster:""},
+    {id:4,n:"偶像文化研究社",s:"偶像 · ACG",badge:"oy1.png",poster:"偶像文化研究社招新海报（已过审）.JPG"},
+    {id:7,n:"历史社",s:"历史 · 人文",badge:"lishi1.jpg",poster:"历史社招新海报2（已过审）.jpg"},
+    {id:8,n:"社会学社",s:"思辨 · 人文",badge:"shx1.jpg",poster:"社会学社招新海报（已过审）.jpg"},
+    {id:400,n:"武术社",s:"体育 · 比赛",badge:"ws1.png",poster:"武术社招新海报（已过审）.png"},
+    {id:803,n:"CSA 健美操社",s:"体育 · 比赛",badge:"csa1.jpg",poster:"CSA健美操社招新海报（已过审）.jpg"},
+    {id:820,n:"篮球社",s:"体育 · 社交",badge:"lanqiu1.jpg",poster:"篮球社招新海报（已过审）.png"},
+    {id:821,n:"模拟联合国社",s:"人文 · 社交",badge:"molian1.png",poster:"模联社海报（已过审）.jpg"},
+    {id:830,n:"园艺・自然社",s:"自然 · 创意",badge:"yuanyi1.png",poster:"园艺·自然社海报（已过审）.png"},
+    {id:832,n:"竹汐文学社",s:"文学 · 创意",badge:"zhuxi1.png",poster:"竹汐文学社招新海报（已过审）.jpg"},
+    {id:800,n:"04论坛社",s:"文学 · 创意",badge:"041.jpg",poster:"04论坛社（已过审）.png"},
+    {id:801,n:"空白blank社",s:"社交 · 剧本杀",badge:"blank1.jpg",poster:"空白_blank社（已过审）.jpg"},
+    {id:804,n:"F1 社",s:"体育 · 社交",badge:"f11.jpg",poster:"F1社 招新海报（已过审）.png"},
+    {id:805,n:"GPSL 金菠萝街舞社",s:"展演 · 舞蹈",badge:"gpsl1.jpg",poster:"招新2.jpg"},
+    {id:807,n:"JPE 经济社",s:"金融",badge:"jingji1.jpg",poster:""},
+    {id:809,n:"JRC 机器人社",s:"编程 · 比赛",badge:"jrc1.jpg",poster:"JRC机器人社海报（已过审）.png"},
+    {id:811,n:"SSS 配音社",s:"创意 · 展演",badge:"peiyin1.jpg",poster:"sss配音社招新海报（已过审）.png"},
+    {id:812,n:"VOJP 阿卡贝拉社",s:"音乐 · 艺术",badge:"vojp1.jpg",poster:"VOIP阿卡贝拉社招新海报（已过审）.png"},
+    {id:815,n:"坚决不做马斯狗社",s:"数学 · 创意",badge:"mathsgo1.jpg",poster:"mathsgo招新海报（已过审）.jpg"},
+    {id:816,n:"建平电影社",s:"社交 · 人文",badge:"jpdy1.jpg",poster:"建平电影社招新海报（已过审）.jpg"},
+    {id:817,n:"建平乒协",s:"体育 · 比赛",badge:"pp1.jpg",poster:"建平乒协招新海报（已过审）.png"},
+    {id:818,n:"建平围棋社 JPGO",s:"体育",badge:"weiqi1.png",poster:"建平围棋社招新海报（已过审）.jpg"},
+    {id:819,n:"建平羽协",s:"体育 · 比赛",badge:"yumao1.jpg",poster:"建平羽协招新海报（已过审）.png"},
+    {id:823,n:"欧美音乐社",s:"音乐",badge:"om1.png",poster:""},
+    {id:824,n:"排球社",s:"体育 · 比赛",badge:"paiqiu1.png",poster:"排球社招新海报（已过审）.jpg"},
+    {id:826,n:"沙盘模型社",s:"技术 · 创意",badge:"spmx1.png",poster:"沙盘模型社招新海报（已过审）.jpg"},
+    {id:827,n:"陶艺社",s:"创意 · 技术",badge:"taoyi1.jpg",poster:"陶艺社招新海报（已过审）.png"},
+    {id:828,n:"心连心社",s:"文化",badge:"xlx1.jpg",poster:"心连心社招新海报（已过审）.png"},
+    {id:831,n:"哲学社",s:"人文 · 思辨",badge:"zhexue1.jpg",poster:"哲学社招新海报（已过审）.jpg"},
+    {id:833,n:"足球社",s:"体育 · 比赛",badge:"zuqiu1.png",poster:"足球社招新海报（已过审）.jpg"},
+    {id:834,n:"JTV",s:"学生部门",badge:"jtv1.jpg",poster:"JTV招新海报（已过审）.png"},
+    {id:15,n:"交通社",s:"交通 · 摄影",badge:"",poster:"交通社招新海报（已过审）.jpg"},
+    {id:16,n:"推理社",s:"剧本杀 · 推理",badge:"",poster:"推理社招新海报 （已过审）.png"},
+    {id:6,n:"桥牌社",s:"桥牌 · 推理",badge:"",poster:"桥牌社招新海报（已过审）.png"},
+    {id:1,n:"Bravo金苹果广播站",s:"广播 · 音乐",badge:"",poster:"Bravo金苹果广播站 招新海报（已过审）.jpg"},
+    {id:500,n:"JFM同花魔术社",s:"魔术 · 创意",badge:"",poster:"魔术社招新海报1（已过审）.png"},
+    {id:600,n:"学生公司",s:"创意 · 设计",badge:"",poster:"614.png"},
+    {id:810,n:"OCC 定向越野社",s:"体育 · 比赛",badge:"",poster:"OCC定向越野社招新海报（已过审）.jpg"},
+    {id:802,n:"BR 生物社",s:"生物 · 实验",badge:"",poster:"BR生物社招新海报（已过审）.JPG.jpg"},
+    {id:829,n:"挹芬剧社",s:"创意 · 比赛",badge:"",poster:"挹芬剧社招新海报（已过审）.jpg"},
+    {id:808,n:"JPGEO 地学社",s:"自然 · 实验",badge:"",poster:"JPGEO地学社招新海报（已过审）.jpg"},
+    {id:813,n:"钢琴西乐社",s:"音乐 · 展演",badge:"",poster:"钢琴西乐社  招新海报（已过审）.png"},
+    {id:814,n:"即兴造物社",s:"文化",badge:"",poster:"即兴造物社招新海报（已过审）.jpg"},
+    {id:822,n:"魔方社",s:"创意",badge:"",poster:"魔方社招新海报（已过审）.jpg"},
+    {id:825,n:"轻音社",s:"音乐 · 展演",badge:"",poster:"K-ON!轻音社招新宣传（已过审）.jpg"}
   ];
-  function shuffledPool(){
-    var pool = posterClubs.slice();
+  var pickedClubs = [];
+  function shuffledPool(base){
+    var pool = base.slice();
     for(var i=pool.length-1;i>0;i--){
       var j = Math.floor(Math.random()*(i+1));
       var tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
     }
     return pool;
   }
+  function sourcePool(src){
+    return mediaClubs.filter(function(c){
+      return src === 'badge' ? !!c.badge : (!!c.poster || !!c.badge);
+    });
+  }
+  function imageFor(c){
+    return previewSource === 'badge' ? (c.badge || c.poster) : (c.poster || c.badge);
+  }
   function randomizeClubs(){
-    var picked = shuffledPool().slice(0, orbSlots.length);
+    var pool = sourcePool(previewSource);
+    pickedClubs = shuffledPool(pool.length ? pool : mediaClubs).slice(0, orbSlots.length);
+    renderFeatured();
+  }
+  function renderFeatured(){
     orbSlots.forEach(function(o, index){
-      var c = picked[index];
+      var c = pickedClubs[index];
       if(!c) return;
       o.href = 'club.html#' + c.id;
       o.title = c.n;
       o.setAttribute('aria-label', c.n);
-      o.innerHTML = '<img src="' + c.img + '" alt="' + c.n + '"><b>' + c.n + '</b><span>' + c.s + '</span>';
+      o.style.aspectRatio = '';
+      o.innerHTML = '<img src="' + imageFor(c) + '" alt="' + c.n + '"><b>' + c.n + '</b><span>' + c.s + '</span>';
     });
+    var topOrb = orbs.filter(function(o){ return o.classList.contains('jeek-top'); })[0];
+    if(topOrb){
+      var topImg = topOrb.querySelector('img');
+      if(topImg) topImg.src = imageFor(jeekClub);
+    }
     var strip = document.getElementById('mcStrip');
     if(strip){
-      var cards = [{id:100,n:"JEEK信息社",img:"jeek1.jpg"}].concat(picked);
+      var cards = [jeekClub].concat(pickedClubs);
       strip.innerHTML = cards.map(function(c){
-        return '<a class="mc-card" href="club.html#' + c.id + '"><img src="' + c.img + '" alt="' + c.n + '"><div class="mc-name">' + c.n + '</div></a>';
+        return '<a class="mc-card" href="club.html#' + c.id + '"><img src="' + imageFor(c) + '" alt="' + c.n + '"><div class="mc-name">' + c.n + '</div></a>';
       }).join('');
     }
   }
-  randomizeClubs();
-  var vtBtns = Array.prototype.slice.call(document.querySelectorAll('.vt-btn'));
-  var orbMode = 'fit'; // fit=原比例不裁剪, square=正方形裁剪
+  var sourceBtns = Array.prototype.slice.call(document.querySelectorAll('.preview-source-toggle .vt-btn'));
 
-  function orbApply(m){
-    orbMode = m;
-    vtBtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-mode')===m); });
-    orbs.forEach(function(o){ o.classList.toggle('fit', m==='fit'); });
+  function setPreviewSource(src){
+    previewSource = src;
+    sourceBtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-src')===src); });
+    randomizeClubs();
+    orbs.forEach(function(o){ o.classList.add('fit'); });
   }
   function orbAspect(o, on){
     var img = o.querySelector('img');
-    if(orbMode!=='fit' || !img || !img.naturalWidth){ o.style.aspectRatio=''; return; }
+    if(!img || !img.naturalWidth){ o.style.aspectRatio=''; return; }
     o.style.aspectRatio = (on ? img.naturalWidth+' / '+img.naturalHeight : '1 / 1');
   }
   orbs.forEach(function(o){
     o.addEventListener('mouseenter', function(){ orbAspect(o, true); });
     o.addEventListener('mouseleave', function(){ orbAspect(o, false); });
   });
-  vtBtns.forEach(function(b){
-    b.addEventListener('click', function(){ orbApply(b.getAttribute('data-mode')); });
+  sourceBtns.forEach(function(b){
+    b.addEventListener('click', function(){ setPreviewSource(b.getAttribute('data-src')); });
   });
-  orbApply('fit');
+  setPreviewSource('poster');
 
   scenes.forEach(function(_, i){
     var d = document.createElement('div');
