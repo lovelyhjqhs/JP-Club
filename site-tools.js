@@ -29,7 +29,7 @@
     "index.hint": ["悬停圆圈 · 查看社团宣传图（可点击直达介绍）", "Hover the circles to preview clubs. Click to open their intro."],
     "index.mobileHint": ["← 左右滑动 · 查看社团宣传图 →", "← Swipe to preview clubs →"],
     "index.poster": ["海报", "Poster"],
-    "index.badge": ["社徽", "Badge"],
+    "index.badgeArt": ["社徽", "Badge"],
     "index.fit": ["原比例", "Fit"],
     "index.square": ["正方形", "Square"],
     "index.desc": ["上海市建平中学始建于 1944 年，是上海市首批实验性示范性高中。契承“合格+特长、规范+选择”的办学理念，拥有数十个特色学生社团，涵盖科技、人文、艺术、体育等领域。", "Founded in 1944, Shanghai Jianping High School is one of the city's first experimental and exemplary high schools. Guided by balanced development with special strengths, it hosts dozens of student clubs across technology, humanities, arts, and sports."],
