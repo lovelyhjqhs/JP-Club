@@ -469,6 +469,20 @@ html.dark .yyh-tag{
   color:#7dd3ff;
 }
 
+html.dark .yyh-cross-link,
+html.dark .yyh-modal-link{
+  background:rgba(76,200,255,.10);
+  border-color:rgba(76,200,255,.4);
+  color:#7dd3ff;
+}
+
+html.dark .yyh-cross-link:hover,
+html.dark .yyh-modal-link:hover{
+  background:#0098e2;
+  border-color:#0098e2;
+  color:#fff;
+}
+
 html.dark .yyh-grade-title,
 html.dark .club-page .yyh-grade-title{
   color:#fff;

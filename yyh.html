@@ -55,6 +55,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .card-desc{color:#64748b;font-size:12.5px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;flex:1}
 .yyh-tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
 .yyh-tag{font-size:10.5px;font-weight:600;color:#0089cc;background:#eef8fe;border-radius:4px;padding:2px 7px;letter-spacing:.2px;white-space:nowrap}
+.yyh-cross-link{margin-top:10px;font-size:11.5px;font-weight:600;color:#0089cc;background:#eef8fe;border:1px dashed rgba(0,152,226,.45);border-radius:40px;padding:5px 12px;text-align:center;transition:background .2s,color .2s;cursor:pointer}
+.yyh-cross-link:hover{background:#0098e2;border-color:#0098e2;color:#fff}
+.yyh-modal-link{display:inline-block;padding:9px 20px;border-radius:40px;border:1px dashed rgba(0,152,226,.5);background:#eef8fe;color:#0089cc;font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;transition:background .2s,color .2s}
+.yyh-modal-link:hover{background:#0098e2;border-color:#0098e2;color:#fff}
 .no-results{grid-column:1/-1;text-align:center;padding:60px 20px;color:#94a3b8}
 footer{text-align:center;padding:40px 20px;color:#94a3b8;font-size:13px;border-top:1px solid rgba(0,0,0,.04);background:#fff}
 .modal-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s;padding:20px}
@@ -77,7 +81,7 @@ footer{text-align:center;padding:40px 20px;color:#94a3b8;font-size:13px;border-t
 .info-text{font-size:15px;color:#1e293b;line-height:1.75;white-space:pre-line}
 .modal-picture{width:100%;border-radius:12px;overflow:hidden;margin:0 0 14px}
 .modal-picture:last-child{margin-bottom:0}
-.modal-picture img{width:100%;display:block;border-radius:12px;max-height:78vh;object-fit:contain;background:#f5f9fd;border:1px solid rgba(0,0,0,.05)}
+.modal-picture img{width:100%;display:block;border-radius:12px;border:1px solid rgba(0,0,0,.05)}
 .modal-actions{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
 .modal-actions .close-btn{padding:10px 28px;border-radius:40px;background:#f1f5f9;color:#475569;border:none;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s;font-family:inherit}
 .modal-actions .close-btn:hover{background:#e2e8f0}
@@ -154,55 +158,87 @@ var YYH_GRADES = [
   { grade: "26级", title: "26级 · 高一年级", sub: "15 个班级" }
 ];
 
-var YYH_TAGS = ["桌游棋牌", "解谜推理", "诗词文史", "剧本沉浸", "语言表达", "手工创作", "音乐", "益智专注", "闯关集章", "学科知识", "班级联动", "派对互动"];
+var YYH_TAGS = ["益智/推理", "桌游", "剧本杀", "手工", "人文/文学", "学科", "音乐", "合作/互动"];
 
 var TAG_EN = {
-  "桌游棋牌": "Board & Card",
-  "解谜推理": "Puzzle & Mystery",
-  "诗词文史": "Poetry & History",
-  "剧本沉浸": "Story & Role-play",
-  "语言表达": "Guessing & Acting",
-  "手工创作": "Crafts",
+  "益智/推理": "Puzzle & Mystery",
+  "桌游": "Board & Card",
+  "剧本杀": "Script Mystery",
+  "手工": "Crafts",
+  "人文/文学": "Humanities",
+  "学科": "Subjects",
   "音乐": "Music",
-  "益智专注": "Brain & Focus",
-  "闯关集章": "Stamp Challenge",
-  "学科知识": "Subject Quiz",
-  "班级联动": "Cross-class",
-  "派对互动": "Party Games"
+  "合作/互动": "Interactive"
 };
 
 var CLASS_TAGS = {
-  "2501": ["闯关集章", "派对互动"],
-  "2502": ["剧本沉浸", "解谜推理"],
-  "2503": ["解谜推理", "诗词文史"],
-  "2504": ["手工创作", "闯关集章"],
-  "2505": ["语言表达", "解谜推理", "闯关集章"],
-  "2506": ["剧本沉浸", "解谜推理"],
-  "2507": ["诗词文史", "闯关集章"],
-  "2508": ["桌游棋牌", "闯关集章"],
-  "2509": ["诗词文史", "桌游棋牌"],
-  "2510": ["音乐", "语言表达"],
-  "2511": ["桌游棋牌", "学科知识", "班级联动"],
-  "2512": ["闯关集章", "班级联动"],
-  "2513": ["手工创作", "班级联动"],
-  "2514": ["解谜推理", "剧本沉浸"],
-  "2515": ["手工创作"],
-  "2601": ["语言表达", "解谜推理", "诗词文史"],
-  "2602": ["派对互动"],
-  "2603": ["诗词文史", "闯关集章"],
-  "2604": ["诗词文史", "语言表达"],
-  "2605": ["桌游棋牌", "语言表达"],
-  "2606": ["剧本沉浸", "诗词文史", "闯关集章"],
-  "2607": ["益智专注"],
-  "2608": ["桌游棋牌", "诗词文史"],
-  "2609": ["桌游棋牌"],
-  "2610": ["益智专注", "闯关集章"],
-  "2611": ["解谜推理"],
-  "2612": ["音乐", "桌游棋牌"],
-  "2613": ["桌游棋牌"],
-  "2614": ["桌游棋牌", "益智专注"],
-  "2615": ["剧本沉浸", "语言表达", "学科知识"]
+  "2501": ["益智/推理", "桌游"],
+  "2502": ["剧本杀"],
+  "2503": ["剧本杀"],
+  "2504": ["手工"],
+  "2505": ["合作/互动"],
+  "2506": ["剧本杀"],
+  "2507": ["人文/文学", "学科"],
+  "2508": ["桌游"],
+  "2509": ["人文/文学"],
+  "2510": ["音乐"],
+  "2511": ["益智/推理", "桌游", "学科"],
+  "2512": ["合作/互动"],
+  "2513": ["手工"],
+  "2514": ["桌游", "人文/文学"],
+  "2515": ["手工"],
+  "2601": ["人文/文学", "合作/互动"],
+  "2602": ["合作/互动"],
+  "2603": ["人文/文学"],
+  "2604": ["人文/文学"],
+  "2605": ["人文/文学", "合作/互动"],
+  "2606": ["剧本杀"],
+  "2607": ["合作/互动"],
+  "2608": ["桌游", "人文/文学"],
+  "2609": ["桌游"],
+  "2610": ["益智/推理", "合作/互动"],
+  "2611": ["益智/推理"],
+  "2612": ["桌游", "音乐", "合作/互动"],
+  "2613": ["桌游"],
+  "2614": ["益智/推理"],
+  "2615": ["剧本杀", "人文/文学"]
 };
+
+var CLASS_LINKS = {
+  "2511": "2512",
+  "2512": "2511"
+};
+
+var CN_NUM = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
+
+function cnNumber(n) {
+  if (n <= 10) return CN_NUM[n];
+  if (n < 20) return "十" + (n % 10 ? CN_NUM[n % 10] : "");
+  return String(n);
+}
+
+function classNumber(code) {
+  return parseInt(code.slice(2), 10);
+}
+
+function shortClass(code) {
+  var c = null;
+  CLASSES.forEach(function(x) { if (x.code === code) c = x; });
+  if (!c) return code;
+  return c.gradeName + cnNumber(classNumber(code)) + "班";
+}
+
+function classTitle(c) {
+  return shortClass(c.code) + "游园会";
+}
+
+function classTheme(c) {
+  return (c.theme || "").replace(/游园会$/, "");
+}
+
+function linkedClass(code) {
+  return CLASS_LINKS[code] || "";
+}
 
 var currentTag = "";
 
@@ -239,13 +275,17 @@ function setTag(tag) {
 function yyhCard(c) {
   var cover = c.posters.length ? "<img loading=\"lazy\" src=\"" + c.posters[0] + "\" alt=\"" + c.code + "班 游园会海报\">" : "";
   var tags = classTags(c.code).map(function(t) { return "<span class=\"yyh-tag\">" + tagLabel(t) + "</span>"; }).join("");
+  var partner = linkedClass(c.code);
+  var link = partner
+    ? "<div class=\"yyh-cross-link\" onclick=\"event.stopPropagation();openYYH('" + partner + "')\">↔ 与" + shortClass(partner) + "联动</div>"
+    : "";
   return "<div class=\"club-card\" onclick=\"openYYH('" + c.code + "')\">" +
     "<div class=\"card-img\">" + cover + "<div class=\"card-overlay\"></div>" +
-    "<div class=\"yyh-chip\">" + c.gradeName + "</div><div class=\"card-badge\">" + c.code + "</div></div>" +
-    "<div class=\"card-body\"><h3>" + (c.theme || (c.code + "班 游园会")) + "</h3>" +
-    "<div class=\"card-status\">" + c.grade + " · " + c.cls + "</div>" +
+    "<div class=\"card-badge\">" + c.code + "</div></div>" +
+    "<div class=\"card-body\"><h3>" + classTitle(c) + "</h3>" +
+    "<div class=\"card-status\">" + (classTheme(c) || (c.grade + " · " + c.cls)) + "</div>" +
     "<div class=\"card-desc\">" + c.desc + "</div>" +
-    (tags ? "<div class=\"yyh-tag-row\">" + tags + "</div>" : "") + "</div></div>";
+    (tags ? "<div class=\"yyh-tag-row\">" + tags + "</div>" : "") + link + "</div></div>";
 }
 
 function yyhFiltered() {
@@ -258,7 +298,8 @@ function yyhFiltered() {
     var tags = classTags(c.code);
     if (currentTag && tags.indexOf(currentTag) === -1) return false;
     if (!query) return true;
-    var haystack = [c.code, c.grade, c.gradeName, c.cls, c.theme, c.desc, posterText(c.code)].concat(tags).concat(tags.map(tagLabel)).join(" ").toLowerCase();
+    var haystack = [c.code, c.grade, c.gradeName, c.cls, c.theme, c.desc, posterText(c.code), classTitle(c), c.gradeName + classNumber(c.code) + "班"]
+      .concat(tags).concat(tags.map(tagLabel)).join(" ").toLowerCase();
     return haystack.indexOf(query) >= 0;
   });
 }
@@ -286,9 +327,8 @@ function openYYH(code) {
   var c = null;
   CLASSES.forEach(function(x) { if (x.code === code) c = x; });
   if (!c) return;
-  document.getElementById("modalTitle").textContent = c.code + "班 · " + (c.theme || siteT("nav.yyh"));
+  document.getElementById("modalTitle").textContent = classTitle(c);
   document.getElementById("modalTags").innerHTML =
-    "<span>" + c.grade + "</span><span>" + c.cls + "</span>" + (c.theme ? "<span>" + c.theme + "</span>" : "") +
     classTags(c.code).map(function(t) { return "<span>" + tagLabel(t) + "</span>"; }).join("");
   var poster = document.getElementById("modalPoster");
   if (c.posters.length) {
@@ -302,6 +342,11 @@ function openYYH(code) {
   var html = "";
   if (c.desc) {
     html += "<div class=\"info-section\"><div class=\"info-label\">" + siteT("yyh.highlights") + "</div><p class=\"info-text\">" + c.desc + "</p></div>";
+  }
+  var partner = linkedClass(c.code);
+  if (partner) {
+    html += "<div class=\"info-section\"><div class=\"info-label\">" + siteT("yyh.link") + "</div>" +
+      "<button type=\"button\" class=\"yyh-modal-link\" onclick=\"openYYH('" + partner + "')\">↔ 与" + shortClass(partner) + "联动，点击查看</button></div>";
   }
   if (c.posters.length) {
     html += "<div class=\"info-section\"><div class=\"info-label\">" + siteT("yyh.poster") + "</div>" +

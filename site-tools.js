@@ -34,6 +34,7 @@
     "yyh.note": ["内容整理自各班海报，搜索支持海报上的文字，细节以现场活动与海报为准。", "Highlights and search text come from each class poster; please refer to the poster and on-site details."],
     "yyh.highlights": ["活动看点", "Highlights"],
     "yyh.poster": ["班级海报", "Class Poster"],
+    "yyh.link": ["跨班联动", "Cross-class link"],
     "yyh.close": ["关闭", "Close"],
     "yyh.none": ["暂无符合条件的班级", "No classes match your search"],
     "yyh.countPrefix": ["共 ", "Showing "],
