@@ -425,6 +425,68 @@ html.dark .modal-picture img{
   border-color:rgba(255,255,255,.1);
 }
 
+/* Garden party dark */
+html.dark .yyh-search,
+html.dark .yyh-select{
+  background:#101d2d;
+  border-color:rgba(255,255,255,.14);
+  color:#eef5fb;
+  box-shadow:none;
+}
+
+html.dark .yyh-search:focus{
+  border-color:#0098e2;
+  box-shadow:0 0 0 3px rgba(76,200,255,.14);
+}
+
+html.dark .yyh-count,
+html.dark .yyh-note,
+html.dark .yyh-grade-sub,
+html.dark .no-results{
+  color:#8fa2b6;
+}
+
+html.dark .yyh-chip-btn{
+  background:rgba(255,255,255,.05);
+  border-color:rgba(255,255,255,.16);
+  color:#d7e4f0;
+  box-shadow:none;
+}
+
+html.dark .yyh-chip-btn:hover{
+  border-color:#0098e2;
+  color:#7dd3ff;
+}
+
+html.dark .yyh-chip-btn.active{
+  background:#0098e2;
+  border-color:#0098e2;
+  color:#fff;
+}
+
+html.dark .yyh-tag{
+  background:rgba(76,200,255,.12);
+  color:#7dd3ff;
+}
+
+html.dark .yyh-grade-title,
+html.dark .club-page .yyh-grade-title{
+  color:#fff;
+}
+
+html.dark .yyh-grade-head{
+  border-left-color:#0098e2;
+}
+
+html.dark .modal-picture img{
+  background:#0d1a29;
+  border-color:rgba(255,255,255,.1);
+}
+
+html.dark .modal-scroll::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,.18);
+}
+
 /* JPTI dark */
 html.dark .jpti-page body,
 html.dark body.jpti-page{
