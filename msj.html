@@ -14,6 +14,94 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .nav-links a:hover{color:#0098e2}
 .nav-links .btn-nav{background:#0098e2;color:#fff!important;padding:6px 18px;border-radius:40px;font-weight:600}
 .nav-links .btn-nav:hover{background:#0080c4}
+
+/* ——— 顶部横幅 ——— */
+.hero-banner{min-height:300px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef7ff 0%,#f2f0ff 50%,#e9f9ff 100%);position:relative;overflow:hidden;padding:90px 20px 40px}
+.hero-banner::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 20% 40%,rgba(0,152,226,.10) 0%,transparent 50%),radial-gradient(ellipse at 80% 60%,rgba(119,0,226,.06) 0%,transparent 50%);pointer-events:none}
+.hero-shape{position:absolute;border-radius:50%;pointer-events:none;background:rgba(255,255,255,.5)}
+.hero-shape.s1{width:220px;height:220px;top:-70px;right:8%}
+.hero-shape.s2{width:130px;height:130px;bottom:-40px;left:12%}
+.hero-shape.s3{width:70px;height:70px;top:38%;left:26%;background:rgba(0,152,226,.10)}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:760px}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.9);color:#0089cc;font-size:11px;font-weight:600;letter-spacing:2px;padding:5px 18px;border-radius:40px;margin-bottom:16px;box-shadow:0 4px 18px rgba(0,120,190,.10)}
+.hero-content h1{font-size:clamp(28px,6vw,46px);font-weight:900;letter-spacing:4px;background:linear-gradient(135deg,#0a6cc0,#0098e2);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.hero-sub-en{color:#6b93b5;font-size:12px;letter-spacing:5px;font-weight:600;margin-top:8px;text-transform:uppercase}
+.hero-desc{color:#4a6278;font-size:14px;line-height:1.8;max-width:600px;margin:18px auto 0}
+
+/* ——— 内容区 ——— */
+.msj-main{max-width:1120px;margin:0 auto;padding:40px 20px 60px}
+.msj-block{margin-bottom:44px}
+.block-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.block-head h2{font-size:22px;font-weight:800;color:#0a3a5c;letter-spacing:1px}
+.block-head .block-en{color:#7ea3bf;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600}
+.block-sub{color:#5b7a94;font-size:13px;line-height:1.7;margin-bottom:16px}
+
+/* 地图 */
+.map-card{background:#fff;border:1px solid rgba(0,120,190,.14);border-radius:18px;padding:16px;box-shadow:0 14px 40px rgba(30,90,150,.10)}
+.map-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.chip-btn{padding:7px 16px;border-radius:40px;border:1px solid rgba(0,152,226,.3);background:#fff;color:#33698f;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.chip-btn:hover{border-color:#0098e2;color:#0098e2}
+.chip-btn.active{background:#0098e2;border-color:#0098e2;color:#fff;box-shadow:0 4px 14px rgba(0,152,226,.28)}
+.map-hint{color:#7b93a8;font-size:12px;line-height:1.6}
+.map-wrap{position:relative;width:100%;max-width:560px;margin:0 auto}
+.map-wrap img{width:100%;display:block;border-radius:12px;user-select:none;-webkit-user-drag:none}
+.map-route{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.map-route path{fill:none;stroke:rgba(0,152,226,.5);stroke-width:1.8;stroke-dasharray:6 5;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.marker{position:absolute;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid #0098e2;color:#0a5a8c;font-size:12px;font-weight:700;font-family:inherit;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(30,90,150,.22);transition:transform .18s,box-shadow .18s,background .18s;user-select:none;padding:0}
+.marker.nopower{border-color:#f59e0b;color:#a16207}
+.marker:hover{transform:translate(-50%,-50%) scale(1.18);z-index:5}
+.marker.active{background:#0098e2;border-color:#0098e2;color:#fff;transform:translate(-50%,-50%) scale(1.2);z-index:6}
+.marker.active.nopower{background:#f59e0b;border-color:#f59e0b;color:#fff}
+.map-wrap.editing{touch-action:none}
+.map-wrap.editing .marker{cursor:grab;box-shadow:0 0 0 4px rgba(0,152,226,.16)}
+.map-wrap.editing .marker.dragging{cursor:grabbing;transform:translate(-50%,-50%) scale(1.25);z-index:8}
+.map-legend{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:14px;color:#5b7a94;font-size:12px}
+.map-legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:12px;height:12px;border-radius:50%;border:2px solid #0098e2;background:#fff;display:inline-block}
+.dot.nopower{border-color:#f59e0b}
+.dot.route{border:none;background:none;border-top:2px dashed rgba(0,152,226,.55);border-radius:0;width:18px;height:0}
+.coord-box{width:100%;margin-top:12px;padding:10px 12px;border-radius:10px;border:1px solid rgba(0,120,190,.2);font-family:ui-monospace,Consolas,monospace;font-size:12px;color:#33698f;resize:vertical;min-height:70px}
+
+/* 摊位列表 */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.filters-cat{margin-top:-6px}
+.filters-cat .chip-btn{font-size:11px;padding:5px 13px}
+.stall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
+.stall-card{background:#fff;border:1px solid rgba(0,120,190,.14);border-radius:16px;padding:14px;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;text-align:left;font-family:inherit}
+.stall-card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(30,90,150,.14);border-color:rgba(0,152,226,.5)}
+.stall-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.stall-no{width:30px;height:30px;flex:0 0 30px;border-radius:50%;background:#eaf6ff;color:#0a5a8c;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.stall-card.nopower .stall-no{background:#fff5e6;color:#a16207}
+.stall-zone{margin-left:auto;font-size:11px;font-weight:600;color:#0089cc;background:rgba(0,152,226,.10);border-radius:20px;padding:3px 10px}
+.stall-pic{font-size:10px;font-weight:700;color:#0f9d58;background:rgba(15,157,88,.12);border-radius:20px;padding:3px 8px}
+.stall-card.nopower .stall-zone{color:#a16207;background:rgba(245,158,11,.14)}
+.stall-name{font-size:15px;font-weight:700;color:#0a3a5c;line-height:1.4;margin-bottom:4px}
+.stall-items{font-size:12px;color:#6b8aa5;line-height:1.6;min-height:19px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.stall-empty{color:#9db3c6;font-style:normal}
+
+/* 详情弹窗 */
+.modal-overlay{position:fixed;inset:0;background:rgba(12,32,52,.5);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:20px;width:min(680px,94vw);max-height:88vh;overflow:hidden;box-shadow:0 30px 80px rgba(12,32,52,.35);position:relative}
+.modal-close{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(0,0,0,.1);background:rgba(255,255,255,.9);font-size:16px;line-height:1;cursor:pointer;color:#475569;z-index:2}
+.modal-close:hover{border-color:#0098e2;color:#0098e2}
+.modal-scroll{max-height:88vh;overflow-y:auto;padding:26px 26px 30px}
+.modal-poster{background:linear-gradient(135deg,#0a6cc0,#0098e2);border-radius:14px;padding:22px;color:#fff;margin-bottom:20px}
+.modal-poster h2{font-size:24px;font-weight:800;letter-spacing:1px}
+.modal-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.modal-tag{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600}
+.info-label{font-size:11px;font-weight:700;letter-spacing:2px;color:#0089cc;margin-bottom:6px}
+.info-text{font-size:14px;color:#33475b;line-height:1.8;margin-bottom:18px;white-space:pre-wrap}
+.modal-picture{margin-bottom:12px}
+.modal-picture img{width:100%;display:block;border-radius:12px;border:1px solid rgba(0,120,190,.14)}
+.pending-note{background:rgba(0,152,226,.07);border-left:3px solid #0098e2;border-radius:0 10px 10px 0;padding:12px 14px;color:#33698f;font-size:13px;line-height:1.7}
+footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-top:1px solid #e2e8f0;background:#fff}
+@media (max-width:640px){
+  .hero-banner{padding-top:118px;min-height:260px}
+  .msj-main{padding:28px 14px 48px}
+  .map-card{padding:12px}
+  .stall-grid{grid-template-columns:repeat(auto-fill,minmax(146px,1fr));gap:10px}
+}
 </style><link rel="stylesheet" href="site-tools.css"><script>try{if(localStorage.getItem("jp-site-theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}</script></head><body class="msj-page">
 <nav>
 <div class="nav-left">
@@ -25,6 +113,314 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 </div>
 </nav>
 
-<!-- 美食街页面主体内容待补充 -->
+<section class="hero-banner">
+<div class="hero-shape s1"></div>
+<div class="hero-shape s2"></div>
+<div class="hero-shape s3"></div>
+<div class="hero-content">
+<div class="hero-badge" data-i18n="msj.badge">上海市建平中学 · 930 美食街</div>
+<h1 data-i18n="nav.msj">美食街</h1>
+<p class="hero-sub-en">Food Street · Stall Guide</p>
+<p class="hero-desc" data-i18n="msj.desc">从地图左下角出发，逆时针一路逛到左上角。三十个摊位沿着校园排开，点开编号看看是哪个班、卖的是什么。</p>
+</div>
+</section>
+
+<main class="msj-main">
+  <section class="msj-block">
+    <div class="block-head"><h2 data-i18n="msj.mapTitle">摊位地图</h2><span class="block-en">Map</span></div>
+    <p class="block-sub" data-i18n="msj.mapSub">编号沿路线从左下角起逆时针排布，有电区与无电区用颜色区分。点编号可查看摊位详情。</p>
+    <div class="map-card">
+      <div class="map-tools">
+        <button class="chip-btn" id="editBtn" type="button" data-i18n="msj.edit">校正位置</button>
+        <button class="chip-btn" id="copyBtn" type="button" data-i18n="msj.copy">复制坐标</button>
+        <span class="map-hint" data-i18n="msj.editHint">开启「校正位置」后，可直接拖动地图上的编号，把它们对准摊位位置。</span>
+      </div>
+      <div class="map-wrap" id="mapWrap">
+        <img src="msj2.png" alt="美食街摊位地图" draggable="false">
+        <svg class="map-route" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="routePath"></path></svg>
+      </div>
+      <div class="map-legend">
+        <span><i class="dot"></i><span data-i18n="msj.power">有电区</span></span>
+        <span><i class="dot nopower"></i><span data-i18n="msj.nopower">无电区</span></span>
+        <span><i class="dot route"></i><span data-i18n="msj.route">游览路线（逆时针）</span></span>
+      </div>
+      <textarea class="coord-box" id="coordBox" spellcheck="false" placeholder="点击「复制坐标」后，这里会显示全部摊位坐标，可整段复制发给我"></textarea>
+    </div>
+  </section>
+
+  <section class="msj-block">
+    <div class="block-head"><h2 data-i18n="msj.listTitle">摊位一览</h2><span class="block-en">Stalls</span></div>
+    <p class="block-sub" id="listSub"></p>
+    <div class="filters">
+      <button class="chip-btn active" data-filter="all" type="button" data-i18n="msj.all">全部摊位</button>
+      <button class="chip-btn" data-filter="power" type="button" data-i18n="msj.power">有电区</button>
+      <button class="chip-btn" data-filter="nopower" type="button" data-i18n="msj.nopower">无电区</button>
+    </div>
+    <div class="filters filters-cat">
+      <button class="chip-btn active" data-cat="all" type="button">全部类型</button>
+      <button class="chip-btn" data-cat="饮品" type="button">饮品</button>
+      <button class="chip-btn" data-cat="主食" type="button">主食</button>
+      <button class="chip-btn" data-cat="小吃" type="button">小吃</button>
+      <button class="chip-btn" data-cat="零食&甜品" type="button">零食&amp;甜品</button>
+    </div>
+    <div class="stall-grid" id="stallGrid"></div>
+  </section>
+</main>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" type="button">✕</button>
+    <div class="modal-scroll">
+      <div class="modal-poster">
+        <h2 id="modalTitle">摊位</h2>
+        <div class="modal-tags" id="modalTags"></div>
+      </div>
+      <div class="info-label" data-i18n="msj.sellTitle">摊位内容</div>
+      <div class="info-text" id="modalItems"></div>
+      <div class="info-label" data-i18n="msj.descTitle">摊位介绍</div>
+      <div class="info-text" id="modalDesc"></div>
+      <div class="info-label" data-i18n="msj.picTitle">更多图片</div>
+      <div id="modalPics"></div>
+    </div>
+  </div>
+</div>
+
+<footer>上海市建平中学 · 930 美食街</footer>
+
+<script>
+(function () {
+  var TOTAL = 36;          // 摊位总数
+  // 摊位清单来自 msj1.jpg 抽签表：没有写班级的格子代表该摊位不存在，已剔除
+  // 无电区 序号 3、4、6、14、19、20 为空 → 无此摊位；有电区 13、14、15 的班级待补
+  var STALL_SPEC = [
+    { zone: "power", no: 1, cls: "高二4班", cats: ["小吃"], items: "小吃：烤淀粉肠" },
+    { zone: "power", no: 2, cls: "高二5班", cats: ["小吃", "零食&甜品"], items: "小吃：关东煮\n零食&甜品：布丁、毛巾卷" },
+    { zone: "power", no: 3, cls: "高一8班", cats: ["饮品", "主食", "零食&甜品"], items: "饮品：特调饮品\n主食：寿司、三明治\n零食&甜品：怪味豆" },
+    { zone: "power", no: 4, cls: "高二6班", cats: ["饮品", "小吃"], items: "饮品：饮料\n小吃：锅巴土豆、铁板虾滑、奶酪麻糍", images: ["msj2506.jpg"] },
+    { zone: "power", no: 5, cls: "高一11班", cats: ["饮品", "零食&甜品"], items: "饮品：咖啡、奶茶\n零食&甜品：棉花糖", images: ["msj2611.jpg"] },
+    { zone: "power", no: 6, cls: "高二14班", cats: ["饮品", "主食", "零食&甜品"], items: "饮品：柠檬七、奶茶\n主食：火鸡面\n零食&甜品：棉花糖、薯片拌碗、冰粉", images: ["msj2514.jpg"] },
+    { zone: "power", no: 7, cls: "高一10班", cats: ["小吃"], items: "小吃：烧烤、培根" },
+    { zone: "power", no: 8, cls: "高二1班", cats: ["饮品", "小吃", "零食&甜品"], items: "饮品：柠檬汁\n小吃：茶叶蛋\n零食&甜品：泡椒凤爪" },
+    { zone: "power", no: 9, cls: "高二9班", cats: ["饮品", "小吃"], items: "饮品：咸柠七、咸柠可\n小吃：可丽饼", images: ["msj2509.jpg"] },
+    { zone: "power", no: 10, cls: "高二11班", cats: ["饮品", "主食"], items: "饮品：糖水\n主食：凉拌凉皮" },
+    { zone: "power", no: 11, cls: "高二13班", cats: ["饮品", "主食", "小吃", "零食&甜品"], items: "饮品：紫苏薄荷柠乐\n主食：肠面俱到\n小吃：成吉思鸡\n零食&甜品：手工棉花糖", images: ["msj2513.jpg"] },
+    { zone: "power", no: 12, cls: "高二8班", cats: ["主食", "零食&甜品"], items: "主食：火鸡面\n零食&甜品：冰淇淋" },
+    { zone: "power", no: 13, cls: "高二10班", cats: ["饮品", "主食"], items: "饮品：柠檬茶\n主食：牛肉面", images: ["msj2510.jpg"] },
+    { zone: "power", no: 14, cls: "高一15班", cats: ["饮品", "零食&甜品"], items: "饮品：杨枝甘露、柠檬水\n零食&甜品：巧克力布朗尼、巴斯克" },
+    { zone: "power", no: 15, cls: "高一3班", cats: ["饮品", "小吃"], items: "饮品：柠檬茶\n小吃：关东煮" },
+    { zone: "power", no: 16, cls: "高二2班", cats: ["小吃", "零食&甜品"], items: "小吃：烧烤\n零食&甜品：爆米花" },
+    { zone: "nopower", no: 1, cls: "高二15班", cats: ["零食&甜品"], items: "零食&甜品：炒酸奶", images: ["msj2515.jpg"] },
+    { zone: "nopower", no: 2, cls: "高一7班", cats: ["饮品", "零食&甜品"], items: "饮品：咖啡\n零食&甜品：巧克力榛子蛋糕、椰子芒果慕斯蛋糕、马卡龙" },
+    { zone: "nopower", no: 5, cls: "高一14班", cats: ["饮品", "零食&甜品"], items: "饮品：果茶\n零食&甜品：白凉粉、龟苓膏" },
+    { zone: "nopower", no: 7, cls: "高一9班", cats: ["饮品", "零食&甜品"], items: "饮品：牛奶咖啡\n零食&甜品：自热棉花糖" },
+    { zone: "nopower", no: 8, cls: "高一13班", cats: ["饮品", "小吃"], items: "饮品：咖啡、软饮料\n小吃：薯条、鸡块、烤肠" },
+    { zone: "nopower", no: 9, cls: "高一6班", cats: ["饮品", "小吃"], items: "饮品：糖水\n小吃：钵钵鸡" },
+    { zone: "nopower", no: 10, cls: "高二7班", cats: ["饮品", "零食&甜品"], items: "饮品：饮料\n零食&甜品：爆米花", images: ["msj2507.jpg"] },
+    { zone: "nopower", no: 11, cls: "高一1班", cats: ["饮品", "零食&甜品"], items: "饮品：珍珠/芋圆奶茶、椰汁水果西米露\n零食&甜品：糖葫芦" },
+    { zone: "nopower", no: 12, cls: "高一4班", cats: ["饮品", "零食&甜品"], items: "饮品：果茶\n零食&甜品：冰粉、零食", images: ["msj2604.jpg"] },
+    { zone: "nopower", no: 13, cls: "高一2班", cats: ["饮品", "主食", "零食&甜品"], items: "饮品：奶茶、果茶\n主食：拌面\n零食&甜品：零食" },
+    { zone: "nopower", no: 15, cls: "高一12班", cats: ["饮品", "小吃", "零食&甜品"], items: "饮品：柠檬水\n小吃：捞汁海鲜\n零食&甜品：虾片", images: ["msj2612.jpg"] },
+    { zone: "nopower", no: 16, cls: "高二12班", cats: ["主食", "小吃"], items: "主食：真·红烧牛肉面\n小吃：香辣关东煮", images: ["msj2512.jpg"] },
+    { zone: "nopower", no: 17, cls: "高二3班", cats: ["饮品", "零食&甜品"], items: "饮品：咖啡\n零食&甜品：小面包、红茶曲奇", images: ["msj2503.jpg"] },
+    { zone: "nopower", no: 18, cls: "高一5班", cats: ["零食&甜品"], items: "零食&甜品：谷物酸奶碗、冰淇淋" }
+  ];
+
+  // 默认坐标按「左下角起、逆时针到左上角」均匀排布，开启「校正位置」拖动后可微调
+  var DEFAULT_POS = [[12.4,90],[21.2,90],[30,90],[38.8,90],[47.6,90],[56.3,90],[65.1,90],[73.9,90],[82.7,90],[91.5,90],[92,83.1],[92,75.7],[92,68.4],[92,61],[92,53.7],[92,46.3],[92,39],[92,31.6],[92,24.3],[92,16.9],[91.5,10],[82.7,10],[73.9,10],[65.1,10],[56.3,10],[47.6,10],[38.8,10],[30,10],[21.2,10],[12.4,10]];
+
+  // 摊位数据：cls 班级 / name 摊位名称 / items 卖什么 / desc 介绍 / images 详细图片（文件名）
+  var STALLS = STALL_SPEC.map(function (spec, i) {
+    return {
+      order: i + 1,
+      zone: spec.zone,
+      no: spec.no,
+      cls: spec.cls || "",
+      name: "",
+      items: spec.items || "",
+      cats: spec.cats || [],
+      desc: "",
+      images: spec.images || [],
+      x: DEFAULT_POS[i][0],
+      y: DEFAULT_POS[i][1]
+    };
+  });
+  TOTAL = STALLS.length;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var t = function (key, fallback) { return (window.siteT ? window.siteT(key) : fallback); };
+  var zoneLabel = function (zone) { return zone === "nopower" ? t("msj.nopower", "无电区") : t("msj.power", "有电区"); };
+  var pending = function () { return t("msj.pending", "待补充"); };
+  var current = "all";
+  var currentCat = "all";
+  var editing = false;
+  var suppressClick = false;
+
+  function renderMarkers() {
+    var wrap = $("mapWrap");
+    Array.prototype.slice.call(wrap.querySelectorAll(".marker")).forEach(function (m) { m.remove(); });
+    var pts = [];
+    STALLS.forEach(function (s, idx) {
+      var el = document.createElement("button");
+      el.type = "button";
+      el.className = "marker" + (s.zone === "nopower" ? " nopower" : "");
+      el.style.left = s.x + "%";
+      el.style.top = s.y + "%";
+      el.textContent = s.order;
+      el.title = (s.cls || pending()) + " · " + zoneLabel(s.zone) + " " + s.no + " 号";
+      el.dataset.idx = idx;
+      el.addEventListener("click", function (e) {
+        if (suppressClick) return;
+        openStall(idx);
+      });
+      el.addEventListener("pointerdown", function (e) { startDrag(e, idx, el); });
+      wrap.appendChild(el);
+      pts.push(s.x + " " + s.y);
+    });
+    $("routePath").setAttribute("d", "M" + pts.join(" L"));
+  }
+
+  function renderList() {
+    var grid = $("stallGrid");
+    grid.innerHTML = "";
+    STALLS.filter(function (s) {
+      if (current !== "all" && s.zone !== current) return false;
+      if (currentCat !== "all" && (s.cats || []).indexOf(currentCat) === -1) return false;
+      return true;
+    }).forEach(function (s) {
+      var idx = STALLS.indexOf(s);
+      var card = document.createElement("button");
+      card.type = "button";
+      card.className = "stall-card" + (s.zone === "nopower" ? " nopower" : "");
+      card.innerHTML =
+        '<div class="stall-top"><span class="stall-no">' + s.order + '</span>' +
+        (s.images && s.images.length ? '<span class="stall-pic">图' + s.images.length + '</span>' : '') +
+        '<span class="stall-zone">' + zoneLabel(s.zone) + '</span></div>' +
+        '<div class="stall-name">' + (s.cls || pending()) + '</div>' +
+        '<div class="stall-items">' + (s.items ? escapeHtml(s.items).replace(/\n/g, " · ") : '<span class="stall-empty">摊位内容待补充</span>') + '</div>';
+      card.addEventListener("click", function () { openStall(idx, true); });
+      grid.appendChild(card);
+    });
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  function updateListSub() {
+    var power = STALLS.filter(function (s) { return s.zone === "power"; }).length;
+    $("listSub").textContent = "共 " + STALLS.length + " 个摊位：有电区 " + power + " 个，无电区 " + (STALLS.length - power) +
+      " 个（抽签表中未填班级的 6 个格子视为无此摊位，已去除）。编号顺序与摊位地图上的路线一致，可按区域或类型筛选。";
+  }
+
+  function openStall(idx, scroll) {
+    var s = STALLS[idx];
+    document.querySelectorAll(".marker.active").forEach(function (m) { m.classList.remove("active"); });
+    var marker = document.querySelector('.marker[data-idx="' + idx + '"]');
+    if (marker) marker.classList.add("active");
+    $("modalTitle").textContent = (s.cls || s.name || pending()) + " · " + s.order + " 号摊位";
+    $("modalTags").innerHTML =
+      '<span class="modal-tag">' + zoneLabel(s.zone) + '</span>' +
+      '<span class="modal-tag">' + zoneLabel(s.zone) + ' ' + s.no + ' 号</span>' +
+      '<span class="modal-tag">路线第 ' + s.order + ' 站</span>' +
+      '<span class="modal-tag">' + (s.cls || "班级待补充") + '</span>' +
+      (s.cats || []).map(function (c) { return '<span class="modal-tag">' + c + '</span>'; }).join("");
+    $("modalItems").textContent = s.items || pending();
+    $("modalDesc").textContent = s.desc || pending();
+    var pics = $("modalPics");
+    pics.innerHTML = "";
+    if (s.images && s.images.length) {
+      s.images.forEach(function (src) {
+        var box = document.createElement("div");
+        box.className = "modal-picture";
+        box.innerHTML = '<a href="' + src + '" target="_blank" rel="noopener"><img loading="lazy" src="' + src + '" alt="' + (s.cls || s.order + "号摊位") + ' 图片"></a>';
+        pics.appendChild(box);
+      });
+    } else {
+      pics.innerHTML = '<div class="pending-note">该摊位的详细图片待补充。收到素材后会按摊位编号放进来。</div>';
+    }
+    $("modalOverlay").classList.add("show");
+    if (scroll) $("modalOverlay").scrollTop = 0;
+  }
+
+  function closeStall() {
+    $("modalOverlay").classList.remove("show");
+    document.querySelectorAll(".marker.active").forEach(function (m) { m.classList.remove("active"); });
+  }
+
+  /* ——— 拖动校正坐标 ——— */
+  var drag = null;
+  function startDrag(e, idx, el) {
+    if (!editing) return;
+    e.preventDefault();
+    drag = { idx: idx, el: el, moved: false };
+    el.classList.add("dragging");
+    el.setPointerCapture && el.setPointerCapture(e.pointerId);
+  }
+  function moveDrag(e) {
+    if (!drag) return;
+    var rect = $("mapWrap").getBoundingClientRect();
+    var x = Math.min(99, Math.max(1, (e.clientX - rect.left) / rect.width * 100));
+    var y = Math.min(99, Math.max(1, (e.clientY - rect.top) / rect.height * 100));
+    var s = STALLS[drag.idx];
+    s.x = Math.round(x * 10) / 10;
+    s.y = Math.round(y * 10) / 10;
+    drag.el.style.left = s.x + "%";
+    drag.el.style.top = s.y + "%";
+    drag.moved = true;
+  }
+  function endDrag() {
+    if (!drag) return;
+    drag.el.classList.remove("dragging");
+    suppressClick = drag.moved;
+    setTimeout(function () { suppressClick = false; }, 250);
+    drag = null;
+    renderMarkers();
+  }
+  document.addEventListener("pointermove", moveDrag);
+  document.addEventListener("pointerup", endDrag);
+  document.addEventListener("pointercancel", endDrag);
+
+  function exportCoords() {
+    var lines = STALLS.map(function (s) {
+      return '  { order: ' + s.order + ', zone: "' + s.zone + '", no: ' + s.no + ', x: ' + s.x + ', y: ' + s.y + ' }';
+    });
+    return "[\n" + lines.join(",\n") + "\n]";
+  }
+
+  $("editBtn").addEventListener("click", function () {
+    editing = !editing;
+    $("editBtn").classList.toggle("active", editing);
+    $("mapWrap").classList.toggle("editing", editing);
+  });
+  $("copyBtn").addEventListener("click", function () {
+    var box = $("coordBox");
+    box.value = exportCoords();
+    box.select();
+    try { document.execCommand("copy"); } catch (e) {}
+  });
+  document.querySelectorAll(".filters .chip-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      if (btn.dataset.cat !== undefined) {
+        currentCat = btn.dataset.cat;
+        document.querySelectorAll(".filters-cat .chip-btn").forEach(function (b) { b.classList.toggle("active", b === btn); });
+      } else {
+        current = btn.dataset.filter;
+        document.querySelectorAll(".filters:not(.filters-cat) .chip-btn").forEach(function (b) { b.classList.toggle("active", b === btn); });
+      }
+      renderList();
+    });
+  });
+  $("modalClose").addEventListener("click", closeStall);
+  $("modalOverlay").addEventListener("click", function (e) { if (e.target === this) closeStall(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeStall(); });
+  document.addEventListener("site:langchange", function () { renderMarkers(); renderList(); updateListSub(); });
+
+  renderMarkers();
+  renderList();
+  updateListSub();
+})();
+</script>
 <script src="site-tools.js"></script>
 </body></html>

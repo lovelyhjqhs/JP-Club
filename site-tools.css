@@ -502,6 +502,92 @@ html.dark .modal-scroll::-webkit-scrollbar-thumb{
 }
 
 /* JPTI dark */
+html.dark .map-card,
+html.dark .stall-card{
+  background:#101d2d;
+  border-color:rgba(255,255,255,.1);
+  box-shadow:0 14px 40px rgba(0,0,0,.22);
+}
+
+html.dark .stall-card:hover{
+  border-color:#0098e2;
+  box-shadow:0 16px 36px rgba(0,0,0,.3);
+}
+
+html.dark .block-head h2,
+html.dark .stall-name{
+  color:#fff;
+}
+
+html.dark .block-sub,
+html.dark .stall-items,
+html.dark .map-hint,
+html.dark .map-legend{
+  color:#8fa2b6;
+}
+
+html.dark .stall-empty{
+  color:#6f8399;
+}
+
+html.dark .chip-btn{
+  background:rgba(255,255,255,.05);
+  border-color:rgba(255,255,255,.16);
+  color:#d7e4f0;
+}
+
+html.dark .chip-btn:hover{
+  border-color:#0098e2;
+  color:#7dd3ff;
+}
+
+html.dark .chip-btn.active{
+  background:#0098e2;
+  border-color:#0098e2;
+  color:#fff;
+  box-shadow:none;
+}
+
+html.dark .stall-no{
+  background:rgba(76,200,255,.14);
+  color:#7dd3ff;
+}
+
+html.dark .stall-card.nopower .stall-no{
+  background:rgba(245,158,11,.16);
+  color:#fbbf24;
+}
+
+html.dark .stall-zone{
+  color:#7dd3ff;
+  background:rgba(76,200,255,.14);
+}
+
+html.dark .stall-card.nopower .stall-zone{
+  color:#fbbf24;
+  background:rgba(245,158,11,.16);
+}
+
+html.dark .dot{
+  background:#101d2d;
+}
+
+html.dark .map-route path{
+  stroke:rgba(76,200,255,.55);
+}
+
+html.dark .coord-box{
+  background:#0d1a29;
+  border-color:rgba(255,255,255,.14);
+  color:#aab9cc;
+}
+
+html.dark .pending-note{
+  background:rgba(76,200,255,.08);
+  color:#a9cfe8;
+}
+
+/* JPTI dark */
 html.dark .jpti-page body,
 html.dark body.jpti-page{
   background:#0b1524;
