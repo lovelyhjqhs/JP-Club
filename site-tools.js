@@ -24,6 +24,7 @@
     "nav.home": ["学校主页", "Home"],
     "nav.club": ["社团风采", "Clubs"],
     "nav.yyh": ["游园会", "Garden Party"],
+    "nav.msj": ["美食街", "Food Street"],
     "yyh.badge": ["上海市建平中学 · 930 游园会", "Shanghai Jianping · 930 Garden Party"],
     "yyh.desc": ["三十个班级，三十种玩法。国庆前夜，走进每一间教室，把游园会逛个遍。", "Thirty classes, thirty ways to play. On the eve of National Day, wander into every classroom and explore the whole garden party."],
     "yyh.all": ["全部年级", "All grades"],
