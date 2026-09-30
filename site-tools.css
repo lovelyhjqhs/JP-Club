@@ -521,7 +521,6 @@ html.dark .stall-name{
 
 html.dark .block-sub,
 html.dark .stall-items,
-html.dark .map-hint,
 html.dark .map-legend{
   color:#8fa2b6;
 }
@@ -574,12 +573,6 @@ html.dark .dot{
 
 html.dark .map-route path{
   stroke:rgba(76,200,255,.55);
-}
-
-html.dark .coord-box{
-  background:#0d1a29;
-  border-color:rgba(255,255,255,.14);
-  color:#aab9cc;
 }
 
 html.dark .pending-note{

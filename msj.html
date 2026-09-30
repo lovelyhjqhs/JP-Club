@@ -38,34 +38,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 
 /* 地图 */
 .map-card{background:#fff;border:1px solid rgba(0,120,190,.14);border-radius:18px;padding:16px;box-shadow:0 14px 40px rgba(30,90,150,.10)}
-.map-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 .chip-btn{padding:7px 16px;border-radius:40px;border:1px solid rgba(0,152,226,.3);background:#fff;color:#33698f;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
 .chip-btn:hover{border-color:#0098e2;color:#0098e2}
 .chip-btn.active{background:#0098e2;border-color:#0098e2;color:#fff;box-shadow:0 4px 14px rgba(0,152,226,.28)}
-.map-hint{color:#7b93a8;font-size:12px;line-height:1.6}
-.map-wrap{position:relative;width:100%;max-width:560px;margin:0 auto}
+.map-wrap{position:relative;width:100%;max-width:680px;margin:0 auto}
 .map-wrap img{width:100%;display:block;border-radius:12px;user-select:none;-webkit-user-drag:none}
 .map-route{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .map-route path{fill:none;stroke:rgba(0,152,226,.5);stroke-width:1.8;stroke-dasharray:6 5;stroke-linecap:round;vector-effect:non-scaling-stroke}
-.marker{position:absolute;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;background:#fff;border:2px solid #0098e2;color:#0a5a8c;font-size:12px;font-weight:700;font-family:inherit;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(30,90,150,.22);transition:transform .18s,box-shadow .18s,background .18s;user-select:none;padding:0}
+.marker{position:absolute;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;background:#fff;border:2px solid #0098e2;color:#0a5a8c;font-size:11px;font-weight:700;font-family:inherit;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(30,90,150,.22);transition:transform .18s,box-shadow .18s,background .18s;user-select:none;padding:0}
 .marker.nopower{border-color:#f59e0b;color:#a16207}
 .marker:hover{transform:translate(-50%,-50%) scale(1.18);z-index:5}
 .marker.active{background:#0098e2;border-color:#0098e2;color:#fff;transform:translate(-50%,-50%) scale(1.2);z-index:6}
 .marker.active.nopower{background:#f59e0b;border-color:#f59e0b;color:#fff}
-.map-wrap.editing{touch-action:none}
-.map-wrap.editing .marker{cursor:grab;box-shadow:0 0 0 4px rgba(0,152,226,.16)}
-.map-wrap.editing .marker.dragging{cursor:grabbing;transform:translate(-50%,-50%) scale(1.25);z-index:8}
 .map-legend{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:14px;color:#5b7a94;font-size:12px}
 .map-legend span{display:inline-flex;align-items:center;gap:6px}
 .dot{width:12px;height:12px;border-radius:50%;border:2px solid #0098e2;background:#fff;display:inline-block}
 .dot.nopower{border-color:#f59e0b}
 .dot.route{border:none;background:none;border-top:2px dashed rgba(0,152,226,.55);border-radius:0;width:18px;height:0}
-.coord-box{width:100%;margin-top:12px;padding:10px 12px;border-radius:10px;border:1px solid rgba(0,120,190,.2);font-family:ui-monospace,Consolas,monospace;font-size:12px;color:#33698f;resize:vertical;min-height:70px}
 
 /* 摊位列表 */
 .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
 .filters-cat{margin-top:-6px}
-.filters-cat .chip-btn{font-size:11px;padding:5px 13px}
+.filters-sort{margin-top:-6px}
+.filters-cat .chip-btn,.filters-sort .chip-btn{font-size:11px;padding:5px 13px}
+.filter-label{font-size:12px;font-weight:600;color:#7b93a8;align-self:center;margin-right:2px;letter-spacing:1px}
 .stall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
 .stall-card{background:#fff;border:1px solid rgba(0,120,190,.14);border-radius:16px;padding:14px;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;text-align:left;font-family:inherit}
 .stall-card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(30,90,150,.14);border-color:rgba(0,152,226,.5)}
@@ -128,13 +124,8 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
 <main class="msj-main">
   <section class="msj-block">
     <div class="block-head"><h2 data-i18n="msj.mapTitle">摊位地图</h2><span class="block-en">Map</span></div>
-    <p class="block-sub" data-i18n="msj.mapSub">编号沿路线从左下角起逆时针排布，有电区与无电区用颜色区分。点编号可查看摊位详情。</p>
+    <p class="block-sub" data-i18n="msj.mapSub">蓝色（有电区）在下排，从左到右编号递增；黄色（无电区）在上排，从右到左编号递增。点编号可查看摊位详情。</p>
     <div class="map-card">
-      <div class="map-tools">
-        <button class="chip-btn" id="editBtn" type="button" data-i18n="msj.edit">校正位置</button>
-        <button class="chip-btn" id="copyBtn" type="button" data-i18n="msj.copy">复制坐标</button>
-        <span class="map-hint" data-i18n="msj.editHint">开启「校正位置」后，可直接拖动地图上的编号，把它们对准摊位位置。</span>
-      </div>
       <div class="map-wrap" id="mapWrap">
         <img src="msj2.png" alt="美食街摊位地图" draggable="false">
         <svg class="map-route" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="routePath"></path></svg>
@@ -144,7 +135,6 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
         <span><i class="dot nopower"></i><span data-i18n="msj.nopower">无电区</span></span>
         <span><i class="dot route"></i><span data-i18n="msj.route">游览路线（逆时针）</span></span>
       </div>
-      <textarea class="coord-box" id="coordBox" spellcheck="false" placeholder="点击「复制坐标」后，这里会显示全部摊位坐标，可整段复制发给我"></textarea>
     </div>
   </section>
 
@@ -152,16 +142,25 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
     <div class="block-head"><h2 data-i18n="msj.listTitle">摊位一览</h2><span class="block-en">Stalls</span></div>
     <p class="block-sub" id="listSub"></p>
     <div class="filters">
+      <span class="filter-label">区域</span>
       <button class="chip-btn active" data-filter="all" type="button" data-i18n="msj.all">全部摊位</button>
       <button class="chip-btn" data-filter="power" type="button" data-i18n="msj.power">有电区</button>
       <button class="chip-btn" data-filter="nopower" type="button" data-i18n="msj.nopower">无电区</button>
+      <button class="chip-btn" data-filter="g1" type="button">高一</button>
+      <button class="chip-btn" data-filter="g2" type="button">高二</button>
     </div>
     <div class="filters filters-cat">
+      <span class="filter-label">类型</span>
       <button class="chip-btn active" data-cat="all" type="button">全部类型</button>
       <button class="chip-btn" data-cat="饮品" type="button">饮品</button>
       <button class="chip-btn" data-cat="主食" type="button">主食</button>
       <button class="chip-btn" data-cat="小吃" type="button">小吃</button>
       <button class="chip-btn" data-cat="零食&甜品" type="button">零食&amp;甜品</button>
+    </div>
+    <div class="filters filters-sort">
+      <span class="filter-label">排序</span>
+      <button class="chip-btn active" data-sort="order" type="button">按美食街序号</button>
+      <button class="chip-btn" data-sort="class" type="button">按班级序号</button>
     </div>
     <div class="stall-grid" id="stallGrid"></div>
   </section>
@@ -222,11 +221,19 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
     { zone: "nopower", no: 15, cls: "高一12班", cats: ["饮品", "小吃", "零食&甜品"], items: "饮品：柠檬水\n小吃：捞汁海鲜\n零食&甜品：虾片", images: ["msj2612.jpg"] },
     { zone: "nopower", no: 16, cls: "高二12班", cats: ["主食", "小吃"], items: "主食：真·红烧牛肉面\n小吃：香辣关东煮", images: ["msj2512.jpg"] },
     { zone: "nopower", no: 17, cls: "高二3班", cats: ["饮品", "零食&甜品"], items: "饮品：咖啡\n零食&甜品：小面包、红茶曲奇", images: ["msj2503.jpg"] },
-    { zone: "nopower", no: 18, cls: "高一5班", cats: ["零食&甜品"], items: "零食&甜品：谷物酸奶碗、冰淇淋" }
+    { zone: "nopower", no: 18, cls: "高一5班", cats: ["零食&甜品"], items: "零食&甜品：谷物酸奶碗、冰淇淋" },
+    { zone: "nopower", no: null, name: "Gala Night Land", items: "惊喜大放送", cats: [] }
   ];
 
-  // 默认坐标按「左下角起、逆时针到左上角」均匀排布，开启「校正位置」拖动后可微调
-  var DEFAULT_POS = [[12.4,90],[21.2,90],[30,90],[38.8,90],[47.6,90],[56.3,90],[65.1,90],[73.9,90],[82.7,90],[91.5,90],[92,83.1],[92,75.7],[92,68.4],[92,61],[92,53.7],[92,46.3],[92,39],[92,31.6],[92,24.3],[92,16.9],[91.5,10],[82.7,10],[73.9,10],[65.1,10],[56.3,10],[47.6,10],[38.8,10],[30,10],[21.2,10],[12.4,10]];
+  // 坐标规则：有电区（蓝）全部排在下排，从左到右编号递增；
+  //           无电区（黄）全部排在上排，从右到左编号递增。
+  // 开启「校正位置」拖动圆圈可微调。
+  var DEFAULT_POS = [
+    [8,89.5],[13.6,89.5],[19.2,89.5],[24.8,89.5],[30.4,89.5],[36,89.5],[41.6,89.5],[47.2,89.5],
+    [52.8,89.5],[58.4,89.5],[64,89.5],[69.6,89.5],[75.2,89.5],[80.8,89.5],[86.4,89.5],[92,89.5],
+    [92,10.5],[86,10.5],[80,10.5],[74,10.5],[68,10.5],[62,10.5],[56,10.5],[50,10.5],
+    [44,10.5],[38,10.5],[32,10.5],[26,10.5],[20,10.5],[14,10.5],[8,10.5]
+  ];
 
   // 摊位数据：cls 班级 / name 摊位名称 / items 卖什么 / desc 介绍 / images 详细图片（文件名）
   var STALLS = STALL_SPEC.map(function (spec, i) {
@@ -235,7 +242,7 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
       zone: spec.zone,
       no: spec.no,
       cls: spec.cls || "",
-      name: "",
+      name: spec.name || "",
       items: spec.items || "",
       cats: spec.cats || [],
       desc: "",
@@ -252,41 +259,49 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
   var pending = function () { return t("msj.pending", "待补充"); };
   var current = "all";
   var currentCat = "all";
-  var editing = false;
-  var suppressClick = false;
+  var sortMode = "order";   // order = 按美食街序号，class = 按班级序号（高一→高二，1班→15班）
 
   function renderMarkers() {
     var wrap = $("mapWrap");
     Array.prototype.slice.call(wrap.querySelectorAll(".marker")).forEach(function (m) { m.remove(); });
     var pts = [];
     STALLS.forEach(function (s, idx) {
+      if (!inZone(s, current)) return;   // 按区域/年级筛选时，地图上只保留对得上的编号
       var el = document.createElement("button");
       el.type = "button";
       el.className = "marker" + (s.zone === "nopower" ? " nopower" : "");
       el.style.left = s.x + "%";
       el.style.top = s.y + "%";
       el.textContent = s.order;
-      el.title = (s.cls || pending()) + " · " + zoneLabel(s.zone) + " " + s.no + " 号";
+      el.title = (s.name || s.cls || pending()) + " · " + zoneLabel(s.zone) + (s.no ? " " + s.no + " 号" : "");
       el.dataset.idx = idx;
-      el.addEventListener("click", function (e) {
-        if (suppressClick) return;
-        openStall(idx);
-      });
-      el.addEventListener("pointerdown", function (e) { startDrag(e, idx, el); });
+      el.addEventListener("click", function () { openStall(idx); });
       wrap.appendChild(el);
-      pts.push(s.x + " " + s.y);
+      // 路线虚线贴着两排圆圈的上下外侧走，不压在编号上
+      pts.push(s.x + " " + (s.zone === "power" ? Math.min(99, s.y + 3.2) : Math.max(1, s.y - 3.2)));
     });
-    $("routePath").setAttribute("d", "M" + pts.join(" L"));
+    // 只在「全部摊位」时画整条游览路线；筛选状态下编号不连续，画线会误导
+    $("routePath").setAttribute("d", current === "all" && pts.length > 1 ? "M" + pts.join(" L") : "");
   }
 
   function renderList() {
     var grid = $("stallGrid");
     grid.innerHTML = "";
-    STALLS.filter(function (s) {
-      if (current !== "all" && s.zone !== current) return false;
+    var shown = STALLS.filter(function (s) {
+      if (!inZone(s, current)) return false;
       if (currentCat !== "all" && (s.cats || []).indexOf(currentCat) === -1) return false;
       return true;
-    }).forEach(function (s) {
+    });
+    if (sortMode === "class") {
+      shown = shown.slice().sort(function (a, b) {
+        var ka = classKey(a);
+        var kb = classKey(b);
+        if (ka[0] !== kb[0]) return ka[0] - kb[0];
+        if (ka[1] !== kb[1]) return ka[1] - kb[1];
+        return a.order - b.order;
+      });
+    }
+    shown.forEach(function (s) {
       var idx = STALLS.indexOf(s);
       var card = document.createElement("button");
       card.type = "button";
@@ -295,7 +310,7 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
         '<div class="stall-top"><span class="stall-no">' + s.order + '</span>' +
         (s.images && s.images.length ? '<span class="stall-pic">图' + s.images.length + '</span>' : '') +
         '<span class="stall-zone">' + zoneLabel(s.zone) + '</span></div>' +
-        '<div class="stall-name">' + (s.cls || pending()) + '</div>' +
+        '<div class="stall-name">' + (s.name || s.cls || pending()) + '</div>' +
         '<div class="stall-items">' + (s.items ? escapeHtml(s.items).replace(/\n/g, " · ") : '<span class="stall-empty">摊位内容待补充</span>') + '</div>';
       card.addEventListener("click", function () { openStall(idx, true); });
       grid.appendChild(card);
@@ -308,10 +323,25 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
     });
   }
 
+  // 班级排序用：高一 → 高二 → 高三，班号 1 → 15；没有班级的摊位排最后
+  function classKey(s) {
+    var m = /^高(一|二|三)(\d+)班$/.exec(s.cls || "");
+    if (!m) return [99, s.order];
+    return [{ "一": 0, "二": 1, "三": 2 }[m[1]], parseInt(m[2], 10)];
+  }
+
+  // 区域/年级筛选：all 全部、power 有电区、nopower 无电区、g1 高一、g2 高二
+  function inZone(s, zone) {
+    if (zone === "all") return true;
+    if (zone === "power" || zone === "nopower") return s.zone === zone;
+    if (zone === "g1") return /^高一/.test(s.cls || "");
+    if (zone === "g2") return /^高二/.test(s.cls || "");
+    return true;
+  }
+
   function updateListSub() {
     var power = STALLS.filter(function (s) { return s.zone === "power"; }).length;
-    $("listSub").textContent = "共 " + STALLS.length + " 个摊位：有电区 " + power + " 个，无电区 " + (STALLS.length - power) +
-      " 个（抽签表中未填班级的 6 个格子视为无此摊位，已去除）。编号顺序与摊位地图上的路线一致，可按区域或类型筛选。";
+    $("listSub").textContent = "共 " + STALLS.length + " 个摊位：有电区 " + power + " 个，无电区 " + (STALLS.length - power) + " 个。";
   }
 
   function openStall(idx, scroll) {
@@ -319,12 +349,12 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
     document.querySelectorAll(".marker.active").forEach(function (m) { m.classList.remove("active"); });
     var marker = document.querySelector('.marker[data-idx="' + idx + '"]');
     if (marker) marker.classList.add("active");
-    $("modalTitle").textContent = (s.cls || s.name || pending()) + " · " + s.order + " 号摊位";
+    $("modalTitle").textContent = (s.name || s.cls || pending()) + " · " + s.order + " 号摊位";
     $("modalTags").innerHTML =
       '<span class="modal-tag">' + zoneLabel(s.zone) + '</span>' +
-      '<span class="modal-tag">' + zoneLabel(s.zone) + ' ' + s.no + ' 号</span>' +
+      (s.no ? '<span class="modal-tag">' + zoneLabel(s.zone) + ' ' + s.no + ' 号</span>' : "") +
       '<span class="modal-tag">路线第 ' + s.order + ' 站</span>' +
-      '<span class="modal-tag">' + (s.cls || "班级待补充") + '</span>' +
+      (s.cls ? '<span class="modal-tag">' + s.cls + '</span>' : "") +
       (s.cats || []).map(function (c) { return '<span class="modal-tag">' + c + '</span>'; }).join("");
     $("modalItems").textContent = s.items || pending();
     $("modalDesc").textContent = s.desc || pending();
@@ -334,7 +364,7 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
       s.images.forEach(function (src) {
         var box = document.createElement("div");
         box.className = "modal-picture";
-        box.innerHTML = '<a href="' + src + '" target="_blank" rel="noopener"><img loading="lazy" src="' + src + '" alt="' + (s.cls || s.order + "号摊位") + ' 图片"></a>';
+        box.innerHTML = '<a href="' + src + '" target="_blank" rel="noopener"><img loading="lazy" src="' + src + '" alt="' + (s.name || s.cls || s.order + "号摊位") + ' 图片"></a>';
         pics.appendChild(box);
       });
     } else {
@@ -349,65 +379,18 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
     document.querySelectorAll(".marker.active").forEach(function (m) { m.classList.remove("active"); });
   }
 
-  /* ——— 拖动校正坐标 ——— */
-  var drag = null;
-  function startDrag(e, idx, el) {
-    if (!editing) return;
-    e.preventDefault();
-    drag = { idx: idx, el: el, moved: false };
-    el.classList.add("dragging");
-    el.setPointerCapture && el.setPointerCapture(e.pointerId);
-  }
-  function moveDrag(e) {
-    if (!drag) return;
-    var rect = $("mapWrap").getBoundingClientRect();
-    var x = Math.min(99, Math.max(1, (e.clientX - rect.left) / rect.width * 100));
-    var y = Math.min(99, Math.max(1, (e.clientY - rect.top) / rect.height * 100));
-    var s = STALLS[drag.idx];
-    s.x = Math.round(x * 10) / 10;
-    s.y = Math.round(y * 10) / 10;
-    drag.el.style.left = s.x + "%";
-    drag.el.style.top = s.y + "%";
-    drag.moved = true;
-  }
-  function endDrag() {
-    if (!drag) return;
-    drag.el.classList.remove("dragging");
-    suppressClick = drag.moved;
-    setTimeout(function () { suppressClick = false; }, 250);
-    drag = null;
-    renderMarkers();
-  }
-  document.addEventListener("pointermove", moveDrag);
-  document.addEventListener("pointerup", endDrag);
-  document.addEventListener("pointercancel", endDrag);
-
-  function exportCoords() {
-    var lines = STALLS.map(function (s) {
-      return '  { order: ' + s.order + ', zone: "' + s.zone + '", no: ' + s.no + ', x: ' + s.x + ', y: ' + s.y + ' }';
-    });
-    return "[\n" + lines.join(",\n") + "\n]";
-  }
-
-  $("editBtn").addEventListener("click", function () {
-    editing = !editing;
-    $("editBtn").classList.toggle("active", editing);
-    $("mapWrap").classList.toggle("editing", editing);
-  });
-  $("copyBtn").addEventListener("click", function () {
-    var box = $("coordBox");
-    box.value = exportCoords();
-    box.select();
-    try { document.execCommand("copy"); } catch (e) {}
-  });
   document.querySelectorAll(".filters .chip-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      if (btn.dataset.cat !== undefined) {
+      if (btn.dataset.sort !== undefined) {
+        sortMode = btn.dataset.sort;
+        document.querySelectorAll(".filters-sort .chip-btn").forEach(function (b) { b.classList.toggle("active", b === btn); });
+      } else if (btn.dataset.cat !== undefined) {
         currentCat = btn.dataset.cat;
         document.querySelectorAll(".filters-cat .chip-btn").forEach(function (b) { b.classList.toggle("active", b === btn); });
       } else {
         current = btn.dataset.filter;
-        document.querySelectorAll(".filters:not(.filters-cat) .chip-btn").forEach(function (b) { b.classList.toggle("active", b === btn); });
+        document.querySelectorAll(".filters:not(.filters-cat):not(.filters-sort) .chip-btn").forEach(function (b) { b.classList.toggle("active", b === btn); });
+        renderMarkers();
       }
       renderList();
     });
