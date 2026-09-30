@@ -41,11 +41,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .chip-btn{padding:7px 16px;border-radius:40px;border:1px solid rgba(0,152,226,.3);background:#fff;color:#33698f;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
 .chip-btn:hover{border-color:#0098e2;color:#0098e2}
 .chip-btn.active{background:#0098e2;border-color:#0098e2;color:#fff;box-shadow:0 4px 14px rgba(0,152,226,.28)}
-.map-wrap{position:relative;width:100%;max-width:680px;margin:0 auto}
+.map-wrap{position:relative;width:100%;max-width:680px;margin:0 auto;container-type:inline-size}
+.map-wrap.rain{max-width:1000px}
 .map-wrap img{width:100%;display:block;border-radius:12px;user-select:none;-webkit-user-drag:none}
 .map-route{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .map-route path{fill:none;stroke:rgba(0,152,226,.5);stroke-width:1.8;stroke-dasharray:6 5;stroke-linecap:round;vector-effect:non-scaling-stroke}
-.marker{position:absolute;transform:translate(-50%,-50%);width:24px;height:24px;border-radius:50%;background:#fff;border:2px solid #0098e2;color:#0a5a8c;font-size:11px;font-weight:700;font-family:inherit;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(30,90,150,.22);transition:transform .18s,box-shadow .18s,background .18s;user-select:none;padding:0}
+.marker{position:absolute;transform:translate(-50%,-50%);width:clamp(20px,3.5cqw,26px);height:clamp(20px,3.5cqw,26px);border-radius:50%;background:#fff;border:2px solid #0098e2;color:#0a5a8c;font-size:clamp(9px,1.6cqw,11px);font-weight:700;font-family:inherit;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(30,90,150,.22);transition:transform .18s,box-shadow .18s,background .18s;user-select:none;padding:0}
+.map-wrap.rain .marker{width:clamp(10px,1.55cqw,16px);height:clamp(10px,1.55cqw,16px);font-size:clamp(6.5px,0.85cqw,8.5px);border-width:1.5px}
 .marker.nopower{border-color:#f59e0b;color:#a16207}
 .marker:hover{transform:translate(-50%,-50%) scale(1.18);z-index:5}
 .marker.active{background:#0098e2;border-color:#0098e2;color:#fff;transform:translate(-50%,-50%) scale(1.2);z-index:6}
@@ -62,6 +64,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .filters-sort{margin-top:-6px}
 .filters-cat .chip-btn,.filters-sort .chip-btn{font-size:11px;padding:5px 13px}
 .filter-label{font-size:12px;font-weight:600;color:#7b93a8;align-self:center;margin-right:2px;letter-spacing:1px}
+.map-views{margin-bottom:12px}
+.map-views .chip-btn{font-size:11px;padding:5px 13px}
 .stall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
 .stall-card{background:#fff;border:1px solid rgba(0,120,190,.14);border-radius:16px;padding:14px;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;text-align:left;font-family:inherit}
 .stall-card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(30,90,150,.14);border-color:rgba(0,152,226,.5)}
@@ -124,10 +128,15 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
 <main class="msj-main">
   <section class="msj-block">
     <div class="block-head"><h2 data-i18n="msj.mapTitle">摊位地图</h2><span class="block-en">Map</span></div>
-    <p class="block-sub" data-i18n="msj.mapSub">蓝色（有电区）在下排，从左到右编号递增；黄色（无电区）在上排，从右到左编号递增。点编号可查看摊位详情。</p>
+    <p class="block-sub" data-i18n="msj.mapSub">地图可切换晴天／雨天两版，编号位置按各自地图上标出的摊位位置排列。晴天图：蓝色（有电区）在下排、黄色（无电区）在上排；雨天图：有电区两列、无电区一排。点任一编号都可查看摊位详情。</p>
     <div class="map-card">
+      <div class="filters map-views">
+        <span class="filter-label">地图</span>
+        <button class="chip-btn active" data-view="sunny" type="button">晴天图</button>
+        <button class="chip-btn" data-view="rain" type="button">雨天图</button>
+      </div>
       <div class="map-wrap" id="mapWrap">
-        <img src="msj2.png" alt="美食街摊位地图" draggable="false">
+        <img id="mapImg" src="msj2.png" alt="美食街摊位地图" draggable="false">
         <svg class="map-route" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="routePath"></path></svg>
       </div>
       <div class="map-legend">
@@ -225,15 +234,26 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
     { zone: "nopower", no: null, name: "Gala Night Land", items: "惊喜大放送", cats: [] }
   ];
 
-  // 坐标规则：有电区（蓝）全部排在下排，从左到右编号递增；
-  //           无电区（黄）全部排在上排，从右到左编号递增。
-  // 开启「校正位置」拖动圆圈可微调。
+  // 晴天图（msj2.png）坐标：有电区（蓝）在下排从左到右递增，无电区（黄）在上排从右到左递增。
   var DEFAULT_POS = [
     [8,89.5],[13.6,89.5],[19.2,89.5],[24.8,89.5],[30.4,89.5],[36,89.5],[41.6,89.5],[47.2,89.5],
     [52.8,89.5],[58.4,89.5],[64,89.5],[69.6,89.5],[75.2,89.5],[80.8,89.5],[86.4,89.5],[92,89.5],
     [92,10.5],[86,10.5],[80,10.5],[74,10.5],[68,10.5],[62,10.5],[56,10.5],[50,10.5],
     [44,10.5],[38,10.5],[32,10.5],[26,10.5],[20,10.5],[14,10.5],[8,10.5]
   ];
+
+  // 雨天图（rain.jpg）坐标：按图中印刷的数字识别出的位置 ——
+  // 有电区 1-16 排成两列（右列 1-8 自下而上，左列 9-16 自上而下），无电区 1-18 排成一行（右端为 1）。
+  // 顺序与 DEFAULT_POS / STALL_SPEC 一一对应；最后一格是 Gala Night Land（图中没有印刷号，放在无电区这一行右端）。
+  var RAIN_POS = [
+    [51.9,54.1],[51.9,50.1],[51.9,46.1],[51.9,42.0],[51.9,38.0],[52.0,34.1],[51.9,29.9],[51.9,26.0],
+    [40.4,25.9],[40.5,30.0],[40.5,34.1],[40.4,38.0],[40.4,42.0],[40.5,46.0],[40.5,50.2],[40.4,54.1],
+    [88.6,60.8],[86.8,60.8],[85.0,60.8],[83.2,60.8],[81.3,60.8],[79.5,60.8],[77.2,60.8],[74.9,60.8],
+    [72.1,60.8],[69.3,60.8],[66.5,60.8],[63.7,60.8],[61.0,60.8],[58.1,60.8],[91.4,60.8]
+  ];
+
+  var MAP_SRC = { sunny: "msj2.png", rain: "rain.jpg" };
+  var mapView = "sunny";
 
   // 摊位数据：cls 班级 / name 摊位名称 / items 卖什么 / desc 介绍 / images 详细图片（文件名）
   var STALLS = STALL_SPEC.map(function (spec, i) {
@@ -248,7 +268,9 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
       desc: "",
       images: spec.images || [],
       x: DEFAULT_POS[i][0],
-      y: DEFAULT_POS[i][1]
+      y: DEFAULT_POS[i][1],
+      rx: RAIN_POS[i][0],
+      ry: RAIN_POS[i][1]
     };
   });
   TOTAL = STALLS.length;
@@ -270,15 +292,21 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
       var el = document.createElement("button");
       el.type = "button";
       el.className = "marker" + (s.zone === "nopower" ? " nopower" : "");
-      el.style.left = s.x + "%";
-      el.style.top = s.y + "%";
+      var mx = mapView === "rain" ? s.rx : s.x;
+      var my = mapView === "rain" ? s.ry : s.y;
+      el.style.left = mx + "%";
+      el.style.top = my + "%";
       el.textContent = s.order;
       el.title = (s.name || s.cls || pending()) + " · " + zoneLabel(s.zone) + (s.no ? " " + s.no + " 号" : "");
       el.dataset.idx = idx;
       el.addEventListener("click", function () { openStall(idx); });
       wrap.appendChild(el);
-      // 路线虚线贴着两排圆圈的上下外侧走，不压在编号上
-      pts.push(s.x + " " + (s.zone === "power" ? Math.min(99, s.y + 3.2) : Math.max(1, s.y - 3.2)));
+      // 晴天图：虚线贴着两排圆圈的外侧走；雨天图：直接按编号顺序连线
+      if (mapView === "rain") {
+        pts.push(mx + " " + my);
+      } else {
+        pts.push(mx + " " + (s.zone === "power" ? Math.min(99, my + 3.2) : Math.max(1, my - 3.2)));
+      }
     });
     // 只在「全部摊位」时画整条游览路线；筛选状态下编号不连续，画线会误导
     $("routePath").setAttribute("d", current === "all" && pts.length > 1 ? "M" + pts.join(" L") : "");
@@ -381,7 +409,13 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
 
   document.querySelectorAll(".filters .chip-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      if (btn.dataset.sort !== undefined) {
+      if (btn.dataset.view !== undefined) {
+        mapView = btn.dataset.view;
+        document.querySelectorAll(".map-views .chip-btn").forEach(function (b) { b.classList.toggle("active", b === btn); });
+        $("mapImg").src = MAP_SRC[mapView];
+        $("mapWrap").classList.toggle("rain", mapView === "rain");
+        renderMarkers();
+      } else if (btn.dataset.sort !== undefined) {
         sortMode = btn.dataset.sort;
         document.querySelectorAll(".filters-sort .chip-btn").forEach(function (b) { b.classList.toggle("active", b === btn); });
       } else if (btn.dataset.cat !== undefined) {

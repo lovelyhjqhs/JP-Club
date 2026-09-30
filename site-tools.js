@@ -28,7 +28,7 @@
     "msj.badge": ["上海市建平中学 · 930 美食街", "Shanghai Jianping · 930 Food Street"],
     "msj.desc": ["从地图左下角出发，逆时针一路逛到左上角。三十个摊位沿着校园排开，点开编号看看是哪个班、卖的是什么。", "Start at the bottom-left of the map and walk counter-clockwise to the top-left. Thirty stalls line the campus — tap a number to see which class runs it and what it sells."],
     "msj.mapTitle": ["摊位地图", "Stall Map"],
-    "msj.mapSub": ["蓝色（有电区）在下排，从左到右编号递增；黄色（无电区）在上排，从右到左编号递增。点编号可查看摊位详情。", "Blue pins (with power) run along the bottom row, numbering left to right; yellow pins (no power) run along the top row, numbering right to left. Tap a number for details."],
+    "msj.mapSub": ["地图可切换晴天／雨天两版，编号位置按各自地图上标出的摊位位置排列。晴天图：蓝色（有电区）在下排、黄色（无电区）在上排；雨天图：有电区两列、无电区一排。点任一编号都可查看摊位详情。", "Switch between the sunny and rainy map. Pins follow the stall positions marked on each map: on the sunny map the blue (powered) stalls sit in the bottom row and the yellow ones in the top row; on the rainy map the powered stalls form two columns and the unpowered ones a single row. Tap any number for details."],
     "msj.power": ["有电区", "With Power"],
     "msj.nopower": ["无电区", "No Power"],
     "msj.route": ["游览路线（逆时针）", "Route (counter-clockwise)"],
