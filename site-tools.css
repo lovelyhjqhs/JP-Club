@@ -571,10 +571,6 @@ html.dark .dot{
   background:#101d2d;
 }
 
-html.dark .map-route path{
-  stroke:rgba(76,200,255,.55);
-}
-
 html.dark .pending-note{
   background:rgba(76,200,255,.08);
   color:#a9cfe8;

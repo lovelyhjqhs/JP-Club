@@ -31,7 +31,6 @@
     "msj.mapSub": ["地图可切换晴天／雨天两版，编号位置按各自地图上标出的摊位位置排列。晴天图：蓝色（有电区）在下排、黄色（无电区）在上排；雨天图：有电区两列、无电区一排。点任一编号都可查看摊位详情。", "Switch between the sunny and rainy map. Pins follow the stall positions marked on each map: on the sunny map the blue (powered) stalls sit in the bottom row and the yellow ones in the top row; on the rainy map the powered stalls form two columns and the unpowered ones a single row. Tap any number for details."],
     "msj.power": ["有电区", "With Power"],
     "msj.nopower": ["无电区", "No Power"],
-    "msj.route": ["游览路线（逆时针）", "Route (counter-clockwise)"],
     "msj.listTitle": ["摊位一览", "All Stalls"],
     "msj.all": ["全部摊位", "All Stalls"],
     "msj.sellTitle": ["摊位内容", "What They Sell"],
