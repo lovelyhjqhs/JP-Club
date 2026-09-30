@@ -44,8 +44,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .map-wrap{position:relative;width:100%;max-width:680px;margin:0 auto;container-type:inline-size}
 .map-wrap.rain{max-width:1000px}
 .map-wrap img{width:100%;display:block;border-radius:12px;user-select:none;-webkit-user-drag:none}
+.mcov{position:absolute;transform:translate(-50%,-50%);background:#fff;border-radius:2px;pointer-events:none;z-index:0}
 .marker{position:absolute;transform:translate(-50%,-50%);width:clamp(20px,3.5cqw,26px);height:clamp(20px,3.5cqw,26px);border-radius:50%;background:#fff;border:2px solid #0098e2;color:#0a5a8c;font-size:clamp(9px,1.6cqw,11px);font-weight:700;font-family:inherit;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 10px rgba(30,90,150,.22);transition:transform .18s,box-shadow .18s,background .18s;user-select:none;padding:0}
 .map-wrap.rain .marker{width:clamp(10px,1.55cqw,16px);height:clamp(10px,1.55cqw,16px);font-size:clamp(6.5px,0.85cqw,8.5px);border-width:1.5px}
+.marker{z-index:1}
 .marker.nopower{border-color:#f59e0b;color:#a16207}
 .marker:hover{transform:translate(-50%,-50%) scale(1.18);z-index:5}
 .marker.active{background:#0098e2;border-color:#0098e2;color:#fff;transform:translate(-50%,-50%) scale(1.2);z-index:6}
@@ -129,11 +131,11 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
     <div class="map-card">
       <div class="filters map-views">
         <span class="filter-label">地图</span>
-        <button class="chip-btn active" data-view="sunny" type="button">晴天图</button>
-        <button class="chip-btn" data-view="rain" type="button">雨天图</button>
+        <button class="chip-btn" data-view="sunny" type="button">晴天图</button>
+        <button class="chip-btn active" data-view="rain" type="button">雨天图</button>
       </div>
-      <div class="map-wrap" id="mapWrap">
-        <img id="mapImg" src="msj2.png" alt="美食街摊位地图" draggable="false">
+      <div class="map-wrap rain" id="mapWrap">
+        <img id="mapImg" src="rain.jpg" alt="美食街摊位地图" draggable="false">
       </div>
       <div class="map-legend">
         <span><i class="dot"></i><span data-i18n="msj.power">有电区</span></span>
@@ -226,7 +228,7 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
     { zone: "nopower", no: 16, cls: "高二12班", cats: ["主食", "小吃"], items: "主食：真·红烧牛肉面\n小吃：香辣关东煮", images: ["msj2512.jpg"] },
     { zone: "nopower", no: 17, cls: "高二3班", cats: ["饮品", "零食&甜品"], items: "饮品：咖啡\n零食&甜品：小面包、红茶曲奇", images: ["msj2503.jpg"] },
     { zone: "nopower", no: 18, cls: "高一5班", cats: ["零食&甜品"], items: "零食&甜品：谷物酸奶碗、冰淇淋" },
-    { zone: "nopower", no: null, name: "Gala Night Land", items: "惊喜大放送", cats: [] }
+    { zone: "nopower", no: null, name: "Gala Night Land", items: "惊喜大放送", cats: [], noMarker: true }
   ];
 
   // 晴天图（msj2.png）坐标：有电区（蓝）在下排从左到右递增，无电区（黄）在上排从右到左递增。
@@ -240,15 +242,24 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
   // 雨天图（rain.jpg）坐标：按图中印刷的数字识别出的位置 ——
   // 有电区 1-16 排成两列（右列 1-8 自下而上，左列 9-16 自上而下），无电区 1-18 排成一行（右端为 1）。
   // 顺序与 DEFAULT_POS / STALL_SPEC 一一对应；最后一格是 Gala Night Land（图中没有印刷号，放在无电区这一行右端）。
+  // 坐标取每处印刷数字的“墨迹中心”，保证圆圈正压在图上数字的位置
   var RAIN_POS = [
-    [51.9,54.1],[51.9,50.1],[51.9,46.1],[51.9,42.0],[51.9,38.0],[52.0,34.1],[51.9,29.9],[51.9,26.0],
-    [40.4,25.9],[40.5,30.0],[40.5,34.1],[40.4,38.0],[40.4,42.0],[40.5,46.0],[40.5,50.2],[40.4,54.1],
-    [88.6,60.8],[86.8,60.8],[85.0,60.8],[83.2,60.8],[81.3,60.8],[79.5,60.8],[77.2,60.8],[74.9,60.8],
-    [72.1,60.8],[69.3,60.8],[66.5,60.8],[63.7,60.8],[61.0,60.8],[58.1,60.8],[91.4,60.8]
+    [51.74,54.10],[51.93,50.04],[51.91,46.02],[51.88,41.99],[51.93,37.93],[51.96,33.98],[51.93,29.96],[51.91,25.90],
+    [40.39,25.90],[40.47,29.96],[40.31,33.95],[40.45,37.93],[40.42,41.99],[40.47,45.98],[40.45,50.04],[40.42,54.10],
+    [88.49,60.78],[86.78,60.74],[84.95,60.78],[83.10,60.78],[81.25,60.74],[79.43,60.74],[77.17,60.74],[74.65,60.78],
+    [72.03,60.74],[69.27,60.78],[66.45,60.78],[63.69,60.74],[60.91,60.78],[58.12,60.78],[91.40,60.78]
+  ];
+
+  // 雨天图上印刷数字的墨迹尺寸（宽%、高%），用来铺一块白底把原数字盖住，避免和圆圈里的数字打架
+  var RAIN_COV = [
+    [0.9,2.1],[1.2,2.1],[1.2,2.2],[1.2,2.1],[1.2,2.1],[1.2,2.2],[1.2,2.1],[1.2,2.1],
+    [1.2,2.1],[2.1,2.1],[1.8,2.1],[2.1,2.1],[2.1,2.1],[2.1,2.1],[2.1,2.1],[2.1,2.1],
+    [0.9,2.1],[1.2,2.1],[1.2,2.1],[1.2,2.1],[1.2,2.1],[1.2,2.1],[2.1,2.1],[1.7,2.1],
+    [2.1,2.1],[2.1,2.1],[2.1,2.1],[2.1,2.1],[2.1,2.1],[2.1,2.1],[0,0]
   ];
 
   var MAP_SRC = { sunny: "msj2.png", rain: "rain.jpg" };
-  var mapView = "sunny";
+  var mapView = "rain";   // 默认展示雨天图
 
   // 摊位数据：cls 班级 / name 摊位名称 / items 卖什么 / desc 介绍 / images 详细图片（文件名）
   var STALLS = STALL_SPEC.map(function (spec, i) {
@@ -262,6 +273,7 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
       cats: spec.cats || [],
       desc: "",
       images: spec.images || [],
+      noMarker: !!spec.noMarker,
       x: DEFAULT_POS[i][0],
       y: DEFAULT_POS[i][1],
       rx: RAIN_POS[i][0],
@@ -280,14 +292,25 @@ footer{text-align:center;padding:24px 20px;color:#94a3b8;font-size:12px;border-t
 
   function renderMarkers() {
     var wrap = $("mapWrap");
-    Array.prototype.slice.call(wrap.querySelectorAll(".marker")).forEach(function (m) { m.remove(); });
+    Array.prototype.slice.call(wrap.querySelectorAll(".marker, .mcov")).forEach(function (m) { m.remove(); });
     STALLS.forEach(function (s, idx) {
       if (!inZone(s, current)) return;   // 按区域/年级筛选时，地图上只保留对得上的编号
+      if (s.noMarker) return;            // 特别摊位（Gala Night Land）不出现在地图上，只在摊位列表里
+      var mx = mapView === "rain" ? s.rx : s.x;
+      var my = mapView === "rain" ? s.ry : s.y;
+      // 雨天图：先在印刷数字的位置铺一块白底，再把圆圈压上去，保证圆圈与图上数字对齐
+      if (mapView === "rain" && RAIN_COV[idx] && RAIN_COV[idx][0]) {
+        var cov = document.createElement("span");
+        cov.className = "mcov";
+        cov.style.left = mx + "%";
+        cov.style.top = my + "%";
+        cov.style.width = RAIN_COV[idx][0] + "%";
+        cov.style.height = RAIN_COV[idx][1] + "%";
+        wrap.appendChild(cov);
+      }
       var el = document.createElement("button");
       el.type = "button";
       el.className = "marker" + (s.zone === "nopower" ? " nopower" : "");
-      var mx = mapView === "rain" ? s.rx : s.x;
-      var my = mapView === "rain" ? s.ry : s.y;
       el.style.left = mx + "%";
       el.style.top = my + "%";
       el.textContent = s.order;
